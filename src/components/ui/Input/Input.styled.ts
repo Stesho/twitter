@@ -10,8 +10,6 @@ export const InputWrapper = styled.input`
   color: rgba(0, 0, 0, 0.6);
   font-family: Roboto, sans-serif;
   font-size: 18px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
   outline: none;
 `;
