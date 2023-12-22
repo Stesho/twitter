@@ -8,6 +8,7 @@ function App() {
     <div>
       <Input />
       <Button>Log In</Button>
+      <Button disabled>Tweet</Button>
       <Search />
     </div>
   );

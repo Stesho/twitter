@@ -17,6 +17,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["react-refresh"],
   "rules": {
+    "react/require-default-props": "off",
     "import/prefer-default-export": "off",
     "react-refresh/only-export-components": [
       "warn",
