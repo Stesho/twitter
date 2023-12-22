@@ -5,6 +5,7 @@ import { Search } from "@/components/ui/Search/Search";
 import { ButtonTypes } from "@/types/buttonTypes";
 import { Switch } from "@/components/ui/Switch/Switch";
 import { Select } from "@/components/ui/Select/Select";
+import { Menu } from "@/components/ui/Menu/Menu";
 
 export const App = () => (
   <div>
@@ -19,5 +20,6 @@ export const App = () => (
       caption="Month"
       options={["January", "February", "March", "April"]}
     />
+    <Menu />
   </div>
 );
