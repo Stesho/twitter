@@ -39,6 +39,7 @@ export const ButtonWrapper = styled.button<{
   font-family: Roboto, sans-serif;
   font-size: 18px;
   font-weight: 700;
+  transition: all 200ms;
   cursor: pointer;
 
   &:not(:disabled):hover {
