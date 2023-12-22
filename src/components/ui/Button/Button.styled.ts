@@ -1,11 +1,40 @@
 import styled from "styled-components";
+import { ButtonTypes } from "@/types/buttonTypes";
 
-export const ButtonWrapper = styled.button`
+export const ButtonWrapper = styled.button<{
+  $type: ButtonTypes;
+}>`
   width: 450px;
   height: 60px;
+  background-color: ${(props) => {
+    switch (props.$type) {
+      case ButtonTypes.Primary:
+        return "#1da1f2";
+      case ButtonTypes.Secondary:
+        return "#000";
+      case ButtonTypes.Neutral:
+        return "#fff";
+      default:
+        return "#1da1f2";
+    }
+  }};
+  border: ${(props) => {
+    switch (props.$type) {
+      case ButtonTypes.Neutral:
+        return "1px solid rgba(0, 0, 0, 0.40)";
+      default:
+        return "none";
+    }
+  }};
   border-radius: 76px;
-  background-color: #1da1f2;
-  color: #fff;
+  color: ${(props) => {
+    switch (props.$type) {
+      case ButtonTypes.Neutral:
+        return "#000";
+      default:
+        return "#fff";
+    }
+  }};
   text-align: center;
   font-family: Roboto, sans-serif;
   font-size: 18px;
