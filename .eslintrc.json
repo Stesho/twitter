@@ -19,6 +19,7 @@
   "rules": {
     "import/prefer-default-export": "off",
     "import/extensions": "off",
+    "react/no-unescaped-entities": "off",
     "react/require-default-props": "off",
     "react/function-component-definition": [
       "error",
