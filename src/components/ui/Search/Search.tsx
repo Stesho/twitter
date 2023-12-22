@@ -5,13 +5,9 @@ import {
   SearchWrapper,
 } from "@/components/ui/Search/Search.styled";
 
-function Search() {
-  return (
+export const Search = () => (
     <SearchWrapper>
       <SearchIcon />
       <SearchInput />
     </SearchWrapper>
-  );
-}
-
-export default Search;
+  )

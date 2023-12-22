@@ -8,16 +8,12 @@ interface ButtonProps {
   type?: ButtonTypes;
 }
 
-function Button({
+export const Button = ({
   children,
   disabled = false,
   type = ButtonTypes.Primary,
-}: ButtonProps) {
-  return (
+}: ButtonProps) => (
     <ButtonWrapper $type={type} type="button" disabled={disabled}>
       {children}
     </ButtonWrapper>
-  );
-}
-
-export default Button;
+  )
