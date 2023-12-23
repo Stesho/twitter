@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PrimaryButton } from "@/components/ui/Button/Button.styled";
 
 export const NewTweetWrapper = styled.div`
   display: flex;
@@ -48,4 +49,9 @@ export const NewTweetMediaIcon = styled.img`
   width: 24px;
   height: 24px;
   cursor: pointer;
+`;
+
+export const NewTweetButton = styled(PrimaryButton)`
+  max-width: 116px;
+  padding: 14px;
 `;
