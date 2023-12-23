@@ -22,30 +22,28 @@ interface TweetProps {
   date: string;
 }
 
-const Tweet = ({ iconUrl, username, name, text, date }: TweetProps) => (
-    <TweetWrapper>
-      <TweetAuthorImg src={iconUrl || DefaultAvatar} alt="avatar" />
+export const Tweet = ({ iconUrl, username, name, text, date }: TweetProps) => (
+  <TweetWrapper>
+    <TweetAuthorImg src={iconUrl || DefaultAvatar} alt="avatar" />
+    <div>
+      <TweetHead>
+        <TweetAuthorName>{name}</TweetAuthorName>
+        <TweetAuthorUsername>
+          {username} · {date}
+        </TweetAuthorUsername>
+        <TweetDots>
+          <TweetDot />
+          <TweetDot />
+          <TweetDot />
+        </TweetDots>
+      </TweetHead>
+      <TweetText>{text}</TweetText>
       <div>
-        <TweetHead>
-          <TweetAuthorName>{name}</TweetAuthorName>
-          <TweetAuthorUsername>
-            {username} · {date}
-          </TweetAuthorUsername>
-          <TweetDots>
-            <TweetDot />
-            <TweetDot />
-            <TweetDot />
-          </TweetDots>
-        </TweetHead>
-        <TweetText>{text}</TweetText>
-        <div>
-          <TweetLikeButton>
-            <LikeIcon />
-            <TweetLikes>8</TweetLikes>
-          </TweetLikeButton>
-        </div>
+        <TweetLikeButton>
+          <LikeIcon />
+          <TweetLikes>8</TweetLikes>
+        </TweetLikeButton>
       </div>
-    </TweetWrapper>
-  );
-
-export default Tweet;
+    </div>
+  </TweetWrapper>
+);
