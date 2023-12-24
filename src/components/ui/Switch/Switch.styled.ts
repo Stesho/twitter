@@ -40,7 +40,7 @@ export const SwitchButton = styled.label`
   }
 
   input:checked + span {
-    background-color: #9d9d9dff;
+    background-color: #4fbfff;
   }
 
   input:checked + span:before {
