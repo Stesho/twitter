@@ -7,7 +7,7 @@ import ListsIcon from "@/assets/icons/lists.svg";
 import ProfileIcon from "@/assets/icons/profile.svg";
 import MoreIcon from "@/assets/icons/more.svg";
 
-export const menuItems = [
+export const MENU_ITEMS = [
   {
     iconUrl: HomeIcon,
     alt: "Home",

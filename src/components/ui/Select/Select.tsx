@@ -8,17 +8,19 @@ import {
 } from "@/components/ui/Select/Select.styled";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 
+type Option = string | number;
+
 interface SelectProps {
-  options: string[];
+  options: Option[];
   caption: string;
 }
 
 export const Select = ({ options, caption }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
   const select = useOutsideClick(() => setIsOpen(false));
 
-  const setSelected = (option: string) => () => {
+  const setSelected = (option: Option) => () => {
     setSelectedOption(option);
     setIsOpen(!isOpen);
   };
