@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { PrimaryButton } from "@/components/ui/Button/Button.styled";
 
-export const FormWrapper = styled.form`
+export const Form = styled.form`
   position: relative;
   display: flex;
   flex-direction: column;

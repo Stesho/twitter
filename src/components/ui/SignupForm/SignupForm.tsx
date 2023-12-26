@@ -4,7 +4,7 @@ import { Select } from "@/components/ui/Select/Select";
 import { MONTHS } from "@/constants/selectOptions";
 import {
   ErrorMessage,
-  FormWrapper,
+  Form,
   Inputs,
   Selects,
   SubmitButton,
@@ -13,13 +13,13 @@ import {
   Title,
   TwitterLogo,
   UseEmail,
-} from "@/components/ui/Form/Form.styled";
+} from "@/components/ui/SignupForm/SignupForm.styled";
 import TwitterLogoSrc from "@/assets/images/twitter_logo.png";
 import { User } from "@/types/user";
 import { getDate } from "@/utils/getDate";
 import { signup } from "@/services/user/signup";
 
-const Form = () => {
+export const SignupForm = () => {
   const [name, setName] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -61,7 +61,7 @@ const Form = () => {
   };
 
   return (
-    <FormWrapper onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit}>
       <TwitterLogo src={TwitterLogoSrc} alt="twitter logo" />
       <Title>Create an account</Title>
       {isError && (
@@ -94,8 +94,6 @@ const Form = () => {
         />
       </Selects>
       <SubmitButton onClick={onNextClick}>Next</SubmitButton>
-    </FormWrapper>
+    </Form>
   );
 };
-
-export default Form;
