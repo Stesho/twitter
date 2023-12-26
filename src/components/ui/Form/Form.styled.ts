@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { PrimaryButton } from "@/components/ui/Button/Button.styled";
 
 export const FormWrapper = styled.form`
+  position: relative;
   display: flex;
   flex-direction: column;
   max-width: 670px;
@@ -23,6 +24,14 @@ export const Title = styled.h2`
     sans-serif;
   font-size: 30px;
   font-weight: 700;
+`;
+
+export const ErrorMessage = styled.span`
+  position: absolute;
+  top: 115px;
+  left: 0;
+  color: #ff0000;
+  font-size: 20px;
 `;
 
 export const Inputs = styled.div`

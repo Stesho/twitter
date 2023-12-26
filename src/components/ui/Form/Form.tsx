@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/Input/Input";
 import { Select } from "@/components/ui/Select/Select";
 import { MONTHS } from "@/constants/selectOptions";
 import {
+  ErrorMessage,
   FormWrapper,
   Inputs,
   Selects,
@@ -14,6 +15,9 @@ import {
   UseEmail,
 } from "@/components/ui/Form/Form.styled";
 import TwitterLogoSrc from "@/assets/images/twitter_logo.png";
+import { User } from "@/types/user";
+import { getDate } from "@/utils/getDate";
+import { signup } from "@/services/user/signup";
 
 const Form = () => {
   const [name, setName] = useState<string>("");
@@ -22,16 +26,26 @@ const Form = () => {
   const [month, setMonth] = useState<string | null>(null);
   const [day, setDay] = useState<number | null>(null);
   const [year, setYear] = useState<number | null>(null);
+  const [isError, setIsError] = useState<boolean>(false);
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (year && month && day) {
+      const user: User = {
+        name,
+        phoneNumber,
+        email,
+        birthday: getDate(year, month, day),
+      };
+      const res = await signup(user);
+      if (!res) {
+        setIsError(true);
+      }
+    }
   };
 
   const onNextClick = () => {
-    console.log(name);
-    console.log(phoneNumber);
-    console.log(email);
-    console.log(day, month, year);
+    console.log("");
   };
 
   const onSelectYear = (newYear: number) => {
@@ -50,6 +64,9 @@ const Form = () => {
     <FormWrapper onSubmit={onSubmit}>
       <TwitterLogo src={TwitterLogoSrc} alt="twitter logo" />
       <Title>Create an account</Title>
+      {isError && (
+        <ErrorMessage>User with passed email already exist</ErrorMessage>
+      )}
       <Inputs>
         <Input placeholder="Name" onChange={setName} />
         <Input placeholder="Phone number" onChange={setPhoneNumber} />
