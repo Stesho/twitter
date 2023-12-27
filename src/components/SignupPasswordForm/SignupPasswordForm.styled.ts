@@ -13,7 +13,7 @@ export const Form = styled.form`
 
 export const ErrorMessage = styled.span`
   position: absolute;
-  top: 115px;
+  top: -35px;
   left: 0;
   color: #ff0000;
   font-size: 20px;

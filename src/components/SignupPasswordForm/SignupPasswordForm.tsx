@@ -10,10 +10,14 @@ import {
 } from "./SignupPasswordForm.styled";
 
 interface SignupPasswordFormProps {
-  onSubmit: () => void;
+  onSubmit: (password: string) => void;
+  onBackClick: () => void;
 }
 
-const SignupPasswordForm = ({ onSubmit }: SignupPasswordFormProps) => {
+const SignupPasswordForm = ({
+  onSubmit,
+  onBackClick,
+}: SignupPasswordFormProps) => {
   const [password, setPassword] = useState<string>("");
   const [confirmedPassword, setConfirmedPassword] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
@@ -24,12 +28,10 @@ const SignupPasswordForm = ({ onSubmit }: SignupPasswordFormProps) => {
 
   const onSignupClick = () => {
     if (password !== confirmedPassword) {
-      setIsError(true);
+      return setIsError(true);
     }
-  };
 
-  const onBackClick = () => {
-    onSubmit();
+    return onSubmit(password);
   };
 
   return (

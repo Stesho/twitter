@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/Input/Input";
 import { Select } from "@/components/ui/Select/Select";
 import { MONTHS } from "@/constants/selectOptions";
 import {
-  ErrorMessage,
   Form,
   Inputs,
   Selects,
@@ -14,10 +13,9 @@ import {
 } from "./SignupUserForm.styled";
 import { User } from "@/types/user";
 import { getDate } from "@/utils/getDate";
-import { signup } from "@/services/user/signup";
 
 interface SignupUserFormProps {
-  onSubmit: () => void;
+  onSubmit: (user: User) => void;
 }
 
 export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
@@ -27,7 +25,6 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
   const [month, setMonth] = useState<string | null>(null);
   const [day, setDay] = useState<number | null>(null);
   const [year, setYear] = useState<number | null>(null);
-  const [isError, setIsError] = useState<boolean>(false);
 
   const onClickSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,19 +32,12 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
 
   const onNextClick = async () => {
     if (year && month && day) {
-      const user: User = {
+      onSubmit({
         name,
         phoneNumber,
         email,
         birthday: getDate(year, month, day).toISOString(),
-      };
-      const res = await signup(user);
-
-      if (!res) {
-        setIsError(true);
-      } else {
-        onSubmit();
-      }
+      });
     }
   };
 
@@ -65,9 +55,6 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
 
   return (
     <Form onSubmit={onClickSubmit}>
-      {isError && (
-        <ErrorMessage>User with passed email already exist</ErrorMessage>
-      )}
       <Inputs>
         <Input placeholder="Name" onChange={setName} />
         <Input placeholder="Phone number" onChange={setPhoneNumber} />

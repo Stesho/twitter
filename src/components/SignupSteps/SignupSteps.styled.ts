@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StepsWrapper = styled.div`
+  position: relative;
   max-width: 670px;
   width: 100%;
 `;
@@ -18,4 +19,12 @@ export const Title = styled.h2`
     sans-serif;
   font-size: 30px;
   font-weight: 700;
+`;
+
+export const ErrorMessage = styled.span`
+  position: absolute;
+  top: 115px;
+  left: 0;
+  color: #ff0000;
+  font-size: 20px;
 `;
