@@ -1,10 +1,10 @@
 import React from "react";
 import { MenuItem } from "@/components/ui/MenuItem/MenuItem";
-import { menuItems } from "@/constants/menu";
+import { MENU_ITEMS } from "@/constants/menu";
 
 export const Menu = () => (
   <ul>
-    {menuItems.map((item) => (
+    {MENU_ITEMS.map((item) => (
       <MenuItem
         key={item.caption}
         iconUrl={item.iconUrl}

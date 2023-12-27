@@ -3,7 +3,7 @@ import ArrowIconSvg from "@/assets/icons/arrow.svg?react";
 
 export const SelectWrapper = styled.div`
   position: relative;
-  max-width: 450px;
+  width: 100%;
   color: rgba(0, 0, 0, 0.6);
   font-family: Roboto, sans-serif;
 `;
