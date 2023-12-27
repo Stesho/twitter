@@ -18,10 +18,13 @@
     "*.{ts,tsx}": "eslint --fix"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.0.1",
     "@types/styled-components": "^5.1.34",
     "firebase": "^10.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^9.0.4",
+    "redux": "^5.0.1",
     "styled-components": "^6.1.2"
   },
   "devDependencies": {

@@ -35,7 +35,7 @@ export const SignupForm = () => {
         name,
         phoneNumber,
         email,
-        birthday: getDate(year, month, day),
+        birthday: getDate(year, month, day).toISOString(),
       };
       const res = await signup(user);
       if (!res) {

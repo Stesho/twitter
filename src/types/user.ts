@@ -2,5 +2,5 @@ export interface User {
   name: string;
   phoneNumber: string;
   email: string;
-  birthday: Date;
+  birthday: string;
 }

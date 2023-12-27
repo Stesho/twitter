@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Input } from "@/components/ui/Input/Input";
 import {
   ErrorMessage,
@@ -11,8 +12,12 @@ import {
 import { Button } from "@/components/ui/Button/Button";
 import TwitterLogoSrc from "@/assets/images/twitter_logo.png";
 import { login } from "@/services/user/login";
+import { setUser } from "@/store/slices/userSlice";
+import { RootState } from "@/store/store";
 
 export const LoginForm = () => {
+  const dispatch = useDispatch();
+  const userStore = useSelector((state: RootState) => state.user);
   const [emailOrPhoneNumber, setEmailOrPhoneNumber] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
@@ -26,13 +31,16 @@ export const LoginForm = () => {
   };
 
   const onSubmit = async () => {
-    const data = await login({
+    const userData = await login({
       emailOrPhoneNumber,
       password,
     });
-    if (!data) {
-      setIsError(true);
+
+    if (!userData) {
+      return setIsError(true);
     }
+
+    return dispatch(setUser(userData));
   };
 
   return (
@@ -48,7 +56,7 @@ export const LoginForm = () => {
         <Input placeholder="Password" onChange={onSetPassword} />
       </Inputs>
       <Button onClick={onSubmit}>Log In</Button>
-      <Signup>Sign up to Twitter</Signup>
+      <Signup onClick={() => console.log(userStore)}>Sign up to Twitter</Signup>
     </Form>
   );
 };

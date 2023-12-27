@@ -9,13 +9,14 @@ import { db } from "@/db/firesbase";
 import { Collections } from "@/types/collections";
 import { isEmail } from "@/utils/isEmail";
 import { isPhoneNumber } from "@/utils/isPhoneNumber";
+import { User } from "@/types/user";
 
 interface LoginData {
   emailOrPhoneNumber: string;
   password: string;
 }
 
-export const login = async (loginData: LoginData) => {
+export const login = async (loginData: LoginData): Promise<User | null> => {
   try {
     let field: string = "";
 
@@ -41,7 +42,7 @@ export const login = async (loginData: LoginData) => {
       return null;
     }
 
-    return querySnapshot.docs[0].data();
+    return querySnapshot.docs[0].data() as User;
   } catch (error) {
     console.error("Error adding document: ", error);
     return null;
