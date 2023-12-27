@@ -6,11 +6,11 @@ import {
   where,
   or,
 } from "firebase/firestore";
-import { User } from "@/types/user";
+import { SignupUserData } from "@/types/user";
 import { db } from "@/db/firesbase";
 import { Collections } from "@/types/collections";
 
-export const isUserExist = async (user: User) => {
+export const isUserExist = async (user: SignupUserData) => {
   const existedUser = query(
     collection(db, Collections.Users),
     or(

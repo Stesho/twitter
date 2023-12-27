@@ -1,5 +1,4 @@
 import React, { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/Input/Input";
 import {
   BackButton,
@@ -19,7 +18,6 @@ const SignupPasswordForm = ({
   onSubmit,
   onBackClick,
 }: SignupPasswordFormProps) => {
-  const navigate = useNavigate();
   const [password, setPassword] = useState<string>("");
   const [confirmedPassword, setConfirmedPassword] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
@@ -33,8 +31,7 @@ const SignupPasswordForm = ({
       return setIsError(true);
     }
 
-    onSubmit(password);
-    return navigate("/profile");
+    return onSubmit(password);
   };
 
   return (

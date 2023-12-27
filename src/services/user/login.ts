@@ -42,7 +42,10 @@ export const login = async (loginData: LoginData): Promise<User | null> => {
       return null;
     }
 
-    return querySnapshot.docs[0].data().user as User;
+    return {
+      id: querySnapshot.docs[0].id,
+      ...querySnapshot.docs[0].data().user,
+    };
   } catch (error) {
     console.error("Error adding document: ", error);
     return null;
