@@ -3,8 +3,11 @@ import { Input } from "@/components/ui/Input/Input";
 import {
   ErrorMessage,
   Form,
+  Inputs,
+  Signup,
+  Title,
   TwitterLogo,
-} from "@/components/ui/LoginForm/LoginForm.styled";
+} from "./LoginForm.styled";
 import { Button } from "@/components/ui/Button/Button";
 import TwitterLogoSrc from "@/assets/images/twitter_logo.png";
 import { login } from "@/services/user/login";
@@ -35,14 +38,17 @@ export const LoginForm = () => {
   return (
     <Form>
       <TwitterLogo src={TwitterLogoSrc} alt="twitter logo" />
-      <h2>Log in to Twitter</h2>
+      <Title>Log in to Twitter</Title>
       {isError && <ErrorMessage>Invalid email or password</ErrorMessage>}
-      <Input
-        placeholder="Phone number, email address"
-        onChange={onEmailOrPhoneNumber}
-      />
-      <Input placeholder="Password" onChange={onSetPassword} />
+      <Inputs>
+        <Input
+          placeholder="Phone number, email address"
+          onChange={onEmailOrPhoneNumber}
+        />
+        <Input placeholder="Password" onChange={onSetPassword} />
+      </Inputs>
       <Button onClick={onSubmit}>Log In</Button>
+      <Signup>Sign up to Twitter</Signup>
     </Form>
   );
 };

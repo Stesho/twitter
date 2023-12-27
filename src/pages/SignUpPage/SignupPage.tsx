@@ -1,6 +1,6 @@
 import React from "react";
 import { SignupForm } from "@/components/ui/SignupForm/SignupForm";
-import { Main } from "@/pages/SignUpPage/SignupPage.styled";
+import { Main } from "./SignupPage.styled";
 
 export const SignupPage = () => (
   <Main>

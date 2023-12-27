@@ -13,7 +13,7 @@ import {
   Title,
   TwitterLogo,
   UseEmail,
-} from "@/components/ui/SignupForm/SignupForm.styled";
+} from "./SignupForm.styled";
 import TwitterLogoSrc from "@/assets/images/twitter_logo.png";
 import { User } from "@/types/user";
 import { getDate } from "@/utils/getDate";
