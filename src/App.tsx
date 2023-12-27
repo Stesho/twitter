@@ -1,4 +1,4 @@
 import React from "react";
-import { SignupPage } from "@/pages/SignUpPage/SignupPage";
+import { Layout } from "@/components/Layout/Layout";
 
-export const App = () => <SignupPage />;
+export const App = () => <Layout />;
