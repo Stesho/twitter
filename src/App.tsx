@@ -1,4 +1,4 @@
 import React from "react";
-import { LoginPage } from "@/pages/LoginPage/LoginPage";
+import { SignupPage } from "@/pages/SignUpPage/SignupPage";
 
-export const App = () => <LoginPage />;
+export const App = () => <SignupPage />;

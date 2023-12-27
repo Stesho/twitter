@@ -1,9 +1,9 @@
 import React from "react";
-import { SignupForm } from "@/components/ui/SignupForm/SignupForm";
 import { Main } from "./SignupPage.styled";
+import { SignupSteps } from "@/components/SignupSteps/SignupSteps";
 
 export const SignupPage = () => (
   <Main>
-    <SignupForm />
+    <SignupSteps />
   </Main>
 );

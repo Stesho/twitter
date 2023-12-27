@@ -10,16 +10,17 @@ import {
   SubmitButton,
   SubTitle,
   Text,
-  Title,
-  TwitterLogo,
   UseEmail,
-} from "./SignupForm.styled";
-import TwitterLogoSrc from "@/assets/images/twitter_logo.png";
+} from "./SignupUserForm.styled";
 import { User } from "@/types/user";
 import { getDate } from "@/utils/getDate";
 import { signup } from "@/services/user/signup";
 
-export const SignupForm = () => {
+interface SignupUserFormProps {
+  onSubmit: () => void;
+}
+
+export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
   const [name, setName] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -28,8 +29,11 @@ export const SignupForm = () => {
   const [year, setYear] = useState<number | null>(null);
   const [isError, setIsError] = useState<boolean>(false);
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const onClickSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+  };
+
+  const onNextClick = async () => {
     if (year && month && day) {
       const user: User = {
         name,
@@ -38,14 +42,13 @@ export const SignupForm = () => {
         birthday: getDate(year, month, day).toISOString(),
       };
       const res = await signup(user);
+
       if (!res) {
         setIsError(true);
+      } else {
+        onSubmit();
       }
     }
-  };
-
-  const onNextClick = () => {
-    console.log("");
   };
 
   const onSelectYear = (newYear: number) => {
@@ -61,9 +64,7 @@ export const SignupForm = () => {
   };
 
   return (
-    <Form onSubmit={onSubmit}>
-      <TwitterLogo src={TwitterLogoSrc} alt="twitter logo" />
-      <Title>Create an account</Title>
+    <Form onSubmit={onClickSubmit}>
       {isError && (
         <ErrorMessage>User with passed email already exist</ErrorMessage>
       )}
