@@ -1,6 +1,7 @@
-import React from "react";
-import { User } from "@/types/user";
-import { NewTweet } from "@/components/ui/NewTweet/NewTweet";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { User } from '@/types/user';
+import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import {
   Avatar,
   BgImg,
@@ -16,32 +17,47 @@ import {
   ProfileWrapper,
   TweetsTitle,
   Username,
-} from "@/components/Profile/Profile.styled";
-import ProfileBg from "@/assets/images/profile_bg.jpg";
-import DefaultAvatar from "@/assets/images/default_avatar_big.png";
-import { ButtonTypes } from "@/types/buttonTypes";
-import { addTweet } from "@/services/tweets/addTweet";
+} from '@/components/Profile/Profile.styled';
+import ProfileBg from '@/assets/images/profile_bg.jpg';
+import DefaultAvatar from '@/assets/images/default_avatar_big.png';
+import { ButtonTypes } from '@/types/buttonTypes';
+import { sendTweet } from '@/services/tweets/sendTweet';
+import { getTweets } from '@/services/tweets/getTweets';
+import { tweetsSelector } from '@/store/selectors/tweetsSelectors';
+import { addTweet, setTweets } from '@/store/slices/tweetsSlice';
+import { Tweet as TweetType } from '@/types/Tweet';
+import { Tweet } from '@/components/ui/Tweet/Tweet';
 
 interface ProfileProps {
   user: User;
 }
 
 export const Profile = ({ user }: ProfileProps) => {
+  const dispatch = useDispatch();
+  const tweetsStore = useSelector(tweetsSelector);
+
   const onTweet = async (text: string) => {
-    await addTweet({
+    const tweet = await sendTweet({
       text,
       authorId: user.id,
     });
+    dispatch(addTweet(tweet as TweetType));
   };
+
+  useEffect(() => {
+    getTweets(user).then((tweets) => {
+      dispatch(setTweets(tweets as TweetType[]));
+    });
+  }, [user, dispatch]);
 
   return (
     <ProfileWrapper>
       <Border />
       <div>
-        <BgImg src={ProfileBg} alt="background" />
+        <BgImg src={ProfileBg} alt='background' />
         <ProfileBar>
           <MainInfo>
-            <Avatar src={DefaultAvatar} alt="avatar" />
+            <Avatar src={DefaultAvatar} alt='avatar' />
             <Name>{user.name}</Name>
             <Username>@bobur_mavlonov</Username>
             <Occupation>UX&UI designer at @abutechuz</Occupation>
@@ -62,6 +78,18 @@ export const Profile = ({ user }: ProfileProps) => {
         </ProfileBar>
         <NewTweet onTweet={onTweet} />
         <TweetsTitle>Tweets</TweetsTitle>
+        {tweetsStore.tweets.length === 0 ? (
+          <div>There are no tweets yet</div>
+        ) : (
+          tweetsStore.tweets.map((tweet: TweetType) => (
+            <Tweet
+              name={user.name}
+              username='username'
+              text={tweet.text}
+              date='Apr 1'
+            />
+          ))
+        )}
       </div>
       <Border />
     </ProfileWrapper>

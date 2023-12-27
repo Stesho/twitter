@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { NeutralButton } from "@/components/ui/Button/Button.styled";
-import { ButtonTypes } from "@/types/buttonTypes";
+import styled from 'styled-components';
+import { NeutralButton } from '@/components/ui/Button/Button.styled';
+import { ButtonTypes } from '@/types/buttonTypes';
 
 export const ProfileWrapper = styled.div`
   display: flex;
@@ -93,6 +93,7 @@ export const EditButton = styled(NeutralButton)<{
 
 export const TweetsTitle = styled.div`
   display: inline-block;
+  margin: 0 0 48px 0;
   padding: 20px 85px;
   font-family:
     Roboto Serif,

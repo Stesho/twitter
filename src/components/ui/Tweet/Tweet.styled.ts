@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const TweetWrapper = styled.div`
   display: flex;
@@ -17,9 +17,14 @@ export const TweetAuthorImg = styled.img`
   margin: 0 5px 0 0;
 `;
 
+export const TweetContent = styled.div`
+  width: 100%;
+`;
+
 export const TweetHead = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const TweetAuthorName = styled.span`
@@ -39,7 +44,6 @@ export const TweetDots = styled.div`
   display: flex;
   justify-content: space-between;
   width: 26px;
-  margin-left: auto;
   padding: 6px 4px;
   flex-shrink: 0;
   cursor: pointer;
