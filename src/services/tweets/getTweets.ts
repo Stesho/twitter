@@ -8,13 +8,13 @@ import {
 import { User } from '@/types/user';
 import { db } from '@/db/firesbase';
 import { Collections } from '@/types/collections';
-import { Tweet } from '@/types/Tweet';
+import { Tweet } from '@/types/tweet';
 
 export const getTweets = async (user: User): Promise<Tweet[] | null> => {
   try {
     const tweets = query(
       collection(db, Collections.Tweets),
-      where('authorId', '==', user.id),
+      where('author.id', '==', user.id),
     );
 
     const querySnapshot: QuerySnapshot = await getDocs(tweets);

@@ -1,7 +1,7 @@
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '@/db/firesbase';
 import { Collections } from '@/types/collections';
-import { Tweet } from '@/types/Tweet';
+import { Tweet } from '@/types/tweet';
 
 export const sendTweet = async (tweet: Tweet) => {
   try {

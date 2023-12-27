@@ -25,8 +25,9 @@ import { sendTweet } from '@/services/tweets/sendTweet';
 import { getTweets } from '@/services/tweets/getTweets';
 import { tweetsSelector } from '@/store/selectors/tweetsSelectors';
 import { addTweet, setTweets } from '@/store/slices/tweetsSlice';
-import { Tweet as TweetType } from '@/types/Tweet';
+import { Tweet as TweetType } from '@/types/tweet';
 import { Tweet } from '@/components/ui/Tweet/Tweet';
+import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 
 interface ProfileProps {
   user: User;
@@ -39,9 +40,13 @@ export const Profile = ({ user }: ProfileProps) => {
   const onTweet = async (text: string) => {
     const tweet = await sendTweet({
       text,
-      authorId: user.id,
+      date: new Date().toISOString(),
+      author: user,
     });
-    dispatch(addTweet(tweet as TweetType));
+
+    if (tweet) {
+      dispatch(addTweet(tweet as TweetType));
+    }
   };
 
   useEffect(() => {
@@ -83,10 +88,10 @@ export const Profile = ({ user }: ProfileProps) => {
         ) : (
           tweetsStore.tweets.map((tweet: TweetType) => (
             <Tweet
-              name={user.name}
+              name={tweet.author.name}
               username='username'
               text={tweet.text}
-              date='Apr 1'
+              date={fromISOStringToReadable(tweet.date)}
             />
           ))
         )}

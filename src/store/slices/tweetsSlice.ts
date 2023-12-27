@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Tweet } from '@/types/Tweet';
+import { Tweet } from '@/types/tweet';
 
 interface InitialState {
   tweets: Tweet[];
