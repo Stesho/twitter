@@ -4,32 +4,32 @@ import {
   query,
   QuerySnapshot,
   where,
-} from "firebase/firestore";
-import { db } from "@/db/firesbase";
-import { Collections } from "@/types/collections";
-import { isEmail } from "@/utils/isEmail";
-import { isPhoneNumber } from "@/utils/isPhoneNumber";
-import { User } from "@/types/user";
+} from 'firebase/firestore';
+import { db } from '@/db/firesbase';
+import { Collections } from '@/types/collections';
+import { isEmail } from '@/utils/isEmail';
+import { isPhoneNumber } from '@/utils/isPhoneNumber';
+import { User } from '@/types/user';
 
 interface LoginData {
-  emailOrPhoneNumber: string;
+  identifier: string;
   password: string;
 }
 
 export const login = async (loginData: LoginData): Promise<User | null> => {
   try {
-    let field: string = "";
+    let field: string = '';
 
-    if (isEmail(loginData.emailOrPhoneNumber)) {
-      field = "user.email";
+    if (isEmail(loginData.identifier)) {
+      field = 'user.email';
     }
-    if (isPhoneNumber(loginData.emailOrPhoneNumber)) {
-      field = "user.phoneNumber";
+    if (isPhoneNumber(loginData.identifier)) {
+      field = 'user.phoneNumber';
     }
 
     const existedUser = query(
       collection(db, Collections.Users),
-      where(field, "==", loginData.emailOrPhoneNumber),
+      where(field, '==', loginData.identifier),
     );
 
     const querySnapshot: QuerySnapshot = await getDocs(existedUser);
@@ -47,7 +47,7 @@ export const login = async (loginData: LoginData): Promise<User | null> => {
       ...querySnapshot.docs[0].data().user,
     };
   } catch (error) {
-    console.error("Error adding document: ", error);
+    console.error('Error adding document: ', error);
     return null;
   }
 };

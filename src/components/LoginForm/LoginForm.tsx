@@ -1,40 +1,41 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Input } from "@/components/ui/Input/Input";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { Input } from '@/components/ui/Input/Input';
 import {
   ErrorMessage,
   Form,
   Inputs,
+  LoginButton,
   Signup,
   Title,
   TwitterLogo,
-} from "./LoginForm.styled";
-import { Button } from "@/components/ui/Button/Button";
-import TwitterLogoSrc from "@/assets/images/twitter_logo.png";
-import { login } from "@/services/user/login";
-import { setUser } from "@/store/slices/userSlice";
-import { RootState } from "@/store/store";
+} from './LoginForm.styled';
+import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
+import { login } from '@/services/user/login';
+import { setUser } from '@/store/slices/userSlice';
+import { loginFormSchema } from '@/constants/validationSchemas';
+import { LoginFormData } from '@/types/forms';
 
 export const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userStore = useSelector((state: RootState) => state.user);
-  const [emailOrPhoneNumber, setEmailOrPhoneNumber] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(loginFormSchema),
+  });
   const [isError, setIsError] = useState<boolean>(false);
 
-  const onEmailOrPhoneNumber = (newEmail: string) => {
-    setEmailOrPhoneNumber(newEmail);
-  };
+  const onSubmitForm = async (data: LoginFormData) => {
+    const { identifier, password } = data;
 
-  const onSetPassword = (newPhoneNumber: string) => {
-    setPassword(newPhoneNumber);
-  };
-
-  const onSubmit = async () => {
     const userData = await login({
-      emailOrPhoneNumber,
+      identifier,
       password,
     });
 
@@ -43,23 +44,30 @@ export const LoginForm = () => {
     }
 
     dispatch(setUser(userData));
-    return navigate("/profile");
+    return navigate('/profile');
   };
 
   return (
-    <Form>
-      <TwitterLogo src={TwitterLogoSrc} alt="twitter logo" />
+    <Form onSubmit={handleSubmit(onSubmitForm)}>
+      <TwitterLogo src={TwitterLogoSrc} alt='twitter logo' />
       <Title>Log in to Twitter</Title>
       {isError && <ErrorMessage>Invalid email or password</ErrorMessage>}
       <Inputs>
         <Input
-          placeholder="Phone number, email address"
-          onChange={onEmailOrPhoneNumber}
+          placeholder='Phone number, email address'
+          label='identifier'
+          register={register}
+          errorMessage={errors.identifier?.message}
         />
-        <Input placeholder="Password" onChange={onSetPassword} />
+        <Input
+          placeholder='Password'
+          label='password'
+          register={register}
+          errorMessage={errors.password?.message}
+        />
       </Inputs>
-      <Button onClick={onSubmit}>Log In</Button>
-      <Signup onClick={() => console.log(userStore)}>Sign up to Twitter</Signup>
+      <LoginButton type='submit'>Log In</LoginButton>
+      <Signup>Sign up to Twitter</Signup>
     </Form>
   );
 };

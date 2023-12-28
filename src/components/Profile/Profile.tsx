@@ -97,6 +97,7 @@ export const Profile = ({ user }: ProfileProps) => {
         ) : (
           tweetsStore.tweets.map((tweet: TweetType) => (
             <Tweet
+              key={JSON.stringify(tweet)}
               name={tweet.author.name}
               username='username'
               text={tweet.text}

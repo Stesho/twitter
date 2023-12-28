@@ -19,3 +19,8 @@ export const signupPasswordFormSchema = yup.object({
   password: yup.string().required(),
   confirmedPassword: yup.string().required(),
 });
+
+export const loginFormSchema = yup.object({
+  identifier: yup.string().required(),
+  password: yup.string().required(),
+});
