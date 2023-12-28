@@ -14,6 +14,28 @@ export const Border = styled.div`
   background-color: #c4c4c4;
 `;
 
+export const Head = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 22px 16px 17px;
+`;
+
+export const HeadName = styled.span`
+  margin: 0 0 6px 0;
+  font-family:
+    Roboto Serif,
+    sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+export const HeadTweets = styled.span`
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.6;
+`;
+
 export const BgImg = styled.img`
   height: 280px;
 `;

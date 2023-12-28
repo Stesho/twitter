@@ -10,6 +10,9 @@ import {
   Followers,
   FollowersCaption,
   FollowersCount,
+  Head,
+  HeadName,
+  HeadTweets,
   MainInfo,
   Name,
   Occupation,
@@ -59,6 +62,10 @@ export const Profile = ({ user }: ProfileProps) => {
     <ProfileWrapper>
       <Border />
       <div>
+        <Head>
+          <HeadName>{user.name}</HeadName>
+          <HeadTweets>{tweetsStore.tweets.length} Tweets</HeadTweets>
+        </Head>
         <BgImg src={ProfileBg} alt='background' />
         <ProfileBar>
           <MainInfo>
