@@ -1,36 +1,38 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent } from 'react';
 import {
   NeutralButton,
   PrimaryButton,
   SecondaryButton,
-} from "@/components/ui/Button/Button.styled";
-import { ButtonTypes } from "@/types/buttonTypes";
+} from '@/components/ui/Button/Button.styled';
+import { ButtonTypes } from '@/types/buttonTypes';
+
+type CommonButtonTypes = 'button' | 'submit' | 'reset' | undefined;
 
 interface ButtonProps {
   children: string;
-  onClick: () => void;
+  type?: CommonButtonTypes;
+  onClick?: () => void;
   disabled?: boolean;
   styleType?: ButtonTypes;
 }
 
-interface CommonButtonProps
-  extends Omit<ButtonProps, "children" | "type" | "onClick"> {
-  type: "button" | "submit" | "reset" | undefined;
+interface CommonButtonProps extends Omit<ButtonProps, 'children' | 'onClick'> {
   onClick: (event: MouseEvent) => void;
 }
 
 export const Button = ({
   children,
+  type,
   onClick,
   disabled = false,
   styleType = ButtonTypes.Primary,
 }: ButtonProps) => {
   const buttonProps: CommonButtonProps = {
-    type: "button",
+    type: type || 'button',
     disabled,
     onClick: (event: MouseEvent) => {
       event.preventDefault();
-      onClick();
+      onClick?.();
     },
   };
 

@@ -1,15 +1,14 @@
-import React, { ChangeEvent } from "react";
-import { InputWrapper } from "@/components/ui/Input/Input.styled";
+import React from 'react';
+import { UseFormRegister, Path } from 'react-hook-form';
+import { InputWrapper } from '@/components/ui/Input/Input.styled';
+import { SignupUserFormSchema } from '@/components/SignupUserForm/SignupUserForm';
 
 interface InputProps {
-  onChange: (value: string) => void;
   placeholder?: string;
+  label: Path<SignupUserFormSchema>;
+  register: UseFormRegister<SignupUserFormSchema>;
 }
 
-export const Input = ({ onChange, placeholder }: InputProps) => {
-  const onInputValue = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
-  };
-
-  return <InputWrapper onChange={onInputValue} placeholder={placeholder} />;
-};
+export const Input = ({ placeholder, label, register }: InputProps) => (
+  <InputWrapper placeholder={placeholder} {...register(label)} />
+);
