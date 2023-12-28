@@ -48,13 +48,15 @@ export const Profile = ({ user }: ProfileProps) => {
     });
 
     if (tweet) {
-      dispatch(addTweet(tweet as TweetType));
+      dispatch(addTweet(tweet));
     }
   };
 
   useEffect(() => {
     getTweets(user).then((tweets) => {
-      dispatch(setTweets(tweets as TweetType[]));
+      if (tweets) {
+        dispatch(setTweets(tweets));
+      }
     });
   }, [user, dispatch]);
 

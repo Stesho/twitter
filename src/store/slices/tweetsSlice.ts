@@ -17,7 +17,7 @@ export const tweetsSlice = createSlice({
       state.tweets = action.payload;
     },
     addTweet: (state, action: PayloadAction<Tweet>) => {
-      state.tweets.push(action.payload);
+      state.tweets.unshift(action.payload);
     },
   },
 });
