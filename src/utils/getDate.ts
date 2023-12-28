@@ -1,2 +1,2 @@
-export const getDate = (year: number, month: string, day: number) =>
+export const getDate = (year: string, month: string, day: string) =>
   new Date(`${month} ${day}, ${year}`);

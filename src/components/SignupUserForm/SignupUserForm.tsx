@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -22,10 +22,13 @@ interface SignupUserFormProps {
   onSubmit: (user: SignupUserData) => void;
 }
 
-export interface SignupUserFormSchema {
+interface SignupUserFormSchema {
   name: string;
   phoneNumber: string;
   email: string;
+  year: string;
+  month: string;
+  day: string;
 }
 
 const schema = yup
@@ -36,6 +39,9 @@ const schema = yup
       .matches(phoneRegExp, 'Invalid phone number')
       .required(),
     email: yup.string().email().required(),
+    year: yup.string().required(),
+    month: yup.string().required(),
+    day: yup.string().required(),
   })
   .required();
 export type FormData = yup.InferType<typeof schema>;
@@ -48,51 +54,44 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
   } = useForm<SignupUserFormSchema>({
     resolver: yupResolver(schema),
   });
-  // const [name, setName] = useState<string>("");
-  // const [phoneNumber, setPhoneNumber] = useState<string>("");
-  // const [email, setEmail] = useState<string>("");
-  const [month, setMonth] = useState<string | null>(null);
-  const [day, setDay] = useState<number | null>(null);
-  const [year, setYear] = useState<number | null>(null);
 
-  const onSubmitForm = ({ name, phoneNumber, email }: FormData) => {
-    console.log(name, phoneNumber, email);
-    console.log(year, month, day);
-    console.log(errors);
-    if (year && month && day) {
-      onSubmit({
-        name,
-        phoneNumber,
-        email,
-        birthday: getDate(year, month, day).toISOString(),
-      });
-    }
-  };
+  const onSubmitForm = (data: FormData) => {
+    const { name, phoneNumber, email, year, month, day } = data;
 
-  const onSelectYear = (newYear: number) => {
-    setYear(newYear);
-  };
-
-  const onSelectMonth = (newMonth: string) => {
-    setMonth(newMonth);
-  };
-
-  const onSelectDay = (newDay: number) => {
-    setDay(newDay);
+    onSubmit({
+      name,
+      phoneNumber,
+      email,
+      birthday: getDate(year, month, day).toISOString(),
+    });
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmitForm)}>
       <Inputs>
-        <Input placeholder='Name' label='name' register={register} />
+        <Input
+          placeholder='Name'
+          validation={{
+            label: 'name',
+            register,
+          }}
+        />
         {errors.name?.message}
         <Input
           placeholder='Phone number'
-          label='phoneNumber'
-          register={register}
+          validation={{
+            label: 'phoneNumber',
+            register,
+          }}
         />
         {errors.phoneNumber?.message}
-        <Input placeholder='Email' label='email' register={register} />
+        <Input
+          placeholder='Email'
+          validation={{
+            label: 'email',
+            register,
+          }}
+        />
         {errors.email?.message}
       </Inputs>
       <UseEmail>Use email</UseEmail>
@@ -104,17 +103,33 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
         dignissim eget tellus. Nibh mi massa in molestie a sit. Elit congue
       </Text>
       <Selects>
-        <Select options={MONTHS} caption='Month' onChange={onSelectMonth} />
         <Select
-          options={[1, 2, 3, 4, 5, 6, 7]}
+          options={MONTHS}
+          caption='Month'
+          validation={{
+            label: 'month',
+            register,
+          }}
+        />
+        {errors.month?.message}
+        <Select
+          options={['1', '2', '3', '4', '5', '6', '7']}
           caption='Day'
-          onChange={onSelectDay}
+          validation={{
+            label: 'day',
+            register,
+          }}
         />
+        {errors.day?.message}
         <Select
-          options={[1999, 2000, 2001, 2002, 2003]}
+          options={['1999', '2000', '2001', '2002', '2003']}
           caption='Year'
-          onChange={onSelectYear}
+          validation={{
+            label: 'year',
+            register,
+          }}
         />
+        {errors.year?.message}
       </Selects>
       <SubmitButton type='submit'>Next</SubmitButton>
     </Form>
