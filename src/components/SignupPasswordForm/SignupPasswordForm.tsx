@@ -41,12 +41,14 @@ const SignupPasswordForm = ({
     <Form onSubmit={handleSubmit(onSubmitForm)}>
       <Inputs>
         <Input
+          type='password'
           placeholder='Password'
           label='password'
           register={register}
           errorMessage={errors.password?.message}
         />
         <Input
+          type='password'
           placeholder='Confirm password'
           label='confirmedPassword'
           register={register}

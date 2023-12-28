@@ -8,6 +8,16 @@ export const SelectWrapper = styled.div`
   font-family: Roboto, sans-serif;
 `;
 
+export const ArrowIcon = styled(ArrowIconSvg)`
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  top: 50%;
+  left: 100%;
+  transform: translate(-150%, -50%);
+  pointer-events: none;
+`;
+
 export const SelectButton = styled.select<{
   $isError: boolean;
 }>`
@@ -27,16 +37,6 @@ export const SelectButton = styled.select<{
   outline: none;
 
   cursor: pointer;
-`;
-
-export const ArrowIcon = styled(ArrowIconSvg)`
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  top: 50%;
-  left: 100%;
-  transform: translate(-150%, -50%);
-  pointer-events: none;
 `;
 
 export const ErrorMessage = styled.span`

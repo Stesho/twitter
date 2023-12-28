@@ -13,11 +13,14 @@ export const InputStyled = styled.input<{
   border-radius: 6px;
   border: 1px solid ${(props) => (props.$isError ? '#ff0000' : '#00000033')};
   background: #fff;
-  color: rgba(0, 0, 0, 0.6);
   font-family: Roboto, sans-serif;
   font-size: 18px;
   font-weight: 400;
   outline: none;
+
+  &::placeholder {
+    color: #00000099;
+  }
 `;
 
 export const ErrorMessage = styled.span`
