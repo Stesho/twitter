@@ -1,13 +1,16 @@
-import React, { FormEvent, useState } from "react";
-import { Input } from "@/components/ui/Input/Input";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Input } from '@/components/ui/Input/Input';
 import {
   BackButton,
   Buttons,
-  ErrorMessage,
   Form,
   FormButton,
   Inputs,
-} from "./SignupPasswordForm.styled";
+} from './SignupPasswordForm.styled';
+import { signupPasswordFormSchema } from '@/constants/validationSchemas';
+import { SignupPasswordFormData } from '@/types/forms';
 
 interface SignupPasswordFormProps {
   onSubmit: (password: string) => void;
@@ -18,34 +21,41 @@ const SignupPasswordForm = ({
   onSubmit,
   onBackClick,
 }: SignupPasswordFormProps) => {
-  const [password, setPassword] = useState<string>("");
-  const [confirmedPassword, setConfirmedPassword] = useState<string>("");
-  const [isError, setIsError] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signupPasswordFormSchema),
+  });
 
-  const onClickSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
+  const onSubmitForm = (data: SignupPasswordFormData) => {
+    const { password, confirmedPassword } = data;
 
-  const onSignupClick = () => {
-    if (password !== confirmedPassword) {
-      return setIsError(true);
+    if (password === confirmedPassword) {
+      onSubmit(password);
     }
-
-    return onSubmit(password);
   };
 
   return (
-    <Form onSubmit={onClickSubmit}>
-      {isError && (
-        <ErrorMessage>User with passed email already exist</ErrorMessage>
-      )}
+    <Form onSubmit={handleSubmit(onSubmitForm)}>
       <Inputs>
-        <Input placeholder="Password" onChange={setPassword} />
-        <Input placeholder="Confirm password" onChange={setConfirmedPassword} />
+        <Input
+          placeholder='Password'
+          label='password'
+          register={register}
+          errorMessage={errors.password?.message}
+        />
+        <Input
+          placeholder='Confirm password'
+          label='confirmedPassword'
+          register={register}
+          errorMessage={errors.confirmedPassword?.message}
+        />
       </Inputs>
       <Buttons>
         <BackButton onClick={onBackClick}>Back</BackButton>
-        <FormButton onClick={onSignupClick}>Sign up</FormButton>
+        <FormButton type='submit'>Sign up</FormButton>
       </Buttons>
     </Form>
   );

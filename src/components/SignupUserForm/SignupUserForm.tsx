@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { Input } from '@/components/ui/Input/Input';
 import { Select } from '@/components/ui/Select/Select';
 import { MONTHS } from '@/constants/selectOptions';
@@ -16,46 +15,23 @@ import {
 } from './SignupUserForm.styled';
 import { getDate } from '@/utils/getDate';
 import { SignupUserData } from '@/types/user';
-import { phoneRegExp } from '@/constants/regExp';
+import { signupUserFormSchema } from '@/constants/validationSchemas';
+import { SignupUserFormData } from '@/types/forms';
 
 interface SignupUserFormProps {
   onSubmit: (user: SignupUserData) => void;
 }
-
-interface SignupUserFormSchema {
-  name: string;
-  phoneNumber: string;
-  email: string;
-  year: string;
-  month: string;
-  day: string;
-}
-
-const schema = yup
-  .object({
-    name: yup.string().min(2).max(50).required(),
-    phoneNumber: yup
-      .string()
-      .required()
-      .matches(phoneRegExp, 'Invalid phone number'),
-    email: yup.string().email().required(),
-    year: yup.string().required(),
-    month: yup.string().required(),
-    day: yup.string().required(),
-  })
-  .required();
-export type FormData = yup.InferType<typeof schema>;
 
 export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupUserFormSchema>({
-    resolver: yupResolver(schema),
+  } = useForm({
+    resolver: yupResolver(signupUserFormSchema),
   });
 
-  const onSubmitForm = (data: FormData) => {
+  const onSubmitForm = (data: SignupUserFormData) => {
     const { name, phoneNumber, email, year, month, day } = data;
 
     onSubmit({

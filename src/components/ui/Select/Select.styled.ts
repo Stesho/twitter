@@ -24,6 +24,7 @@ export const SelectButton = styled.select<{
   background: #fff;
   font-size: 18px;
   font-weight: 400;
+  outline: none;
 
   cursor: pointer;
 `;
