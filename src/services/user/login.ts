@@ -21,10 +21,10 @@ export const login = async (loginData: LoginData): Promise<User | null> => {
     let field: string = "";
 
     if (isEmail(loginData.emailOrPhoneNumber)) {
-      field = "email";
+      field = "user.email";
     }
     if (isPhoneNumber(loginData.emailOrPhoneNumber)) {
-      field = "phoneNumber";
+      field = "user.phoneNumber";
     }
 
     const existedUser = query(
@@ -42,7 +42,10 @@ export const login = async (loginData: LoginData): Promise<User | null> => {
       return null;
     }
 
-    return querySnapshot.docs[0].data() as User;
+    return {
+      id: querySnapshot.docs[0].id,
+      ...querySnapshot.docs[0].data().user,
+    };
   } catch (error) {
     console.error("Error adding document: ", error);
     return null;

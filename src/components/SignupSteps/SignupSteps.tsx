@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import TwitterLogoSrc from "@/assets/images/twitter_logo.png";
 import { SignupUserForm } from "@/components/SignupUserForm/SignupUserForm";
 import SignupPasswordForm from "@/components/SignupPasswordForm/SignupPasswordForm";
@@ -9,15 +11,18 @@ import {
   TwitterLogo,
 } from "./SignupSteps.styled";
 import { isUserExist } from "@/services/user/isUserExist";
-import { User } from "@/types/user";
+import { SignupUserData } from "@/types/user";
 import { signup } from "@/services/user/signup";
+import { setUser } from "@/store/slices/userSlice";
 
 export const SignupSteps = () => {
-  const [userData, setUserData] = useState<User>(null!);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState<SignupUserData>(null!);
   const [step, setStep] = useState(0);
   const [isError, setIsError] = useState<boolean>(false);
 
-  const onNextClick = async (user: User) => {
+  const onNextClick = async (user: SignupUserData) => {
     const isUser = await isUserExist(user);
 
     if (isUser) {
@@ -34,13 +39,14 @@ export const SignupSteps = () => {
   };
 
   const onSubmit = async (password: string) => {
-    const res = await signup(userData, password);
+    const newUser = await signup(userData, password);
 
-    if (!res) {
+    if (!newUser) {
       return setIsError(true);
     }
 
-    return console.log(res);
+    dispatch(setUser(newUser));
+    return navigate("/profile");
   };
 
   return (

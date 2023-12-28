@@ -11,11 +11,11 @@ import {
   Text,
   UseEmail,
 } from "./SignupUserForm.styled";
-import { User } from "@/types/user";
 import { getDate } from "@/utils/getDate";
+import { SignupUserData } from "@/types/user";
 
 interface SignupUserFormProps {
-  onSubmit: (user: User) => void;
+  onSubmit: (user: SignupUserData) => void;
 }
 
 export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {

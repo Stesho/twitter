@@ -10,7 +10,7 @@ interface ButtonProps {
   children: string;
   onClick: () => void;
   disabled?: boolean;
-  type?: ButtonTypes;
+  styleType?: ButtonTypes;
 }
 
 interface CommonButtonProps
@@ -23,7 +23,7 @@ export const Button = ({
   children,
   onClick,
   disabled = false,
-  type = ButtonTypes.Primary,
+  styleType = ButtonTypes.Primary,
 }: ButtonProps) => {
   const buttonProps: CommonButtonProps = {
     type: "button",
@@ -34,13 +34,13 @@ export const Button = ({
     },
   };
 
-  if (type === ButtonTypes.Primary)
+  if (styleType === ButtonTypes.Primary)
     return <PrimaryButton {...buttonProps}>{children}</PrimaryButton>;
 
-  if (type === ButtonTypes.Secondary)
+  if (styleType === ButtonTypes.Secondary)
     return <SecondaryButton {...buttonProps}>{children}</SecondaryButton>;
 
-  if (type === ButtonTypes.Neutral)
+  if (styleType === ButtonTypes.Neutral)
     return <NeutralButton {...buttonProps}>{children}</NeutralButton>;
 
   return <PrimaryButton {...buttonProps}>{children}</PrimaryButton>;

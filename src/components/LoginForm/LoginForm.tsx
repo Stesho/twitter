@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/Input/Input";
 import {
   ErrorMessage,
@@ -16,6 +17,7 @@ import { setUser } from "@/store/slices/userSlice";
 import { RootState } from "@/store/store";
 
 export const LoginForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const userStore = useSelector((state: RootState) => state.user);
   const [emailOrPhoneNumber, setEmailOrPhoneNumber] = useState<string>("");
@@ -40,7 +42,8 @@ export const LoginForm = () => {
       return setIsError(true);
     }
 
-    return dispatch(setUser(userData));
+    dispatch(setUser(userData));
+    return navigate("/profile");
   };
 
   return (

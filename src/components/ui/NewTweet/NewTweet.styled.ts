@@ -4,7 +4,8 @@ import { PrimaryButton } from "@/components/ui/Button/Button.styled";
 export const NewTweetWrapper = styled.div`
   display: flex;
   max-width: 909px;
-  padding: 10px 34px 20px 34px;
+  padding: 18px 11px 13px 27px;
+  border-bottom: 1px solid #d8d8d8;
 `;
 
 export const NewTweetAvatar = styled.img`
