@@ -36,8 +36,8 @@ const schema = yup
     name: yup.string().min(2).max(50).required(),
     phoneNumber: yup
       .string()
-      .matches(phoneRegExp, 'Invalid phone number')
-      .required(),
+      .required()
+      .matches(phoneRegExp, 'Invalid phone number'),
     email: yup.string().email().required(),
     year: yup.string().required(),
     month: yup.string().required(),
@@ -71,28 +71,22 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
       <Inputs>
         <Input
           placeholder='Name'
-          validation={{
-            label: 'name',
-            register,
-          }}
+          label='name'
+          register={register}
+          errorMessage={errors.name?.message}
         />
-        {errors.name?.message}
         <Input
           placeholder='Phone number'
-          validation={{
-            label: 'phoneNumber',
-            register,
-          }}
+          label='phoneNumber'
+          register={register}
+          errorMessage={errors.phoneNumber?.message}
         />
-        {errors.phoneNumber?.message}
         <Input
           placeholder='Email'
-          validation={{
-            label: 'email',
-            register,
-          }}
+          label='email'
+          register={register}
+          errorMessage={errors.email?.message}
         />
-        {errors.email?.message}
       </Inputs>
       <UseEmail>Use email</UseEmail>
       <SubTitle>Date of birth</SubTitle>
@@ -106,30 +100,24 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
         <Select
           options={MONTHS}
           caption='Month'
-          validation={{
-            label: 'month',
-            register,
-          }}
+          label='month'
+          register={register}
+          errorMessage={errors.month?.message}
         />
-        {errors.month?.message}
         <Select
           options={['1', '2', '3', '4', '5', '6', '7']}
           caption='Day'
-          validation={{
-            label: 'day',
-            register,
-          }}
+          label='day'
+          register={register}
+          errorMessage={errors.day?.message}
         />
-        {errors.day?.message}
         <Select
           options={['1999', '2000', '2001', '2002', '2003']}
           caption='Year'
-          validation={{
-            label: 'year',
-            register,
-          }}
+          label='year'
+          register={register}
+          errorMessage={errors.year?.message}
         />
-        {errors.year?.message}
       </Selects>
       <SubmitButton type='submit'>Next</SubmitButton>
     </Form>

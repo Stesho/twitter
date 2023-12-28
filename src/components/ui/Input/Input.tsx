@@ -1,22 +1,30 @@
 import React from 'react';
 import { UseFormRegister, Path, FieldValues } from 'react-hook-form';
-import { InputWrapper } from '@/components/ui/Input/Input.styled';
-
-interface InputValidationProps<T extends FieldValues> {
-  label: Path<T>;
-  register: UseFormRegister<T>;
-}
+import {
+  ErrorMessage,
+  InputStyled,
+  InputWrapper,
+} from '@/components/ui/Input/Input.styled';
 
 interface InputProps<T extends FieldValues> {
   placeholder?: string;
-  validation: InputValidationProps<T>;
+  label: Path<T>;
+  register: UseFormRegister<T>;
+  errorMessage?: string;
 }
 
 export const Input = <T extends FieldValues>({
   placeholder,
-  validation,
-}: InputProps<T>) => {
-  const { label, register } = validation;
-
-  return <InputWrapper placeholder={placeholder} {...register(label)} />;
-};
+  label,
+  register,
+  errorMessage,
+}: InputProps<T>) => (
+  <InputWrapper>
+    <InputStyled
+      $isError={errorMessage !== undefined}
+      placeholder={placeholder}
+      {...register(label)}
+    />
+    {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+  </InputWrapper>
+);

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { PrimaryButton } from "@/components/ui/Button/Button.styled";
+import styled from 'styled-components';
+import { PrimaryButton } from '@/components/ui/Button/Button.styled';
 
 export const Form = styled.form`
   position: relative;
@@ -11,16 +11,8 @@ export const Form = styled.form`
   font-size: 16px;
 `;
 
-export const ErrorMessage = styled.span`
-  position: absolute;
-  top: -30px;
-  left: 0;
-  color: #ff0000;
-  font-size: 20px;
-`;
-
 export const Inputs = styled.div`
-  & input {
+  & div {
     margin: 0 0 25px 0;
   }
 `;

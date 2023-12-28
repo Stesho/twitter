@@ -8,7 +8,9 @@ export const SelectWrapper = styled.div`
   font-family: Roboto, sans-serif;
 `;
 
-export const SelectButton = styled.select`
+export const SelectButton = styled.select<{
+  $isError: boolean;
+}>`
   appearance: none;
   -webkit-appearance: none;
 
@@ -18,7 +20,7 @@ export const SelectButton = styled.select`
   align-items: center;
   padding: 21px 20px;
   border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${(props) => (props.$isError ? '#ff0000' : '#00000033')};
   background: #fff;
   font-size: 18px;
   font-weight: 400;
@@ -34,4 +36,13 @@ export const ArrowIcon = styled(ArrowIconSvg)`
   left: 100%;
   transform: translate(-150%, -50%);
   pointer-events: none;
+`;
+
+export const ErrorMessage = styled.span`
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 0;
+  font-size: 14px;
+  color: #ff0000;
 `;
