@@ -44,5 +44,5 @@ export const Signup = styled.span`
 `;
 
 export const LoginButton = styled(PrimaryButton)`
-  margin: 0 0 40px 0;
+  margin: 15px 0 40px 0;
 `;

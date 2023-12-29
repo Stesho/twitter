@@ -37,6 +37,9 @@ export const signupPasswordFormSchema = yup.object({
 export const loginFormSchema = yup.object({
   identifier: yup
     .string()
-    .required(ERROR_MESSAGES.required('Email or phone number')),
-  password: yup.string().required(ERROR_MESSAGES.required('Password')),
+    .required(ERROR_MESSAGES.required('Phone number or email')),
+  password: yup
+    .string()
+    .required(ERROR_MESSAGES.required('Password'))
+    .matches(passwordRegExp, ERROR_MESSAGES.password),
 });

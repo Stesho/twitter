@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input } from '@/components/ui/Input/Input';
 import {
   BackButton,
   Buttons,
+  ErrorMessage,
   Form,
   FormButton,
   Inputs,
@@ -28,17 +29,21 @@ const SignupPasswordForm = ({
   } = useForm({
     resolver: yupResolver(signupPasswordFormSchema),
   });
+  const [isError, setIsError] = useState(false);
 
   const onSubmitForm = (data: SignupPasswordFormData) => {
     const { password, confirmedPassword } = data;
 
     if (password === confirmedPassword) {
       onSubmit(password);
+    } else {
+      setIsError(true);
     }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmitForm)}>
+      {isError && <ErrorMessage>Passwords must be a match</ErrorMessage>}
       <Inputs>
         <Input
           type='password'
