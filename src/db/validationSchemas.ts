@@ -12,6 +12,7 @@ export const signupUserFormSchema = yup
     phoneNumber: yup
       .string()
       .required(ERROR_MESSAGES.required('Phone number'))
+      .max(17, ERROR_MESSAGES.max('Phone number', 17))
       .matches(phoneRegExp, ERROR_MESSAGES.phoneNumber),
     email: yup
       .string()
@@ -27,10 +28,14 @@ export const signupPasswordFormSchema = yup.object({
   password: yup
     .string()
     .required(ERROR_MESSAGES.required('Password'))
+    .min(6, ERROR_MESSAGES.min('Password', 6))
+    .max(16, ERROR_MESSAGES.max('Password', 16))
     .matches(passwordRegExp, ERROR_MESSAGES.password),
   confirmedPassword: yup
     .string()
     .required(ERROR_MESSAGES.required('Confirmed password'))
+    .min(6, ERROR_MESSAGES.min('Password', 6))
+    .max(16, ERROR_MESSAGES.max('Password', 16))
     .matches(passwordRegExp, ERROR_MESSAGES.password),
 });
 
@@ -41,5 +46,7 @@ export const loginFormSchema = yup.object({
   password: yup
     .string()
     .required(ERROR_MESSAGES.required('Password'))
+    .min(6, ERROR_MESSAGES.min('Password', 6))
+    .max(16, ERROR_MESSAGES.max('Password', 16))
     .matches(passwordRegExp, ERROR_MESSAGES.password),
 });
