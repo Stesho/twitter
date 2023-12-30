@@ -10,7 +10,7 @@ import {
   FormButton,
   Inputs,
 } from './SignupPasswordForm.styled';
-import { signupPasswordFormSchema } from '@/constants/validationSchemas';
+import { signupPasswordFormSchema } from '@/db/validationSchemas';
 import { SignupPasswordFormData } from '@/types/forms';
 
 interface SignupPasswordFormProps {

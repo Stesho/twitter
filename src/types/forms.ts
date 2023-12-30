@@ -3,7 +3,7 @@ import {
   loginFormSchema,
   signupPasswordFormSchema,
   signupUserFormSchema,
-} from '@/constants/validationSchemas';
+} from '@/db/validationSchemas';
 
 export type SignupUserFormData = yup.InferType<typeof signupUserFormSchema>;
 

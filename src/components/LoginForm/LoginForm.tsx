@@ -16,7 +16,7 @@ import {
 import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
 import { login } from '@/services/user/login';
 import { setUser } from '@/store/slices/userSlice';
-import { loginFormSchema } from '@/constants/validationSchemas';
+import { loginFormSchema } from '@/db/validationSchemas';
 import { LoginFormData } from '@/types/forms';
 
 export const LoginForm = () => {

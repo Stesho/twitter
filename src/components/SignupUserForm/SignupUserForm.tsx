@@ -15,7 +15,7 @@ import {
 } from './SignupUserForm.styled';
 import { getDate } from '@/utils/getDate';
 import { SignupUserData } from '@/types/user';
-import { signupUserFormSchema } from '@/constants/validationSchemas';
+import { signupUserFormSchema } from '@/db/validationSchemas';
 import { SignupUserFormData } from '@/types/forms';
 import { getDaysInMonth } from '@/utils/getDaysInMonth';
 import { getYearsInRange } from '@/utils/getYearsInRange';
