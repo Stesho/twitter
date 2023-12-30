@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/Button/Button.styled';
 import { ButtonTypes } from '@/types/buttonTypes';
 
-type CommonButtonTypes = 'button' | 'submit' | 'reset' | undefined;
+type CommonButtonTypes = 'button' | 'submit' | 'reset';
 
 interface ButtonProps {
   children: string;

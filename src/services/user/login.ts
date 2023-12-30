@@ -18,7 +18,7 @@ interface LoginData {
 
 export const login = async (loginData: LoginData): Promise<User | null> => {
   try {
-    let field: string = '';
+    let field = '';
 
     if (isEmail(loginData.identifier)) {
       field = 'user.email';

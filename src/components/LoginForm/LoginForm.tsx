@@ -29,7 +29,7 @@ export const LoginForm = () => {
   } = useForm({
     resolver: yupResolver(loginFormSchema),
   });
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isError, setIsError] = useState(false);
 
   const onSubmitForm = async (data: LoginFormData) => {
     const { identifier, password } = data;

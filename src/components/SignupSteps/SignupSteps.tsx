@@ -20,7 +20,7 @@ export const SignupSteps = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState<SignupUserData>(null!);
   const [step, setStep] = useState(0);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isError, setIsError] = useState(false);
 
   const onNextClick = async (user: SignupUserData) => {
     const isUser = await isUserExist(user);
