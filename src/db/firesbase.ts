@@ -1,13 +1,21 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import {
+  API_KEY,
+  APP_ID,
+  AUTH_DOMAIN,
+  MESSAGING_SENDER_ID,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+} from '@/constants/firebase';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCAE-R-f6wUijtaoXuke0zmd3byIgrkXjU",
-  authDomain: "modsen-twitter-f0831.firebaseapp.com",
-  projectId: "modsen-twitter-f0831",
-  storageBucket: "modsen-twitter-f0831.appspot.com",
-  messagingSenderId: "726629435487",
-  appId: "1:726629435487:web:236deb025ded536333f3ea",
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

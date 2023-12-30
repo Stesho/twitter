@@ -1,45 +1,41 @@
-import React, { useState } from "react";
+import React from 'react';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import {
   ArrowIcon,
+  ErrorMessage,
   SelectButton,
-  SelectItem,
-  SelectList,
   SelectWrapper,
-} from "@/components/ui/Select/Select.styled";
-import { useOutsideClick } from "@/hooks/useOutsideClick";
+} from '@/components/ui/Select/Select.styled';
 
-interface SelectProps<T> {
-  options: T[];
-  onChange: (option: T) => void;
+interface SelectProps<T extends FieldValues> {
+  options: string[];
   caption: string;
+  label: Path<T>;
+  register: UseFormRegister<T>;
+  errorMessage?: string;
 }
 
-export const Select = <T,>({ options, onChange, caption }: SelectProps<T>) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<T | null>(null);
-  const select = useOutsideClick(() => setIsOpen(false));
-
-  const setSelected = (option: T) => () => {
-    onChange(option);
-    setSelectedOption(option);
-    setIsOpen(!isOpen);
-  };
-
-  return (
-    <SelectWrapper ref={select}>
-      <SelectButton type="button" onClick={() => setIsOpen(!isOpen)}>
-        <span>{selectedOption?.toString() || caption}</span>
-        <ArrowIcon />
-      </SelectButton>
-      {isOpen && (
-        <SelectList>
-          {options.map((option) => (
-            <SelectItem key={option?.toString()} onClick={setSelected(option)}>
-              {option?.toString()}
-            </SelectItem>
-          ))}
-        </SelectList>
+export const Select = <T extends FieldValues>({
+  options,
+  caption,
+  label,
+  register,
+  errorMessage,
+}: SelectProps<T>) => (
+  <SelectWrapper>
+    <ArrowIcon />
+    <SelectButton $isError={errorMessage !== undefined} {...register(label)}>
+      {caption && (
+        <option value='' disabled selected hidden>
+          {caption}
+        </option>
       )}
-    </SelectWrapper>
-  );
-};
+      {options.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </SelectButton>
+    {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+  </SelectWrapper>
+);

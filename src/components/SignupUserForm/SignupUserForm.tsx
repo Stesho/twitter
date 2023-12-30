@@ -1,7 +1,9 @@
-import React, { FormEvent, useState } from "react";
-import { Input } from "@/components/ui/Input/Input";
-import { Select } from "@/components/ui/Select/Select";
-import { MONTHS } from "@/constants/selectOptions";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Input } from '@/components/ui/Input/Input';
+import { Select } from '@/components/ui/Select/Select';
+import { MONTHS } from '@/constants/selectOptions';
 import {
   Form,
   Inputs,
@@ -10,55 +12,77 @@ import {
   SubTitle,
   Text,
   UseEmail,
-} from "./SignupUserForm.styled";
-import { getDate } from "@/utils/getDate";
-import { SignupUserData } from "@/types/user";
+} from './SignupUserForm.styled';
+import { getDate } from '@/utils/getDate';
+import { SignupUserData } from '@/types/user';
+import { signupUserFormSchema } from '@/db/validationSchemas';
+import { SignupUserFormData } from '@/types/forms';
+import { getDaysInMonth } from '@/utils/getDaysInMonth';
+import { getYearsInRange } from '@/utils/getYearsInRange';
+import { getCurrentYear } from '@/utils/getCurrentYear';
+import { getDateValuesFromISOString } from '@/utils/getDateValuesFromISOString';
 
 interface SignupUserFormProps {
   onSubmit: (user: SignupUserData) => void;
+  initialUserData?: SignupUserData;
 }
 
-export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
-  const [name, setName] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [month, setMonth] = useState<string | null>(null);
-  const [day, setDay] = useState<number | null>(null);
-  const [year, setYear] = useState<number | null>(null);
+export const SignupUserForm = ({
+  onSubmit,
+  initialUserData,
+}: SignupUserFormProps) => {
+  const initialBirthday = getDateValuesFromISOString(
+    initialUserData?.birthday || '',
+  );
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm({
+    resolver: yupResolver(signupUserFormSchema),
+    defaultValues: {
+      name: initialUserData?.name || '',
+      phoneNumber: initialUserData?.phoneNumber || '',
+      email: initialUserData?.email || '',
+      year: initialBirthday.year ? initialBirthday.year.toString() : '',
+      month: initialBirthday.month || '',
+      day: initialBirthday.day ? initialBirthday.day.toString() : '',
+    },
+  });
 
-  const onClickSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
+  const onSubmitForm = (data: SignupUserFormData) => {
+    const { name, phoneNumber, email, year, month, day } = data;
 
-  const onNextClick = async () => {
-    if (year && month && day) {
-      onSubmit({
-        name,
-        phoneNumber,
-        email,
-        birthday: getDate(year, month, day).toISOString(),
-      });
-    }
-  };
-
-  const onSelectYear = (newYear: number) => {
-    setYear(newYear);
-  };
-
-  const onSelectMonth = (newMonth: string) => {
-    setMonth(newMonth);
-  };
-
-  const onSelectDay = (newDay: number) => {
-    setDay(newDay);
+    onSubmit({
+      name,
+      phoneNumber,
+      email,
+      birthday: getDate(year, month, day).toISOString(),
+    });
   };
 
   return (
-    <Form onSubmit={onClickSubmit}>
+    <Form onSubmit={handleSubmit(onSubmitForm)}>
       <Inputs>
-        <Input placeholder="Name" onChange={setName} />
-        <Input placeholder="Phone number" onChange={setPhoneNumber} />
-        <Input placeholder="Email" onChange={setEmail} />
+        <Input
+          placeholder='Name'
+          label='name'
+          register={register}
+          errorMessage={errors.name?.message}
+        />
+        <Input
+          placeholder='Phone number'
+          label='phoneNumber'
+          register={register}
+          errorMessage={errors.phoneNumber?.message}
+        />
+        <Input
+          placeholder='Email'
+          label='email'
+          register={register}
+          errorMessage={errors.email?.message}
+        />
       </Inputs>
       <UseEmail>Use email</UseEmail>
       <SubTitle>Date of birth</SubTitle>
@@ -69,19 +93,32 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
         dignissim eget tellus. Nibh mi massa in molestie a sit. Elit congue
       </Text>
       <Selects>
-        <Select options={MONTHS} caption="Month" onChange={onSelectMonth} />
         <Select
-          options={[1, 2, 3, 4, 5, 6, 7]}
-          caption="Day"
-          onChange={onSelectDay}
+          options={MONTHS}
+          caption='Month'
+          label='month'
+          register={register}
+          errorMessage={errors.month?.message}
         />
         <Select
-          options={[1999, 2000, 2001, 2002, 2003]}
-          caption="Year"
-          onChange={onSelectYear}
+          options={getDaysInMonth(
+            +watch('year') || 2000,
+            MONTHS.indexOf(watch('month')) + 1,
+          )}
+          caption='Day'
+          label='day'
+          register={register}
+          errorMessage={errors.day?.message}
+        />
+        <Select
+          options={getYearsInRange(getCurrentYear() - 100, getCurrentYear())}
+          caption='Year'
+          label='year'
+          register={register}
+          errorMessage={errors.year?.message}
         />
       </Selects>
-      <SubmitButton onClick={onNextClick}>Next</SubmitButton>
+      <SubmitButton type='submit'>Next</SubmitButton>
     </Form>
   );
 };

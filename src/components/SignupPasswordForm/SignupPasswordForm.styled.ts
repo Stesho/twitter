@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { PrimaryButton } from "@/components/ui/Button/Button.styled";
+import styled from 'styled-components';
+import { PrimaryButton } from '@/components/ui/Button/Button.styled';
 
 export const Form = styled.form`
   position: relative;
@@ -20,13 +20,14 @@ export const ErrorMessage = styled.span`
 `;
 
 export const Inputs = styled.div`
-  & input {
+  & div {
     margin: 0 0 25px 0;
   }
 `;
 
 export const Buttons = styled.div`
   display: flex;
+  margin: 20px 0 0 0;
 `;
 
 export const FormButton = styled(PrimaryButton)`

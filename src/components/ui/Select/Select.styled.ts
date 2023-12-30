@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import ArrowIconSvg from "@/assets/icons/arrow.svg?react";
+import styled from 'styled-components';
+import ArrowIconSvg from '@/assets/icons/arrow.svg?react';
 
 export const SelectWrapper = styled.div`
   position: relative;
@@ -8,40 +8,42 @@ export const SelectWrapper = styled.div`
   font-family: Roboto, sans-serif;
 `;
 
-export const SelectButton = styled.button`
+export const ArrowIcon = styled(ArrowIconSvg)`
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  top: 50%;
+  left: 100%;
+  transform: translate(-150%, -50%);
+  pointer-events: none;
+`;
+
+export const SelectButton = styled.select<{
+  $isError: boolean;
+}>`
+  appearance: none;
+  -webkit-appearance: none;
+
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 21px 20px;
   border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid ${(props) => (props.$isError ? '#ff0000' : '#00000033')};
   background: #fff;
   font-size: 18px;
   font-weight: 400;
+  outline: none;
+
   cursor: pointer;
 `;
 
-export const ArrowIcon = styled(ArrowIconSvg)`
-  width: 28px;
-  height: 28px;
-  margin: 0 0 0 40px;
-`;
-
-export const SelectList = styled.ul`
+export const ErrorMessage = styled.span`
   position: absolute;
-  width: 100%;
-  top: calc(100% - 1px);
+  z-index: 1;
+  top: 100%;
   left: 0;
-  background-color: #fff;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-`;
-
-export const SelectItem = styled.li`
-  padding: 10px 20px;
-  cursor: pointer;
-  &:hover {
-    background-color: rgba(29, 161, 242, 0.3);
-  }
+  font-size: 14px;
+  color: #ff0000;
 `;

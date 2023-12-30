@@ -1,7 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { PrimaryButton } from '@/components/ui/Button/Button.styled';
 
 export const Form = styled.form`
   position: relative;
+  max-width: 450px;
+  width: 100%;
 `;
 
 export const TwitterLogo = styled.img`
@@ -26,7 +29,7 @@ export const ErrorMessage = styled.span`
 `;
 
 export const Inputs = styled.div`
-  & input {
+  & div {
     margin: 0 0 25px 0;
   }
 `;
@@ -34,9 +37,12 @@ export const Inputs = styled.div`
 export const Signup = styled.span`
   display: block;
   width: 100%;
-  margin: 40px 0 0 0;
   text-align: right;
   color: #1da1f2;
   font-family: Roboto, sans-serif;
   font-size: 18px;
+`;
+
+export const LoginButton = styled(PrimaryButton)`
+  margin: 15px 0 40px 0;
 `;
