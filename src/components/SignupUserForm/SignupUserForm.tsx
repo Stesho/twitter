@@ -17,6 +17,9 @@ import { getDate } from '@/utils/getDate';
 import { SignupUserData } from '@/types/user';
 import { signupUserFormSchema } from '@/constants/validationSchemas';
 import { SignupUserFormData } from '@/types/forms';
+import { getDaysInMonth } from '@/utils/getDaysInMonth';
+import { getYearsInRange } from '@/utils/getYearsInRange';
+import { getCurrentYear } from '@/utils/getCurrentYear';
 
 interface SignupUserFormProps {
   onSubmit: (user: SignupUserData) => void;
@@ -27,6 +30,7 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm({
     resolver: yupResolver(signupUserFormSchema),
   });
@@ -81,14 +85,17 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
           errorMessage={errors.month?.message}
         />
         <Select
-          options={['1', '2', '3', '4', '5', '6', '7']}
+          options={getDaysInMonth(
+            +watch('year') || 2000,
+            MONTHS.indexOf(watch('month')) + 1,
+          )}
           caption='Day'
           label='day'
           register={register}
           errorMessage={errors.day?.message}
         />
         <Select
-          options={['1999', '2000', '2001', '2002', '2003']}
+          options={getYearsInRange(getCurrentYear() - 100, getCurrentYear())}
           caption='Year'
           label='year'
           register={register}

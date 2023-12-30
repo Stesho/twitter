@@ -31,8 +31,8 @@ export const Select = <T extends FieldValues>({
         </option>
       )}
       {options.map((option) => (
-        <option key={option?.toString()} value={option}>
-          {option?.toString()}
+        <option key={option} value={option}>
+          {option}
         </option>
       ))}
     </SelectButton>

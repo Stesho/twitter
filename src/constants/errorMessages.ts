@@ -8,4 +8,4 @@ export const ERROR_MESSAGES = {
   email: 'Invalid email',
   password:
     'Password should contain: at least one letter, at least one digit, at least one special character (!@#$%^&*)',
-};
+} as const;
