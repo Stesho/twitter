@@ -20,12 +20,20 @@ import { SignupUserFormData } from '@/types/forms';
 import { getDaysInMonth } from '@/utils/getDaysInMonth';
 import { getYearsInRange } from '@/utils/getYearsInRange';
 import { getCurrentYear } from '@/utils/getCurrentYear';
+import { getDateValuesFromISOString } from '@/utils/getDateValuesFromISOString';
 
 interface SignupUserFormProps {
   onSubmit: (user: SignupUserData) => void;
+  initialUserData?: SignupUserData;
 }
 
-export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
+export const SignupUserForm = ({
+  onSubmit,
+  initialUserData,
+}: SignupUserFormProps) => {
+  const initialBirthday = getDateValuesFromISOString(
+    initialUserData?.birthday || '',
+  );
   const {
     register,
     handleSubmit,
@@ -33,6 +41,14 @@ export const SignupUserForm = ({ onSubmit }: SignupUserFormProps) => {
     watch,
   } = useForm({
     resolver: yupResolver(signupUserFormSchema),
+    defaultValues: {
+      name: initialUserData?.name || '',
+      phoneNumber: initialUserData?.phoneNumber || '',
+      email: initialUserData?.email || '',
+      year: initialBirthday.year ? initialBirthday.year.toString() : '',
+      month: initialBirthday.month || '',
+      day: initialBirthday.day ? initialBirthday.day.toString() : '',
+    },
   });
 
   const onSubmitForm = (data: SignupUserFormData) => {

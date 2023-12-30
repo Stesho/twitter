@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import TwitterLogoSrc from "@/assets/images/twitter_logo.png";
-import { SignupUserForm } from "@/components/SignupUserForm/SignupUserForm";
-import SignupPasswordForm from "@/components/SignupPasswordForm/SignupPasswordForm";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
+import { SignupUserForm } from '@/components/SignupUserForm/SignupUserForm';
+import SignupPasswordForm from '@/components/SignupPasswordForm/SignupPasswordForm';
 import {
   ErrorMessage,
   StepsWrapper,
   Title,
   TwitterLogo,
-} from "./SignupSteps.styled";
-import { isUserExist } from "@/services/user/isUserExist";
-import { SignupUserData } from "@/types/user";
-import { signup } from "@/services/user/signup";
-import { setUser } from "@/store/slices/userSlice";
+} from './SignupSteps.styled';
+import { isUserExist } from '@/services/user/isUserExist';
+import { SignupUserData } from '@/types/user';
+import { signup } from '@/services/user/signup';
+import { setUser } from '@/store/slices/userSlice';
 
 export const SignupSteps = () => {
   const dispatch = useDispatch();
@@ -46,18 +46,18 @@ export const SignupSteps = () => {
     }
 
     dispatch(setUser(newUser));
-    return navigate("/profile");
+    return navigate('/profile');
   };
 
   return (
     <StepsWrapper>
-      <TwitterLogo src={TwitterLogoSrc} alt="twitter logo" />
+      <TwitterLogo src={TwitterLogoSrc} alt='twitter logo' />
       <Title>Create an account</Title>
       {isError && (
         <ErrorMessage>User with passed email already exist</ErrorMessage>
       )}
       {step === 0 ? (
-        <SignupUserForm onSubmit={onNextClick} />
+        <SignupUserForm onSubmit={onNextClick} initialUserData={userData} />
       ) : (
         <SignupPasswordForm onBackClick={onBackClick} onSubmit={onSubmit} />
       )}
