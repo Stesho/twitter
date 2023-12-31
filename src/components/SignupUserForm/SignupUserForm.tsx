@@ -21,6 +21,8 @@ import { getDaysInMonth } from '@/utils/getDaysInMonth';
 import { getYearsInRange } from '@/utils/getYearsInRange';
 import { getCurrentYear } from '@/utils/getCurrentYear';
 import { getDateValuesFromISOString } from '@/utils/getDateValuesFromISOString';
+import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
+import { ROUTES } from '@/constants/routes';
 
 interface SignupUserFormProps {
   onSubmit: (user: SignupUserData) => void;
@@ -84,7 +86,9 @@ export const SignupUserForm = ({
           errorMessage={errors.email?.message}
         />
       </Inputs>
-      <UseEmail>Use email</UseEmail>
+      <UseEmail>
+        <NavigateLink to={ROUTES.signup.path}>Use email</NavigateLink>
+      </UseEmail>
       <SubTitle>Date of birth</SubTitle>
       <Text>
         Facilisi sem pulvinar velit nunc, gravida scelerisque amet nibh sit.

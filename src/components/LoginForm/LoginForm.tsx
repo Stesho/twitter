@@ -18,6 +18,8 @@ import { login } from '@/services/user/login';
 import { setUser } from '@/store/slices/userSlice';
 import { loginFormSchema } from '@/db/validationSchemas';
 import { LoginFormData } from '@/types/forms';
+import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
+import { ROUTES } from '@/constants/routes';
 
 export const LoginForm = () => {
   const navigate = useNavigate();
@@ -67,7 +69,9 @@ export const LoginForm = () => {
         />
       </Inputs>
       <LoginButton type='submit'>Log In</LoginButton>
-      <Signup>Sign up to Twitter</Signup>
+      <Signup>
+        <NavigateLink to={ROUTES.signup.path}>Sign up to Twitter</NavigateLink>
+      </Signup>
     </Form>
   );
 };
