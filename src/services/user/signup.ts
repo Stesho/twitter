@@ -1,31 +1,29 @@
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '@/db/firesbase';
-import { Collections } from '@/types/collections';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '@/db/firesbase';
 import { SignupUserData, User } from '@/types/user';
-import { isUserExist } from '@/services/user/isUserExist';
+import { Collections } from '@/types/collections';
 
-export const signup = async (
-  user: SignupUserData,
+export const signup = (
+  userData: SignupUserData,
   password: string,
-): Promise<User | null> => {
-  try {
-    const isUser = await isUserExist(user);
+): Promise<User | null> =>
+  createUserWithEmailAndPassword(auth, userData.email, password)
+    .then(async (userCredential) => {
+      const { uid, displayName, email, phoneNumber } = userCredential.user;
 
-    if (isUser) {
+      await setDoc(doc(db, Collections.Users, uid), userData);
+
+      return {
+        id: uid,
+        name: displayName || '',
+        email: email || '',
+        phoneNumber: phoneNumber || '',
+        birthday: '',
+      };
+    })
+    .catch((error) => {
+      console.error(error.code, error.message);
+
       return null;
-    }
-
-    const newUser = await addDoc(collection(db, Collections.Users), {
-      user,
-      password,
     });
-
-    return {
-      ...user,
-      id: newUser.id,
-    };
-  } catch (error) {
-    console.error('Error adding document: ', error);
-    return null;
-  }
-};

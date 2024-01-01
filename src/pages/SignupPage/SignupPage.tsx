@@ -20,6 +20,7 @@ import {
 import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
 import { ROUTES } from '@/constants/routes';
 import { FOOTER_LINKS } from '@/constants/footerLinks';
+import { signupWithGoogle } from '@/services/user/signupWithGoogle';
 
 export const SignupPage = () => (
   <div>
@@ -29,7 +30,7 @@ export const SignupPage = () => (
         <TwitterLogo src={TwitterIcon} alt='twitter logo' />
         <Title>Happening now</Title>
         <SubTitle>Join Twitter today</SubTitle>
-        <GoogleSignUpButton>
+        <GoogleSignUpButton onClick={signupWithGoogle}>
           <GoogleLogo src={GoogleIcon} alt='google' />
           <span>Sign up with Google</span>
         </GoogleSignUpButton>
@@ -51,7 +52,9 @@ export const SignupPage = () => (
     </Content>
     <Footer>
       {FOOTER_LINKS.map(({ text, link }) => (
-        <a href={link}>{text}</a>
+        <a key={text} href={link}>
+          {text}
+        </a>
       ))}
     </Footer>
   </div>
