@@ -1,14 +1,18 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const Item = styled.li`
-  display: flex;
-  align-items: center;
   margin: 0 0 10px 0;
   padding: 10px 0;
   cursor: pointer;
   &:hover {
     font-weight: 600;
   }
+`;
+
+export const ItemLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
 `;
 
 export const Icon = styled.img`

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/Input/Input';
 import {
@@ -15,13 +14,13 @@ import {
 } from './LoginForm.styled';
 import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
 import { login } from '@/services/user/login';
-import { setUser } from '@/store/slices/userSlice';
-import { loginFormSchema } from '@/db/validationSchemas';
+import { loginFormSchema } from '@/constants/validationSchemas';
 import { LoginFormData } from '@/types/forms';
+import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
+import { ROUTES } from '@/constants/routes';
 
 export const LoginForm = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -43,7 +42,6 @@ export const LoginForm = () => {
       return setIsError(true);
     }
 
-    dispatch(setUser(userData));
     return navigate('/profile');
   };
 
@@ -60,6 +58,7 @@ export const LoginForm = () => {
           errorMessage={errors.identifier?.message}
         />
         <Input
+          type='password'
           placeholder='Password'
           label='password'
           register={register}
@@ -67,7 +66,9 @@ export const LoginForm = () => {
         />
       </Inputs>
       <LoginButton type='submit'>Log In</LoginButton>
-      <Signup>Sign up to Twitter</Signup>
+      <Signup>
+        <NavigateLink to={ROUTES.signup.path}>Sign up to Twitter</NavigateLink>
+      </Signup>
     </Form>
   );
 };

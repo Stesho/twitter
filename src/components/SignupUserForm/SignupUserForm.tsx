@@ -15,12 +15,14 @@ import {
 } from './SignupUserForm.styled';
 import { getDate } from '@/utils/getDate';
 import { SignupUserData } from '@/types/user';
-import { signupUserFormSchema } from '@/db/validationSchemas';
+import { signupUserFormSchema } from '@/constants/validationSchemas';
 import { SignupUserFormData } from '@/types/forms';
 import { getDaysInMonth } from '@/utils/getDaysInMonth';
 import { getYearsInRange } from '@/utils/getYearsInRange';
 import { getCurrentYear } from '@/utils/getCurrentYear';
 import { getDateValuesFromISOString } from '@/utils/getDateValuesFromISOString';
+import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
+import { ROUTES } from '@/constants/routes';
 
 interface SignupUserFormProps {
   onSubmit: (user: SignupUserData) => void;
@@ -84,7 +86,9 @@ export const SignupUserForm = ({
           errorMessage={errors.email?.message}
         />
       </Inputs>
-      <UseEmail>Use email</UseEmail>
+      <UseEmail>
+        <NavigateLink to={ROUTES.signup.path}>Use email</NavigateLink>
+      </UseEmail>
       <SubTitle>Date of birth</SubTitle>
       <Text>
         Facilisi sem pulvinar velit nunc, gravida scelerisque amet nibh sit.
@@ -104,14 +108,17 @@ export const SignupUserForm = ({
           options={getDaysInMonth(
             +watch('year') || 2000,
             MONTHS.indexOf(watch('month')) + 1,
-          )}
+          ).reverse()}
           caption='Day'
           label='day'
           register={register}
           errorMessage={errors.day?.message}
         />
         <Select
-          options={getYearsInRange(getCurrentYear() - 100, getCurrentYear())}
+          options={getYearsInRange(
+            getCurrentYear() - 100,
+            getCurrentYear(),
+          ).reverse()}
           caption='Year'
           label='year'
           register={register}

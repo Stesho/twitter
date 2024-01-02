@@ -1,15 +1,11 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import { SignupPage } from "@/pages/SignUpPage/SignupPage";
-import { LoginPage } from "@/pages/LoginPage/LoginPage";
-import { ProfilePage } from "@/pages/ProfilePage/ProfilePage";
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { ROUTES } from '@/constants/routes';
 
 export const RootRoute = () => (
   <Routes>
-    <Route path="/" element={<LoginPage />} />
-    <Route path="/signup" element={<SignupPage />} />
-    <Route path="/login" element={<LoginPage />} />
-    <Route path="/profile" element={<ProfilePage />} />
-    <Route path="*" element={<div>Not found</div>} />
+    {Object.values(ROUTES).map(({ path, element }) => (
+      <Route key={path} path={path} element={element} />
+    ))}
   </Routes>
 );

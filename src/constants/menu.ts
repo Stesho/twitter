@@ -12,40 +12,48 @@ export const MENU_ITEMS = [
     iconUrl: HomeIcon,
     alt: 'Home',
     caption: 'Home',
+    link: '/',
   },
   {
     iconUrl: ExploreIcon,
     alt: 'Explore',
     caption: 'Explore',
+    link: '/',
   },
   {
     iconUrl: NotificationIcon,
     alt: 'Notifications',
     caption: 'Notifications',
+    link: '/',
   },
   {
     iconUrl: MessagesIcon,
     alt: 'Messages',
     caption: 'Messages',
+    link: '/',
   },
   {
     iconUrl: BookmarksIcon,
     alt: 'Bookmarks',
     caption: 'Bookmarks',
+    link: '/',
   },
   {
     iconUrl: ListsIcon,
     alt: 'Lists',
     caption: 'Lists',
+    link: '/',
   },
   {
     iconUrl: ProfileIcon,
     alt: 'Profile',
     caption: 'Profile',
+    link: '/profile',
   },
   {
     iconUrl: MoreIcon,
     alt: 'More',
     caption: 'More',
+    link: '/',
   },
-] as const;
+];

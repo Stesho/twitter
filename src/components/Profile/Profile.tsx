@@ -31,6 +31,8 @@ import { addTweet, setTweets } from '@/store/slices/tweetsSlice';
 import { Tweet as TweetType } from '@/types/tweet';
 import { Tweet } from '@/components/ui/Tweet/Tweet';
 import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
+import { userSelector } from '@/store/selectors/userSelectors';
+import { Loader } from '@/components/ui/Loader/Loader';
 
 interface ProfileProps {
   user: User;
@@ -39,6 +41,7 @@ interface ProfileProps {
 export const Profile = ({ user }: ProfileProps) => {
   const dispatch = useDispatch();
   const tweetsStore = useSelector(tweetsSelector);
+  const userStore = useSelector(userSelector);
 
   const onTweet = async (text: string) => {
     const tweet = await sendTweet({
@@ -59,6 +62,14 @@ export const Profile = ({ user }: ProfileProps) => {
       }
     });
   }, [user, dispatch]);
+
+  if (!userStore.user) {
+    return (
+      <ProfileWrapper>
+        <Loader />
+      </ProfileWrapper>
+    );
+  }
 
   return (
     <ProfileWrapper>

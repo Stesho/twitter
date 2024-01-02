@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
 import { SignupUserForm } from '@/components/SignupUserForm/SignupUserForm';
@@ -13,10 +12,8 @@ import {
 import { isUserExist } from '@/services/user/isUserExist';
 import { SignupUserData } from '@/types/user';
 import { signup } from '@/services/user/signup';
-import { setUser } from '@/store/slices/userSlice';
 
 export const SignupSteps = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [userData, setUserData] = useState<SignupUserData>(null!);
   const [step, setStep] = useState(0);
@@ -45,7 +42,7 @@ export const SignupSteps = () => {
       return setIsError(true);
     }
 
-    dispatch(setUser(newUser));
+    // dispatch(setUser(newUser));
     return navigate('/profile');
   };
 
