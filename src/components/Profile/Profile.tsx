@@ -32,6 +32,7 @@ import { Tweet as TweetType } from '@/types/tweet';
 import { Tweet } from '@/components/ui/Tweet/Tweet';
 import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { userSelector } from '@/store/selectors/userSelectors';
+import { Loader } from '@/components/ui/Loader/Loader';
 
 interface ProfileProps {
   user: User;
@@ -63,7 +64,11 @@ export const Profile = ({ user }: ProfileProps) => {
   }, [user, dispatch]);
 
   if (!userStore.user) {
-    return <div>Loading...</div>;
+    return (
+      <ProfileWrapper>
+        <Loader />
+      </ProfileWrapper>
+    );
   }
 
   return (
