@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { User } from '@/types/user';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
@@ -33,6 +33,7 @@ import { Tweet } from '@/components/ui/Tweet/Tweet';
 import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { userSelector } from '@/store/selectors/userSelectors';
 import { Loader } from '@/components/ui/Loader/Loader';
+import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
 
 interface ProfileProps {
   user: User;
@@ -42,6 +43,7 @@ export const Profile = ({ user }: ProfileProps) => {
   const dispatch = useDispatch();
   const tweetsStore = useSelector(tweetsSelector);
   const userStore = useSelector(userSelector);
+  const [isModalActive, setIsModalActive] = useState(false);
 
   const onTweet = async (text: string) => {
     const tweet = await sendTweet({
@@ -53,6 +55,14 @@ export const Profile = ({ user }: ProfileProps) => {
     if (tweet) {
       dispatch(addTweet(tweet));
     }
+  };
+
+  const openModal = () => {
+    setIsModalActive(true);
+  };
+
+  const closeModal = () => {
+    setIsModalActive(false);
   };
 
   useEffect(() => {
@@ -97,7 +107,7 @@ export const Profile = ({ user }: ProfileProps) => {
               </div>
             </Followers>
           </MainInfo>
-          <EditButton onClick={() => {}} styleType={ButtonTypes.Neutral}>
+          <EditButton onClick={openModal} styleType={ButtonTypes.Neutral}>
             Edit profile
           </EditButton>
         </ProfileBar>
@@ -118,6 +128,7 @@ export const Profile = ({ user }: ProfileProps) => {
         )}
       </div>
       <Border />
+      {isModalActive && <ProfileEditModal user={user} onClose={closeModal} />}
     </ProfileWrapper>
   );
 };
