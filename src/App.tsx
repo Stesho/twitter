@@ -14,8 +14,10 @@ export const App = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (userData) => {
       if (userData) {
-        const user = await getDoc(doc(db, Collections.Users, userData.uid));
-        dispatch(setUser(user.data() as User));
+        const userDoc = await getDoc(doc(db, Collections.Users, userData.uid));
+        const userInfo = userDoc.data() as User;
+
+        dispatch(setUser({ ...userInfo, id: userData.uid }));
       } else {
         dispatch(setUser(null));
       }
