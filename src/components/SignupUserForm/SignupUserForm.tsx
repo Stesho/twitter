@@ -108,14 +108,17 @@ export const SignupUserForm = ({
           options={getDaysInMonth(
             +watch('year') || 2000,
             MONTHS.indexOf(watch('month')) + 1,
-          )}
+          ).reverse()}
           caption='Day'
           label='day'
           register={register}
           errorMessage={errors.day?.message}
         />
         <Select
-          options={getYearsInRange(getCurrentYear() - 100, getCurrentYear())}
+          options={getYearsInRange(
+            getCurrentYear() - 100,
+            getCurrentYear(),
+          ).reverse()}
           caption='Year'
           label='year'
           register={register}

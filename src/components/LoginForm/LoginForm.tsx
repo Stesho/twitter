@@ -42,8 +42,6 @@ export const LoginForm = () => {
       return setIsError(true);
     }
 
-    console.log(userData);
-    // dispatch(setUser(userData));
     return navigate('/profile');
   };
 
@@ -60,6 +58,7 @@ export const LoginForm = () => {
           errorMessage={errors.identifier?.message}
         />
         <Input
+          type='password'
           placeholder='Password'
           label='password'
           register={register}

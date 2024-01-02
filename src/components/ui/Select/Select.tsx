@@ -24,9 +24,13 @@ export const Select = <T extends FieldValues>({
 }: SelectProps<T>) => (
   <SelectWrapper>
     <ArrowIcon />
-    <SelectButton $isError={errorMessage !== undefined} {...register(label)}>
+    <SelectButton
+      $isError={errorMessage !== undefined}
+      {...register(label)}
+      defaultValue={caption}
+    >
       {caption && (
-        <option value='' disabled selected hidden>
+        <option value='' disabled hidden>
           {caption}
         </option>
       )}
