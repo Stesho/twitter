@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DefaultAvatar from '@/assets/images/default_avatar.png';
 import {
   TweetAuthorImg,
@@ -10,6 +10,8 @@ import {
   TweetHead,
   TweetLikeButton,
   TweetLikes,
+  TweetPopup,
+  TweetPopupButton,
   TweetText,
   TweetWrapper,
 } from '@/components/ui/Tweet/Tweet.styled';
@@ -23,30 +25,44 @@ interface TweetProps {
   date: string;
 }
 
-export const Tweet = ({ iconUrl, username, name, text, date }: TweetProps) => (
-  <TweetWrapper>
-    <TweetAuthorImg src={iconUrl || DefaultAvatar} alt='avatar' />
-    <TweetContent>
-      <TweetHead>
+export const Tweet = ({ iconUrl, username, name, text, date }: TweetProps) => {
+  const [isPopupActive, setIsPopupActive] = useState(false);
+
+  const togglePopup = () => {
+    setIsPopupActive(!isPopupActive);
+  };
+
+  return (
+    <TweetWrapper>
+      <TweetAuthorImg src={iconUrl || DefaultAvatar} alt='avatar' />
+      <TweetContent>
+        <TweetHead>
+          <div>
+            <TweetAuthorName>{name}</TweetAuthorName>
+            <TweetAuthorUsername>
+              {username} · {date}
+            </TweetAuthorUsername>
+          </div>
+          <TweetDots onClick={togglePopup}>
+            <TweetDot />
+            <TweetDot />
+            <TweetDot />
+          </TweetDots>
+        </TweetHead>
+        <TweetText>{text}</TweetText>
         <div>
-          <TweetAuthorName>{name}</TweetAuthorName>
-          <TweetAuthorUsername>
-            {username} · {date}
-          </TweetAuthorUsername>
+          <TweetLikeButton>
+            <LikeIcon />
+            <TweetLikes>8</TweetLikes>
+          </TweetLikeButton>
         </div>
-        <TweetDots>
-          <TweetDot />
-          <TweetDot />
-          <TweetDot />
-        </TweetDots>
-      </TweetHead>
-      <TweetText>{text}</TweetText>
-      <div>
-        <TweetLikeButton>
-          <LikeIcon />
-          <TweetLikes>8</TweetLikes>
-        </TweetLikeButton>
-      </div>
-    </TweetContent>
-  </TweetWrapper>
-);
+      </TweetContent>
+      {isPopupActive && (
+        <TweetPopup>
+          <TweetPopupButton>Delete</TweetPopupButton>
+          <TweetPopupButton>Edit</TweetPopupButton>
+        </TweetPopup>
+      )}
+    </TweetWrapper>
+  );
+};

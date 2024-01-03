@@ -39,7 +39,10 @@ export const NewTweet = ({ iconUrl, onTweet }: NewTweetProps) => {
         />
         <NewTweetMedia>
           <NewTweetMediaIcon src={MediaImg} alt='media' />
-          <NewTweetButton disabled={text.length < 1} onClick={onTweetClick}>
+          <NewTweetButton
+            disabled={text.trim().length < 1}
+            onClick={onTweetClick}
+          >
             Tweet
           </NewTweetButton>
         </NewTweetMedia>

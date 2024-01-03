@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const TweetWrapper = styled.div`
+  position: relative;
   display: flex;
   max-width: 909px;
   padding: 10px 34px 20px 34px;
@@ -82,4 +83,24 @@ export const TweetLikes = styled.span`
   margin: 0 0 0 10px;
   color: #536471;
   font-size: 16px;
+`;
+
+export const TweetPopup = styled.div`
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transform: translate(-120%, 50%);
+  border: 1px solid #a0a0a0;
+  border-radius: 8px;
+`;
+
+export const TweetPopupButton = styled.button`
+  width: 100%;
+  padding: 5px 15px;
+  text-align: start;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(29, 161, 242, 0.3);
+  }
 `;
