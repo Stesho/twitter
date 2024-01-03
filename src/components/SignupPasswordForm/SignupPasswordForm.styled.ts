@@ -11,14 +11,6 @@ export const Form = styled.form`
   font-size: 16px;
 `;
 
-export const ErrorMessage = styled.span`
-  position: absolute;
-  top: -35px;
-  left: 0;
-  color: #ff0000;
-  font-size: 20px;
-`;
-
 export const Inputs = styled.div`
   & div {
     margin: 0 0 25px 0;

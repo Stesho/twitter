@@ -12,3 +12,5 @@ export type SignupPasswordFormData = yup.InferType<
 >;
 
 export type LoginFormData = yup.InferType<typeof loginFormSchema>;
+
+export type EditUserFormData = yup.InferType<typeof signupUserFormSchema>;
