@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Modal } from '@/components/ui/Modal/Modal';
 import { User } from '@/types/user';
@@ -15,6 +16,9 @@ import { Buttons, Form, SaveButton, Selects } from './ProfileEditModal.styled';
 import { Button } from '@/components/ui/Button/Button';
 import { EditUserFormData } from '@/types/forms';
 import { getDate } from '@/utils/getDate';
+import { updateUser } from '@/services/user/updateUser';
+import { ERROR_MESSAGES } from '@/constants/errorMessages';
+import { setUser } from '@/store/slices/userSlice';
 
 interface ProfileEditModalProps {
   onClose: () => void;
@@ -22,12 +26,14 @@ interface ProfileEditModalProps {
 }
 
 export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
+  const dispatch = useDispatch();
   const { year, month, day } = getDateValuesFromISOString(user.birthday);
   const {
     register,
     handleSubmit,
     watch,
     reset,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signupUserFormSchema),
@@ -45,14 +51,24 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
     reset();
   };
 
-  const onSubmitForm = (data: EditUserFormData) => {
+  const onSubmitForm = async (data: EditUserFormData) => {
     const { name, phoneNumber, email } = data;
-    console.log({
+    const newUser = await updateUser({
+      id: user.id,
       name,
       phoneNumber,
       email,
       birthday: getDate(data.year, data.month, data.day).toISOString(),
     });
+
+    if (newUser === null) {
+      return setError('email', {
+        message: ERROR_MESSAGES.emailNotVerified,
+      });
+    }
+
+    dispatch(setUser(newUser));
+    return onClose();
   };
 
   return (

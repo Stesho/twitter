@@ -6,6 +6,8 @@ export const ERROR_MESSAGES = {
     `${field} must be at most ${len} characters`,
   phoneNumber: 'Invalid phone number',
   email: 'Invalid email',
+  emailNotVerified: 'Email not verified',
+  confirmedPassword: 'Passwords must be a match',
   password:
     'Password should contain: at least one letter, at least one digit, at least one special character (!@#$%^&*)',
 } as const;

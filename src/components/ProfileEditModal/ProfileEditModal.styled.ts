@@ -6,6 +6,9 @@ export const Form = styled.form`
   & > div {
     margin: 0 0 25px 0;
   }
+  & > div:last-child {
+    margin: 0;
+  }
 `;
 
 export const Selects = styled.div`
