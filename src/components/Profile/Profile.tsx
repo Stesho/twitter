@@ -15,6 +15,7 @@ import {
   HeadTweets,
   MainInfo,
   Name,
+  NoTweets,
   Occupation,
   ProfileBar,
   ProfileWrapper,
@@ -114,7 +115,7 @@ export const Profile = ({ user }: ProfileProps) => {
         <NewTweet onTweet={onTweet} />
         <TweetsTitle>Tweets</TweetsTitle>
         {tweetsStore.tweets.length === 0 ? (
-          <div>There are no tweets yet</div>
+          <NoTweets>There are no tweets yet</NoTweets>
         ) : (
           tweetsStore.tweets.map((tweet: TweetType) => (
             <Tweet
