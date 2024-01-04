@@ -24,7 +24,7 @@ import ProfileBg from '@/assets/images/profile_bg.jpg';
 import DefaultAvatar from '@/assets/images/default_avatar_big.png';
 import { ButtonTypes } from '@/types/buttonTypes';
 import { sendTweet } from '@/services/tweets/sendTweet';
-import { getTweets } from '@/services/tweets/getTweets';
+import { getUserTweets } from '@/services/tweets/getUserTweets';
 import { Tweet as TweetType } from '@/types/tweet';
 import { userSelector } from '@/store/selectors/userSelectors';
 import { Loader } from '@/components/ui/Loader/Loader';
@@ -105,7 +105,7 @@ export const Profile = ({ user }: ProfileProps) => {
 
   useEffect(() => {
     setIsTweetsLoading(true);
-    getTweets(user).then((tweetsData) => {
+    getUserTweets(user).then((tweetsData) => {
       if (tweetsData) {
         setTweets(tweetsData);
       }

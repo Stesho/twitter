@@ -17,7 +17,7 @@ export const Menu = () => {
 
   const logoutUser = async () => {
     await logout();
-    navigate(ROUTES.home.path);
+    navigate(ROUTES.signup.path);
   };
 
   return (
