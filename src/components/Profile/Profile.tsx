@@ -15,7 +15,6 @@ import {
   HeadTweets,
   MainInfo,
   Name,
-  NoTweets,
   Occupation,
   ProfileBar,
   ProfileWrapper,
@@ -28,12 +27,12 @@ import { ButtonTypes } from '@/types/buttonTypes';
 import { sendTweet } from '@/services/tweets/sendTweet';
 import { getTweets } from '@/services/tweets/getTweets';
 import { Tweet as TweetType } from '@/types/tweet';
-import { Tweet } from '@/components/ui/Tweet/Tweet';
 import { userSelector } from '@/store/selectors/userSelectors';
 import { Loader } from '@/components/ui/Loader/Loader';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
 import { deleteTweet } from '@/services/tweets/deleteTweet';
 import { updateTweet } from '@/services/tweets/updateTweet';
+import { Tweets } from '@/components/ui/Tweets/Tweets';
 
 interface ProfileProps {
   user: User;
@@ -44,6 +43,7 @@ export const Profile = ({ user }: ProfileProps) => {
   const userStore = useSelector(userSelector);
   const [tweets, setTweets] = useState<TweetType[]>([]);
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isTweetsLoading, setIsTweetsLoading] = useState(false);
 
   const onTweet = async (text: string) => {
     const tweet = await sendTweet({
@@ -66,7 +66,7 @@ export const Profile = ({ user }: ProfileProps) => {
     setIsModalActive(false);
   };
 
-  const onDeleteTweet = (tweetId: string) => async () => {
+  const onDeleteTweet = async (tweetId: string) => {
     const deletedTweet = await deleteTweet(tweetId);
 
     if (deletedTweet === null) {
@@ -105,10 +105,12 @@ export const Profile = ({ user }: ProfileProps) => {
   };
 
   useEffect(() => {
+    setIsTweetsLoading(true);
     getTweets(user).then((tweetsData) => {
       if (tweetsData) {
         setTweets(tweetsData);
       }
+      setIsTweetsLoading(false);
     });
   }, [user, dispatch]);
 
@@ -152,19 +154,13 @@ export const Profile = ({ user }: ProfileProps) => {
         </ProfileBar>
         <NewTweet onTweet={onTweet} />
         <TweetsTitle>Tweets</TweetsTitle>
-        {tweets.length === 0 ? (
-          <NoTweets>There are no tweets yet</NoTweets>
-        ) : (
-          tweets.map((tweet: TweetType) => (
-            <Tweet
-              key={tweet.id}
-              tweet={tweet}
-              onDeleteTweet={onDeleteTweet(tweet.id)}
-              onUpdateTweet={onUpdateTweet}
-              onLike={onLike}
-            />
-          ))
-        )}
+        <Tweets
+          tweets={tweets}
+          onDeleteTweet={onDeleteTweet}
+          onUpdateTweet={onUpdateTweet}
+          onLike={onLike}
+          isLoading={isTweetsLoading}
+        />
       </div>
       <Border />
       {isModalActive && <ProfileEditModal user={user} onClose={closeModal} />}

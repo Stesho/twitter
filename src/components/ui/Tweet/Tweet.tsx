@@ -25,9 +25,9 @@ import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { Tweet as TweetType } from '@/types/tweet';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 
-interface TweetProps {
+export interface TweetProps {
   tweet: TweetType;
-  onDeleteTweet: () => void;
+  onDeleteTweet: (tweetId: string) => void;
   onUpdateTweet: (newTweet: TweetType) => void;
   onLike: (tweet: TweetType) => void;
 }
@@ -62,6 +62,8 @@ export const Tweet = ({
     setIsPopupActive(false);
   };
   const editingModeOff = () => setIsEditingMode(false);
+
+  const onDelete = () => onDeleteTweet(tweet.id);
 
   const onUpdate = () => {
     onUpdateTweet({
@@ -110,7 +112,7 @@ export const Tweet = ({
       </TweetContent>
       {isPopupActive && (
         <TweetPopup ref={popupRef}>
-          <TweetPopupButton onClick={onDeleteTweet}>Delete</TweetPopupButton>
+          <TweetPopupButton onClick={onDelete}>Delete</TweetPopupButton>
           <TweetPopupButton onClick={editingModeOn}>Edit</TweetPopupButton>
         </TweetPopup>
       )}

@@ -124,10 +124,3 @@ export const TweetsTitle = styled.div`
   font-weight: 700;
   border-bottom: 1px solid #d8d8d8;
 `;
-
-export const NoTweets = styled.div`
-  width: 100%;
-  text-align: center;
-  font-size: 26px;
-  font-weight: 600;
-`;
