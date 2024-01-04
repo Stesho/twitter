@@ -3,11 +3,12 @@ import { LoginPage } from '@/pages/LoginPage/LoginPage';
 import { SignupWithEmailPage } from '@/pages/SignupWithEmailPage/SignupWithEmailPage';
 import { SignupPage } from '@/pages/SignupPage/SignupPage';
 import { ProfilePage } from '@/pages/ProfilePage/ProfilePage';
+import { HomePage } from '@/pages/HomePage/HomePage';
 
 export const ROUTES = {
   home: {
-    path: '/',
-    element: <SignupPage />,
+    path: '/home',
+    element: <HomePage />,
   },
   signupEmail: {
     path: '/signup-email',

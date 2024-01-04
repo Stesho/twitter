@@ -12,7 +12,7 @@ export const MENU_ITEMS = [
     iconUrl: HomeIcon,
     alt: 'Home',
     caption: 'Home',
-    link: '/',
+    link: '/home',
   },
   {
     iconUrl: ExploreIcon,

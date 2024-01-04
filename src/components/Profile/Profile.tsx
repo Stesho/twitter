@@ -5,7 +5,6 @@ import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import {
   Avatar,
   BgImg,
-  Border,
   EditButton,
   Followers,
   FollowersCaption,
@@ -124,7 +123,6 @@ export const Profile = ({ user }: ProfileProps) => {
 
   return (
     <ProfileWrapper>
-      <Border />
       <div>
         <Head>
           <HeadName>{user.name}</HeadName>
@@ -162,7 +160,6 @@ export const Profile = ({ user }: ProfileProps) => {
           isLoading={isTweetsLoading}
         />
       </div>
-      <Border />
       {isModalActive && <ProfileEditModal user={user} onClose={closeModal} />}
     </ProfileWrapper>
   );
