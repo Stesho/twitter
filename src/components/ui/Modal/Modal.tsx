@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 import { Portal } from '@/components/ui/Portal/Portal';
 import { CloseButton, Content, Overlay } from './Modal.styled';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 interface ModalProps {
   id: string;
@@ -9,6 +10,8 @@ interface ModalProps {
 }
 
 export const Modal = ({ id, onClose, children }: ModalProps) => {
+  const modalRef = useOutsideClick(onClose);
+
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -19,7 +22,7 @@ export const Modal = ({ id, onClose, children }: ModalProps) => {
   return (
     <Portal id={id}>
       <Overlay>
-        <Content>
+        <Content ref={modalRef}>
           <CloseButton onClick={onClose} type='button'>
             ✖
           </CloseButton>

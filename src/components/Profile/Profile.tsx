@@ -26,14 +26,13 @@ import DefaultAvatar from '@/assets/images/default_avatar_big.png';
 import { ButtonTypes } from '@/types/buttonTypes';
 import { sendTweet } from '@/services/tweets/sendTweet';
 import { getTweets } from '@/services/tweets/getTweets';
-import { tweetsSelector } from '@/store/selectors/tweetsSelectors';
-import { addTweet, setTweets } from '@/store/slices/tweetsSlice';
 import { Tweet as TweetType } from '@/types/tweet';
-import { Tweet } from '@/components/ui/Tweet/Tweet';
-import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { userSelector } from '@/store/selectors/userSelectors';
 import { Loader } from '@/components/ui/Loader/Loader';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
+import { deleteTweet } from '@/services/tweets/deleteTweet';
+import { updateTweet } from '@/services/tweets/updateTweet';
+import { Tweets } from '@/components/ui/Tweets/Tweets';
 
 interface ProfileProps {
   user: User;
@@ -41,19 +40,21 @@ interface ProfileProps {
 
 export const Profile = ({ user }: ProfileProps) => {
   const dispatch = useDispatch();
-  const tweetsStore = useSelector(tweetsSelector);
   const userStore = useSelector(userSelector);
+  const [tweets, setTweets] = useState<TweetType[]>([]);
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isTweetsLoading, setIsTweetsLoading] = useState(false);
 
   const onTweet = async (text: string) => {
     const tweet = await sendTweet({
       text,
       date: new Date().toISOString(),
       author: user,
+      likes: [],
     });
 
     if (tweet) {
-      dispatch(addTweet(tweet));
+      setTweets((prevTweets) => [tweet, ...prevTweets]);
     }
   };
 
@@ -65,11 +66,51 @@ export const Profile = ({ user }: ProfileProps) => {
     setIsModalActive(false);
   };
 
+  const onDeleteTweet = async (tweetId: string) => {
+    const deletedTweet = await deleteTweet(tweetId);
+
+    if (deletedTweet === null) {
+      return null;
+    }
+
+    return setTweets((prevTweets) => [
+      ...prevTweets.filter((tweet) => tweet.id !== tweetId),
+    ]);
+  };
+
+  const onUpdateTweet = async (newTweet: TweetType) => {
+    const updatedTweet = await updateTweet(newTweet);
+
+    if (updatedTweet === null) {
+      return null;
+    }
+
+    return setTweets((prevTweets) => [
+      ...prevTweets.map((tweet) =>
+        tweet.id === newTweet.id ? newTweet : tweet,
+      ),
+    ]);
+  };
+
+  const onLike = async (tweet: TweetType) => {
+    const newLikes =
+      tweet.likes.indexOf(user.id) !== -1
+        ? [...tweet.likes.filter((userId) => userId !== user.id)]
+        : [user.id, ...tweet.likes];
+
+    await onUpdateTweet({
+      ...tweet,
+      likes: newLikes,
+    });
+  };
+
   useEffect(() => {
-    getTweets(user).then((tweets) => {
-      if (tweets) {
-        dispatch(setTweets(tweets));
+    setIsTweetsLoading(true);
+    getTweets(user).then((tweetsData) => {
+      if (tweetsData) {
+        setTweets(tweetsData);
       }
+      setIsTweetsLoading(false);
     });
   }, [user, dispatch]);
 
@@ -87,7 +128,7 @@ export const Profile = ({ user }: ProfileProps) => {
       <div>
         <Head>
           <HeadName>{user.name}</HeadName>
-          <HeadTweets>{tweetsStore.tweets.length} Tweets</HeadTweets>
+          <HeadTweets>{tweets.length} Tweets</HeadTweets>
         </Head>
         <BgImg src={ProfileBg} alt='background' />
         <ProfileBar>
@@ -113,19 +154,13 @@ export const Profile = ({ user }: ProfileProps) => {
         </ProfileBar>
         <NewTweet onTweet={onTweet} />
         <TweetsTitle>Tweets</TweetsTitle>
-        {tweetsStore.tweets.length === 0 ? (
-          <div>There are no tweets yet</div>
-        ) : (
-          tweetsStore.tweets.map((tweet: TweetType) => (
-            <Tweet
-              key={JSON.stringify(tweet)}
-              name={tweet.author.name}
-              username='username'
-              text={tweet.text}
-              date={fromISOStringToReadable(tweet.date)}
-            />
-          ))
-        )}
+        <Tweets
+          tweets={tweets}
+          onDeleteTweet={onDeleteTweet}
+          onUpdateTweet={onUpdateTweet}
+          onLike={onLike}
+          isLoading={isTweetsLoading}
+        />
       </div>
       <Border />
       {isModalActive && <ProfileEditModal user={user} onClose={closeModal} />}
