@@ -39,17 +39,6 @@ export const updateUser = async (userData: User) => {
     });
   });
 
-  // const profileRes = await updateProfile(auth.currentUser!, {
-  //   displayName: userData.name,
-  // }).catch((error) => {
-  //   console.error(error);
-  //   return null;
-  // });
-
-  // if (profileRes === null) {
-  //   return null;
-  // }
-
   const updatedUser: SignupUserData = {
     name: userData.name,
     email: userData.email,

@@ -29,11 +29,11 @@ import { sendTweet } from '@/services/tweets/sendTweet';
 import { getTweets } from '@/services/tweets/getTweets';
 import { Tweet as TweetType } from '@/types/tweet';
 import { Tweet } from '@/components/ui/Tweet/Tweet';
-import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { userSelector } from '@/store/selectors/userSelectors';
 import { Loader } from '@/components/ui/Loader/Loader';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
 import { deleteTweet } from '@/services/tweets/deleteTweet';
+import { updateTweet } from '@/services/tweets/updateTweet';
 
 interface ProfileProps {
   user: User;
@@ -53,7 +53,7 @@ export const Profile = ({ user }: ProfileProps) => {
     });
 
     if (tweet) {
-      setTweets((prevTweets) => [...prevTweets, tweet]);
+      setTweets((prevTweets) => [tweet, ...prevTweets]);
     }
   };
 
@@ -74,6 +74,20 @@ export const Profile = ({ user }: ProfileProps) => {
 
     return setTweets((prevTweets) => [
       ...prevTweets.filter((tweet) => tweet.id !== tweetId),
+    ]);
+  };
+
+  const onUpdateTweet = async (newTweet: TweetType) => {
+    const updatedTweet = await updateTweet(newTweet);
+
+    if (updatedTweet === null) {
+      return null;
+    }
+
+    return setTweets((prevTweets) => [
+      ...prevTweets.map((tweet) =>
+        tweet.id === newTweet.id ? newTweet : tweet,
+      ),
     ]);
   };
 
@@ -131,11 +145,9 @@ export const Profile = ({ user }: ProfileProps) => {
           tweets.map((tweet: TweetType) => (
             <Tweet
               key={tweet.id}
-              name={tweet.author.name}
-              username='username'
-              text={tweet.text}
-              date={fromISOStringToReadable(tweet.date)}
-              onDelete={onDeleteTweet(tweet.id)}
+              tweet={tweet}
+              onDeleteTweet={onDeleteTweet(tweet.id)}
+              onUpdateTweet={onUpdateTweet}
             />
           ))
         )}

@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import DefaultAvatar from '@/assets/images/default_avatar.png';
 import {
+  EditingButtons,
+  EditingCancelButton,
+  EditingSaveButton,
+  EditingTextArea,
   TweetAuthorImg,
   TweetAuthorName,
   TweetAuthorUsername,
@@ -16,39 +20,51 @@ import {
   TweetWrapper,
 } from '@/components/ui/Tweet/Tweet.styled';
 import LikeIcon from '@/assets/icons/like.svg?react';
+import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
+import { Tweet as TweetType } from '@/types/tweet';
 
 interface TweetProps {
-  iconUrl?: string;
-  name: string;
-  username: string;
-  text: string;
-  date: string;
-  onDelete: () => void;
+  tweet: TweetType;
+  onDeleteTweet: () => void;
+  onUpdateTweet: (newTweet: TweetType) => void;
 }
 
-export const Tweet = ({
-  iconUrl,
-  username,
-  name,
-  text,
-  date,
-  onDelete,
-}: TweetProps) => {
+export const Tweet = ({ tweet, onDeleteTweet, onUpdateTweet }: TweetProps) => {
+  const [newText, setNewText] = useState(tweet.text);
+  const [isEditingMode, setIsEditingMode] = useState(false);
   const [isPopupActive, setIsPopupActive] = useState(false);
 
   const togglePopup = () => {
     setIsPopupActive(!isPopupActive);
   };
 
+  const onInputText = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setNewText(event.target.value);
+  };
+
+  const editingModeOn = () => {
+    setNewText(tweet.text);
+    setIsEditingMode(true);
+  };
+  const editingModeOff = () => setIsEditingMode(false);
+
+  const onUpdate = () => {
+    onUpdateTweet({
+      ...tweet,
+      text: newText,
+    });
+    editingModeOff();
+  };
+
   return (
     <TweetWrapper>
-      <TweetAuthorImg src={iconUrl || DefaultAvatar} alt='avatar' />
+      <TweetAuthorImg src={DefaultAvatar} alt='avatar' />
       <TweetContent>
         <TweetHead>
           <div>
-            <TweetAuthorName>{name}</TweetAuthorName>
+            <TweetAuthorName>{tweet.author.name}</TweetAuthorName>
             <TweetAuthorUsername>
-              {username} · {date}
+              username · {fromISOStringToReadable(tweet.date)}
             </TweetAuthorUsername>
           </div>
           <TweetDots onClick={togglePopup}>
@@ -57,7 +73,11 @@ export const Tweet = ({
             <TweetDot />
           </TweetDots>
         </TweetHead>
-        <TweetText>{text}</TweetText>
+        {isEditingMode ? (
+          <EditingTextArea value={newText} onChange={onInputText} />
+        ) : (
+          <TweetText>{tweet.text}</TweetText>
+        )}
         <div>
           <TweetLikeButton>
             <LikeIcon />
@@ -67,9 +87,22 @@ export const Tweet = ({
       </TweetContent>
       {isPopupActive && (
         <TweetPopup>
-          <TweetPopupButton onClick={onDelete}>Delete</TweetPopupButton>
-          <TweetPopupButton>Edit</TweetPopupButton>
+          <TweetPopupButton onClick={onDeleteTweet}>Delete</TweetPopupButton>
+          <TweetPopupButton onClick={editingModeOn}>Edit</TweetPopupButton>
         </TweetPopup>
+      )}
+      {isEditingMode && (
+        <EditingButtons>
+          <EditingCancelButton onClick={editingModeOff}>
+            Cancel
+          </EditingCancelButton>
+          <EditingSaveButton
+            onClick={onUpdate}
+            disabled={tweet.text === newText}
+          >
+            Save
+          </EditingSaveButton>
+        </EditingButtons>
       )}
     </TweetWrapper>
   );

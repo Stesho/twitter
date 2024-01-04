@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { PrimaryButton } from '@/components/ui/Button/Button.styled';
+import { NewTweetTextArea } from '@/components/ui/NewTweet/NewTweet.styled';
 
 export const TweetWrapper = styled.div`
   position: relative;
@@ -61,6 +63,10 @@ export const TweetDot = styled.div`
   background-color: #000;
 `;
 
+export const EditingTextArea = styled(NewTweetTextArea)`
+  outline: auto;
+`;
+
 export const TweetText = styled.p`
   margin: 5px 26px 22px 0;
 `;
@@ -90,6 +96,7 @@ export const TweetPopup = styled.div`
   top: 0;
   left: 100%;
   transform: translate(-120%, 50%);
+  background-color: #fff;
   border: 1px solid #a0a0a0;
   border-radius: 8px;
 `;
@@ -103,4 +110,26 @@ export const TweetPopupButton = styled.button`
   &:hover {
     background-color: rgba(29, 161, 242, 0.3);
   }
+`;
+
+export const EditingButtons = styled.div`
+  position: absolute;
+  display: flex;
+  top: 100%;
+  left: 100%;
+  transform: translate(-110%, -110%);
+`;
+
+const EditingButton = styled(PrimaryButton)`
+  width: 80px;
+  padding: 10px 0;
+  font-size: 16px;
+`;
+
+export const EditingCancelButton = styled(EditingButton)`
+  margin: 0 20px 0 0;
+`;
+
+export const EditingSaveButton = styled(EditingButton)`
+  margin: 0;
 `;
