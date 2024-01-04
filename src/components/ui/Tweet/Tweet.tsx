@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import DefaultAvatar from '@/assets/images/default_avatar.png';
 import {
   EditingButtons,
@@ -23,6 +23,7 @@ import LikeIcon from '@/assets/icons/like.svg?react';
 import FilledLikeIcon from '@/assets/icons/like_filled.svg?react';
 import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { Tweet as TweetType } from '@/types/tweet';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 
 interface TweetProps {
   tweet: TweetType;
@@ -40,6 +41,12 @@ export const Tweet = ({
   const [newText, setNewText] = useState(tweet.text);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isPopupActive, setIsPopupActive] = useState(false);
+  const dotsRef = useRef<HTMLDivElement>(null);
+  const popupRef = useOutsideClick((event) => {
+    if (!dotsRef?.current?.contains(event?.target as Node)) {
+      setIsPopupActive(false);
+    }
+  });
 
   const togglePopup = () => {
     setIsPopupActive(!isPopupActive);
@@ -52,6 +59,7 @@ export const Tweet = ({
   const editingModeOn = () => {
     setNewText(tweet.text);
     setIsEditingMode(true);
+    setIsPopupActive(false);
   };
   const editingModeOff = () => setIsEditingMode(false);
 
@@ -78,7 +86,7 @@ export const Tweet = ({
               username · {fromISOStringToReadable(tweet.date)}
             </TweetAuthorUsername>
           </div>
-          <TweetDots onClick={togglePopup}>
+          <TweetDots ref={dotsRef} onClick={togglePopup}>
             <TweetDot />
             <TweetDot />
             <TweetDot />
@@ -101,7 +109,7 @@ export const Tweet = ({
         </div>
       </TweetContent>
       {isPopupActive && (
-        <TweetPopup>
+        <TweetPopup ref={popupRef}>
           <TweetPopupButton onClick={onDeleteTweet}>Delete</TweetPopupButton>
           <TweetPopupButton onClick={editingModeOn}>Edit</TweetPopupButton>
         </TweetPopup>
