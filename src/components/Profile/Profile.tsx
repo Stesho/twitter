@@ -50,6 +50,7 @@ export const Profile = ({ user }: ProfileProps) => {
       text,
       date: new Date().toISOString(),
       author: user,
+      likes: [],
     });
 
     if (tweet) {
@@ -89,6 +90,18 @@ export const Profile = ({ user }: ProfileProps) => {
         tweet.id === newTweet.id ? newTweet : tweet,
       ),
     ]);
+  };
+
+  const onLike = async (tweet: TweetType) => {
+    const newLikes =
+      tweet.likes.indexOf(user.id) !== -1
+        ? [...tweet.likes.filter((userId) => userId !== user.id)]
+        : [user.id, ...tweet.likes];
+
+    await onUpdateTweet({
+      ...tweet,
+      likes: newLikes,
+    });
   };
 
   useEffect(() => {
@@ -148,6 +161,7 @@ export const Profile = ({ user }: ProfileProps) => {
               tweet={tweet}
               onDeleteTweet={onDeleteTweet(tweet.id)}
               onUpdateTweet={onUpdateTweet}
+              onLike={onLike}
             />
           ))
         )}

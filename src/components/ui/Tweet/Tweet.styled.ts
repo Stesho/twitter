@@ -76,8 +76,14 @@ export const TweetLikeButton = styled.button`
   align-items: center;
   cursor: pointer;
 
-  &:hover svg {
-    fill: #ef1c5c;
+  &:hover {
+    span {
+      color: #ef1c5c;
+    }
+
+    svg {
+      fill: #ef1c5c;
+    }
   }
 
   svg {

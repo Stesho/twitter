@@ -20,6 +20,7 @@ import {
   TweetWrapper,
 } from '@/components/ui/Tweet/Tweet.styled';
 import LikeIcon from '@/assets/icons/like.svg?react';
+import FilledLikeIcon from '@/assets/icons/like_filled.svg?react';
 import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { Tweet as TweetType } from '@/types/tweet';
 
@@ -27,9 +28,15 @@ interface TweetProps {
   tweet: TweetType;
   onDeleteTweet: () => void;
   onUpdateTweet: (newTweet: TweetType) => void;
+  onLike: (tweet: TweetType) => void;
 }
 
-export const Tweet = ({ tweet, onDeleteTweet, onUpdateTweet }: TweetProps) => {
+export const Tweet = ({
+  tweet,
+  onDeleteTweet,
+  onUpdateTweet,
+  onLike,
+}: TweetProps) => {
   const [newText, setNewText] = useState(tweet.text);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isPopupActive, setIsPopupActive] = useState(false);
@@ -56,6 +63,10 @@ export const Tweet = ({ tweet, onDeleteTweet, onUpdateTweet }: TweetProps) => {
     editingModeOff();
   };
 
+  const onLikeClick = () => {
+    onLike(tweet);
+  };
+
   return (
     <TweetWrapper>
       <TweetAuthorImg src={DefaultAvatar} alt='avatar' />
@@ -79,9 +90,13 @@ export const Tweet = ({ tweet, onDeleteTweet, onUpdateTweet }: TweetProps) => {
           <TweetText>{tweet.text}</TweetText>
         )}
         <div>
-          <TweetLikeButton>
-            <LikeIcon />
-            <TweetLikes>8</TweetLikes>
+          <TweetLikeButton onClick={onLikeClick}>
+            {tweet.likes.indexOf(tweet.author.id) !== -1 ? (
+              <FilledLikeIcon />
+            ) : (
+              <LikeIcon />
+            )}
+            <TweetLikes>{tweet.likes.length}</TweetLikes>
           </TweetLikeButton>
         </div>
       </TweetContent>
