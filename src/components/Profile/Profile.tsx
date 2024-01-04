@@ -33,6 +33,7 @@ import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { userSelector } from '@/store/selectors/userSelectors';
 import { Loader } from '@/components/ui/Loader/Loader';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
+import { deleteTweet } from '@/services/tweets/deleteTweet';
 
 interface ProfileProps {
   user: User;
@@ -62,6 +63,18 @@ export const Profile = ({ user }: ProfileProps) => {
 
   const closeModal = () => {
     setIsModalActive(false);
+  };
+
+  const onDeleteTweet = (tweetId: string) => async () => {
+    const deletedTweet = await deleteTweet(tweetId);
+
+    if (deletedTweet === null) {
+      return null;
+    }
+
+    return setTweets((prevTweets) => [
+      ...prevTweets.filter((tweet) => tweet.id !== tweetId),
+    ]);
   };
 
   useEffect(() => {
@@ -117,11 +130,12 @@ export const Profile = ({ user }: ProfileProps) => {
         ) : (
           tweets.map((tweet: TweetType) => (
             <Tweet
-              key={JSON.stringify(tweet)}
+              key={tweet.id}
               name={tweet.author.name}
               username='username'
               text={tweet.text}
               date={fromISOStringToReadable(tweet.date)}
+              onDelete={onDeleteTweet(tweet.id)}
             />
           ))
         )}

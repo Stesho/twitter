@@ -19,11 +19,13 @@ export const getTweets = async (user: User): Promise<Tweet[] | null> => {
 
     const querySnapshot: QuerySnapshot = await getDocs(tweetsQuery);
 
-    const tweets = querySnapshot.docs.map(
-      (tweetDoc) => tweetDoc.data() as Tweet,
-    );
-
-    return tweets;
+    return querySnapshot.docs.map((tweetDoc) => {
+      const tweetData = tweetDoc.data() as Tweet;
+      return {
+        ...tweetData,
+        id: tweetDoc.id,
+      };
+    });
   } catch (error) {
     console.error(error);
     return null;

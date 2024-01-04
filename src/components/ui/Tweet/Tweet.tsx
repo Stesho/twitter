@@ -23,9 +23,17 @@ interface TweetProps {
   username: string;
   text: string;
   date: string;
+  onDelete: () => void;
 }
 
-export const Tweet = ({ iconUrl, username, name, text, date }: TweetProps) => {
+export const Tweet = ({
+  iconUrl,
+  username,
+  name,
+  text,
+  date,
+  onDelete,
+}: TweetProps) => {
   const [isPopupActive, setIsPopupActive] = useState(false);
 
   const togglePopup = () => {
@@ -59,7 +67,7 @@ export const Tweet = ({ iconUrl, username, name, text, date }: TweetProps) => {
       </TweetContent>
       {isPopupActive && (
         <TweetPopup>
-          <TweetPopupButton>Delete</TweetPopupButton>
+          <TweetPopupButton onClick={onDelete}>Delete</TweetPopupButton>
           <TweetPopupButton>Edit</TweetPopupButton>
         </TweetPopup>
       )}
