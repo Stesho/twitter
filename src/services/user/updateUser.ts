@@ -1,32 +1,54 @@
-import { updateProfile, verifyBeforeUpdateEmail } from 'firebase/auth';
-import { doc, updateDoc } from 'firebase/firestore';
+import { verifyBeforeUpdateEmail } from 'firebase/auth';
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { auth, db } from '@/db/firesbase';
 import { SignupUserData, User } from '@/types/user';
 import { Collections } from '@/types/collections';
 
 export const updateUser = async (userData: User) => {
-  const emailRes = await verifyBeforeUpdateEmail(
-    auth.currentUser!,
-    userData.email,
-  ).catch((error) => {
-    console.error(error);
-    return null;
-  });
+  if (userData.email !== auth.currentUser?.email) {
+    const emailRes = await verifyBeforeUpdateEmail(
+      auth.currentUser!,
+      userData.email,
+    ).catch((error) => {
+      console.error(error);
+      return null;
+    });
 
-  if (emailRes === null) {
-    return null;
+    if (emailRes === null) {
+      return null;
+    }
   }
 
-  const profileRes = await updateProfile(auth.currentUser!, {
-    displayName: userData.name,
-  }).catch((error) => {
-    console.error(error);
-    return null;
+  const tweetsQuery = query(
+    collection(db, Collections.Tweets),
+    where('author.id', '==', userData.id),
+  );
+
+  const tweetsData = await getDocs(tweetsQuery);
+
+  tweetsData.forEach((tweetDoc) => {
+    updateDoc(tweetDoc.ref, {
+      author: userData,
+    });
   });
 
-  if (profileRes === null) {
-    return null;
-  }
+  // const profileRes = await updateProfile(auth.currentUser!, {
+  //   displayName: userData.name,
+  // }).catch((error) => {
+  //   console.error(error);
+  //   return null;
+  // });
+
+  // if (profileRes === null) {
+  //   return null;
+  // }
 
   const updatedUser: SignupUserData = {
     name: userData.name,

@@ -12,14 +12,18 @@ import { Tweet } from '@/types/tweet';
 
 export const getTweets = async (user: User): Promise<Tweet[] | null> => {
   try {
-    const tweets = query(
+    const tweetsQuery = query(
       collection(db, Collections.Tweets),
       where('author.id', '==', user.id),
     );
 
-    const querySnapshot: QuerySnapshot = await getDocs(tweets);
+    const querySnapshot: QuerySnapshot = await getDocs(tweetsQuery);
 
-    return querySnapshot.docs.map((doc) => doc.data() as Tweet);
+    const tweets = querySnapshot.docs.map(
+      (tweetDoc) => tweetDoc.data() as Tweet,
+    );
+
+    return tweets;
   } catch (error) {
     console.error(error);
     return null;
