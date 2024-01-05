@@ -18,6 +18,7 @@ export const TweetAuthorImg = styled.img`
   width: 50px;
   height: 54px;
   margin: 0 5px 0 0;
+  border-radius: 50%;
 `;
 
 export const TweetContent = styled.div`

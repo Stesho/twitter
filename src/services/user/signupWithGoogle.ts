@@ -10,6 +10,7 @@ export const signupWithGoogle = () => {
       const { uid, displayName, email, phoneNumber } = userCredential.user;
 
       const user: SignupUserData = {
+        avatar: '',
         name: displayName || '',
         email: email || '',
         phoneNumber: phoneNumber || '',

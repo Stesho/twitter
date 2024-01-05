@@ -4,6 +4,7 @@ import { ERROR_MESSAGES } from '@/constants/errorMessages';
 
 export const signupUserFormSchema = yup
   .object({
+    avatar: yup.string(),
     name: yup
       .string()
       .required(ERROR_MESSAGES.required('Name'))

@@ -52,6 +52,7 @@ export const Avatar = styled.img`
   height: 150px;
   top: -85px;
   left: 0;
+  border-radius: 50%;
 `;
 
 export const Name = styled.span`

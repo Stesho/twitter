@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -35,7 +35,6 @@ interface ProfileEditModalProps {
 
 export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   const dispatch = useDispatch();
-  const [image, setImage] = useState<string | null>(null);
   const { year, month, day } = getDateValuesFromISOString(user.birthday);
   const {
     register,
@@ -43,10 +42,12 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
     watch,
     reset,
     setError,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signupUserFormSchema),
     defaultValues: {
+      avatar: user.avatar,
       name: user.name,
       phoneNumber: user.phoneNumber,
       email: user.email,
@@ -61,9 +62,10 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   };
 
   const onSubmitForm = async (data: EditUserFormData) => {
-    const { name, phoneNumber, email } = data;
+    const { avatar, name, phoneNumber, email } = data;
     const newUser = await updateUser({
       id: user.id,
+      avatar: avatar || '',
       name,
       phoneNumber,
       email,
@@ -84,8 +86,12 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
     <Modal id='profile-modal' onClose={onClose}>
       <Form onSubmit={handleSubmit(onSubmitForm)}>
         <ImageLoader>
-          <img src={image || DefaultAvatar} alt='avatar' />
-          <ImageEditor onLoadCallback={(newImage) => setImage(newImage)} />
+          <img src={watch('avatar') || DefaultAvatar} alt='avatar' />
+          <ImageEditor
+            onLoadCallback={(newImage) => setValue('avatar', newImage || '')}
+            label='avatar'
+            register={register}
+          />
         </ImageLoader>
         <Input
           placeholder='Name'

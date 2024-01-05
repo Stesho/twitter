@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { PrimaryButton } from "@/components/ui/Button/Button.styled";
+import styled from 'styled-components';
+import { PrimaryButton } from '@/components/ui/Button/Button.styled';
 
 export const NewTweetWrapper = styled.div`
   display: flex;
@@ -12,6 +12,7 @@ export const NewTweetAvatar = styled.img`
   width: 50px;
   height: 54px;
   margin: 0 5px 0 0;
+  border-radius: 50%;
 `;
 
 export const NewTweetContent = styled.div`

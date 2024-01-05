@@ -40,6 +40,7 @@ export const updateUser = async (userData: User) => {
   });
 
   const updatedUser: SignupUserData = {
+    avatar: userData.avatar,
     name: userData.name,
     email: userData.email,
     phoneNumber: userData.phoneNumber,

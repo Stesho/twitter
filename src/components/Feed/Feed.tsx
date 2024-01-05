@@ -85,7 +85,7 @@ const Feed = ({ user }: FeedProps) => {
         <span>Home</span>
         <Switch onChange={() => {}} />
       </Head>
-      <NewTweet onTweet={onTweet} />
+      <NewTweet iconUrl={user.avatar} onTweet={onTweet} />
       <Tweets
         tweets={tweets}
         isLoading={isLoading}

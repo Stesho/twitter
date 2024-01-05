@@ -16,6 +16,7 @@ export const signup = (
 
       return {
         id: uid,
+        avatar: '',
         name: displayName || '',
         email: email || '',
         phoneNumber: phoneNumber || '',

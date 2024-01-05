@@ -83,7 +83,7 @@ export const Tweet = ({
 
   return (
     <TweetWrapper>
-      <TweetAuthorImg src={DefaultAvatar} alt='avatar' />
+      <TweetAuthorImg src={tweet.author.avatar || DefaultAvatar} alt='avatar' />
       <TweetContent>
         <TweetHead>
           <div>

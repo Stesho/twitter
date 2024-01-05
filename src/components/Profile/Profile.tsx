@@ -131,7 +131,7 @@ export const Profile = ({ user }: ProfileProps) => {
         <BgImg src={ProfileBg} alt='background' />
         <ProfileBar>
           <MainInfo>
-            <Avatar src={DefaultAvatar} alt='avatar' />
+            <Avatar src={user.avatar || DefaultAvatar} alt='avatar' />
             <Name>{user.name}</Name>
             <Username>@bobur_mavlonov</Username>
             <Occupation>UX&UI designer at @abutechuz</Occupation>
@@ -150,7 +150,7 @@ export const Profile = ({ user }: ProfileProps) => {
             Edit profile
           </EditButton>
         </ProfileBar>
-        <NewTweet onTweet={onTweet} />
+        <NewTweet iconUrl={user.avatar} onTweet={onTweet} />
         <TweetsTitle>Tweets</TweetsTitle>
         <Tweets
           tweets={tweets}
