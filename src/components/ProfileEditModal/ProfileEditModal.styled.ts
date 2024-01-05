@@ -6,8 +6,31 @@ export const Form = styled.form`
   & > div {
     margin: 0 0 25px 0;
   }
+  & > div:first-child {
+    margin: 0 auto 25px auto;
+  }
   & > div:last-child {
     margin: 0;
+  }
+`;
+
+export const ImageLoader = styled.div`
+  position: relative;
+  width: 200px;
+  height: 200px;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  & label {
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    transform: translate(-100%, -100%);
   }
 `;
 

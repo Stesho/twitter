@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,13 +12,21 @@ import { MONTHS } from '@/constants/selectOptions';
 import { getDaysInMonth } from '@/utils/getDaysInMonth';
 import { getYearsInRange } from '@/utils/getYearsInRange';
 import { getCurrentYear } from '@/utils/getCurrentYear';
-import { Buttons, Form, SaveButton, Selects } from './ProfileEditModal.styled';
+import {
+  Buttons,
+  Form,
+  ImageLoader,
+  SaveButton,
+  Selects,
+} from './ProfileEditModal.styled';
 import { Button } from '@/components/ui/Button/Button';
 import { EditUserFormData } from '@/types/forms';
 import { getDate } from '@/utils/getDate';
 import { updateUser } from '@/services/user/updateUser';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import { setUser } from '@/store/slices/userSlice';
+import { ImageEditor } from '@/components/ui/ImageEditor/ImageEditor';
+import DefaultAvatar from '@/assets/images/default_avatar_big.png';
 
 interface ProfileEditModalProps {
   onClose: () => void;
@@ -27,6 +35,7 @@ interface ProfileEditModalProps {
 
 export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   const dispatch = useDispatch();
+  const [image, setImage] = useState<string | null>(null);
   const { year, month, day } = getDateValuesFromISOString(user.birthday);
   const {
     register,
@@ -74,6 +83,10 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   return (
     <Modal id='profile-modal' onClose={onClose}>
       <Form onSubmit={handleSubmit(onSubmitForm)}>
+        <ImageLoader>
+          <img src={image || DefaultAvatar} alt='avatar' />
+          <ImageEditor onLoadCallback={(newImage) => setImage(newImage)} />
+        </ImageLoader>
         <Input
           placeholder='Name'
           label='name'

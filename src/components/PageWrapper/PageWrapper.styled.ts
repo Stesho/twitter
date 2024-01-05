@@ -4,6 +4,7 @@ export const Page = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
+  padding: 0 0 100px 0;
 `;
 
 export const Main = styled.main`
