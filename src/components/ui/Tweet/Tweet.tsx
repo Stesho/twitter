@@ -69,8 +69,8 @@ export const Tweet = ({
 
   const onDelete = () => onDeleteTweet(tweet.id);
 
-  const onUpdate = () => {
-    onUpdateTweet({
+  const onUpdate = async () => {
+    await onUpdateTweet({
       ...tweet,
       text: newText,
     });
