@@ -4,14 +4,6 @@ import { ButtonTypes } from '@/types/buttonTypes';
 
 export const ProfileWrapper = styled.div`
   display: flex;
-  max-width: 909px;
-  width: 100%;
-`;
-
-export const Border = styled.div`
-  width: 1px;
-  height: 990px;
-  background-color: #c4c4c4;
 `;
 
 export const Head = styled.div`

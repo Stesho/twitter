@@ -30,6 +30,8 @@ export interface TweetProps {
   onDeleteTweet: (tweetId: string) => void;
   onUpdateTweet: (newTweet: TweetType) => void;
   onLike: (tweet: TweetType) => void;
+  isLikedByUser: boolean;
+  isUserAuthor: boolean;
 }
 
 export const Tweet = ({
@@ -37,6 +39,8 @@ export const Tweet = ({
   onDeleteTweet,
   onUpdateTweet,
   onLike,
+  isLikedByUser,
+  isUserAuthor,
 }: TweetProps) => {
   const [newText, setNewText] = useState(tweet.text);
   const [isEditingMode, setIsEditingMode] = useState(false);
@@ -65,8 +69,8 @@ export const Tweet = ({
 
   const onDelete = () => onDeleteTweet(tweet.id);
 
-  const onUpdate = () => {
-    onUpdateTweet({
+  const onUpdate = async () => {
+    await onUpdateTweet({
       ...tweet,
       text: newText,
     });
@@ -88,11 +92,13 @@ export const Tweet = ({
               username · {fromISOStringToReadable(tweet.date)}
             </TweetAuthorUsername>
           </div>
-          <TweetDots ref={dotsRef} onClick={togglePopup}>
-            <TweetDot />
-            <TweetDot />
-            <TweetDot />
-          </TweetDots>
+          {isUserAuthor && (
+            <TweetDots ref={dotsRef} onClick={togglePopup}>
+              <TweetDot />
+              <TweetDot />
+              <TweetDot />
+            </TweetDots>
+          )}
         </TweetHead>
         {isEditingMode ? (
           <EditingTextArea value={newText} onChange={onInputText} />
@@ -101,11 +107,7 @@ export const Tweet = ({
         )}
         <div>
           <TweetLikeButton onClick={onLikeClick}>
-            {tweet.likes.indexOf(tweet.author.id) !== -1 ? (
-              <FilledLikeIcon />
-            ) : (
-              <LikeIcon />
-            )}
+            {isLikedByUser ? <FilledLikeIcon /> : <LikeIcon />}
             <TweetLikes>{tweet.likes.length}</TweetLikes>
           </TweetLikeButton>
         </div>
