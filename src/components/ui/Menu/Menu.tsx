@@ -16,8 +16,8 @@ export const Menu = () => {
   const navigate = useNavigate();
 
   const logoutUser = async () => {
-    await logout();
     navigate(ROUTES.signup.path);
+    await logout();
   };
 
   return (
