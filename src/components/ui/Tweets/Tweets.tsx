@@ -1,10 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Tweet, TweetProps } from '@/components/ui/Tweet/Tweet';
 import { Tweet as TweetType } from '@/types/tweet';
 import { NoTweets, TweetsLoader } from './Tweets.styled';
 import { Loader } from '@/components/ui/Loader/Loader';
+import { userSelector } from '@/store/selectors/userSelectors';
 
-interface TweetsProps extends Omit<TweetProps, 'tweet'> {
+type TweetPropsOmitted = Omit<
+  TweetProps,
+  'tweet' | 'isLikedByUser' | 'isUserAuthor'
+>;
+
+interface TweetsProps extends TweetPropsOmitted {
   tweets: TweetType[];
   isLoading: boolean;
 }
@@ -16,6 +23,8 @@ export const Tweets = ({
   onLike,
   isLoading,
 }: TweetsProps) => {
+  const { user } = useSelector(userSelector);
+
   if (isLoading) {
     return (
       <TweetsLoader>
@@ -36,6 +45,8 @@ export const Tweets = ({
             onDeleteTweet={onDeleteTweet}
             onUpdateTweet={onUpdateTweet}
             onLike={onLike}
+            isLikedByUser={tweet.likes.indexOf(user!.id) !== -1}
+            isUserAuthor={tweet.author.id === user!.id}
           />
         ))
       )}

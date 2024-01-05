@@ -1,34 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
-import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
-import { Tweet } from '@/types/tweet';
-import { getAllTweets } from '@/services/tweets/getAllTweets';
-import { Tweets } from '@/components/ui/Tweets/Tweets';
+import { userSelector } from '@/store/selectors/userSelectors';
+import Feed from '@/components/Feed/Feed';
 
 export const HomePage = () => {
-  const [tweets, setTweets] = useState<Tweet[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getAllTweets().then((tweetsData) => {
-      if (tweetsData) {
-        setTweets(tweetsData);
-      }
-      setIsLoading(false);
-    });
-  }, []);
+  const { user } = useSelector(userSelector);
 
   return (
     <PageWrapper>
-      <NewTweet onTweet={() => {}} />
-      <Tweets
-        tweets={tweets}
-        isLoading={isLoading}
-        onDeleteTweet={() => {}}
-        onUpdateTweet={() => {}}
-        onLike={() => {}}
-      />
+      <Feed user={user!} />
     </PageWrapper>
   );
 };

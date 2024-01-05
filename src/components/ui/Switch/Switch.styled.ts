@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SwitchButton = styled.label`
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 54px;
+  height: 30px;
 
   input {
     opacity: 0;
@@ -27,9 +27,9 @@ export const SwitchButton = styled.label`
 
   span:before {
     position: absolute;
-    content: "";
-    height: 32px;
-    width: 32px;
+    content: '';
+    height: 28px;
+    width: 28px;
     top: -1px;
     left: -2px;
     -webkit-transition: 0.4s;
@@ -48,8 +48,8 @@ export const SwitchButton = styled.label`
   }
 
   input:checked + span:before {
-    -webkit-transform: translateX(28px);
-    -ms-transform: translateX(28px);
-    transform: translateX(28px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
   }
 `;
