@@ -13,6 +13,13 @@ export const Item = styled.li`
 export const ItemLink = styled(NavLink)`
   display: flex;
   align-items: center;
+  &.active {
+    font-family:
+      Roboto Serif,
+      sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
 `;
 
 export const Icon = styled.img`
