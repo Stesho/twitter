@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { User } from '@/types/user';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import {
@@ -26,8 +26,6 @@ import { ButtonTypes } from '@/types/buttonTypes';
 import { sendTweet } from '@/services/tweets/sendTweet';
 import { getUserTweets } from '@/services/tweets/getUserTweets';
 import { Tweet as TweetType } from '@/types/tweet';
-import { userSelector } from '@/store/selectors/userSelectors';
-import { Loader } from '@/components/ui/Loader/Loader';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
 import { deleteTweet } from '@/services/tweets/deleteTweet';
 import { updateTweet } from '@/services/tweets/updateTweet';
@@ -39,7 +37,6 @@ interface ProfileProps {
 
 export const Profile = ({ user }: ProfileProps) => {
   const dispatch = useDispatch();
-  const userStore = useSelector(userSelector);
   const [tweets, setTweets] = useState<TweetType[]>([]);
   const [isModalActive, setIsModalActive] = useState(false);
   const [isTweetsLoading, setIsTweetsLoading] = useState(false);
@@ -112,14 +109,6 @@ export const Profile = ({ user }: ProfileProps) => {
       setIsTweetsLoading(false);
     });
   }, [user, dispatch]);
-
-  if (!userStore.user) {
-    return (
-      <ProfileWrapper>
-        <Loader />
-      </ProfileWrapper>
-    );
-  }
 
   return (
     <ProfileWrapper>
