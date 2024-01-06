@@ -48,11 +48,12 @@ export const MainInfo = styled.div`
 
 export const Avatar = styled.img`
   position: absolute;
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
   top: -85px;
   left: 0;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 export const Name = styled.span`
