@@ -6,14 +6,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  user: {
-    id: '',
-    avatar: '',
-    name: '',
-    phoneNumber: '',
-    email: '',
-    birthday: '',
-  },
+  user: null,
 };
 
 export const userSlice = createSlice({
