@@ -7,4 +7,4 @@ export interface User {
   birthday: string;
 }
 
-export type SignupUserData = Omit<User, 'id'>;
+export type SignupUserData = Omit<User, 'id' | 'avatar'>;

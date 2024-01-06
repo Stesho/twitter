@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
 import { Layout } from '@/components/Layout/Layout';
-import { auth, db } from '@/db/firesbase';
+import { auth } from '@/db/firesbase';
 import { setUser } from '@/store/slices/userSlice';
-import { Collections } from '@/types/collections';
-import { User } from '@/types/user';
+import { getUserById } from '@/services/user/getUserById';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -14,10 +12,11 @@ export const App = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (userData) => {
       if (userData) {
-        const userDoc = await getDoc(doc(db, Collections.Users, userData.uid));
-        const userInfo = userDoc.data() as User;
+        const existedUser = await getUserById(userData.uid);
 
-        dispatch(setUser({ ...userInfo, id: userData.uid }));
+        if (existedUser) {
+          dispatch(setUser({ ...existedUser, id: userData.uid }));
+        }
       } else {
         dispatch(setUser(null));
       }

@@ -4,24 +4,20 @@ import { auth, db } from '@/db/firesbase';
 import { SignupUserData, User } from '@/types/user';
 import { Collections } from '@/types/collections';
 
-export const signup = (
-  userData: SignupUserData,
-  password: string,
-): Promise<User | null> =>
+export const signup = (userData: SignupUserData, password: string) =>
   createUserWithEmailAndPassword(auth, userData.email, password)
     .then(async (userCredential) => {
-      const { uid, displayName, email, phoneNumber } = userCredential.user;
+      const { uid, photoURL } = userCredential.user;
 
-      await setDoc(doc(db, Collections.Users, uid), userData);
-
-      return {
+      const user = {
         id: uid,
-        avatar: '',
-        name: displayName || '',
-        email: email || '',
-        phoneNumber: phoneNumber || '',
-        birthday: '',
-      };
+        avatar: photoURL || '',
+        ...userData,
+      } as User;
+
+      await setDoc(doc(db, Collections.Users, uid), user);
+
+      return user;
     })
     .catch((error) => {
       console.error(error.code, error.message);
