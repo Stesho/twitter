@@ -10,14 +10,16 @@ export const signup = (userData: SignupUserData, password: string) =>
       const { uid, photoURL } = userCredential.user;
 
       const user = {
-        id: uid,
         avatar: photoURL || '',
         ...userData,
       } as User;
 
       await setDoc(doc(db, Collections.Users, uid), user);
 
-      return user;
+      return {
+        ...user,
+        id: uid,
+      } as User;
     })
     .catch((error) => {
       console.error(error.code, error.message);
