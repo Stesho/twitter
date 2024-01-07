@@ -29,7 +29,6 @@ import {
 import ProfileBg from '@/assets/images/profile_bg.jpg';
 import DefaultAvatar from '@/assets/images/default_avatar_big.png';
 import { ButtonTypes } from '@/types/buttonTypes';
-import { sendTweet } from '@/services/tweets/sendTweet';
 import { Tweet as TweetType } from '@/types/tweet';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
@@ -44,15 +43,6 @@ export const Profile = ({ user }: ProfileProps) => {
   const [tweets, setTweets] = useState<TweetType[]>([]);
   const [isModalActive, setIsModalActive] = useState(false);
   const [isTweetsLoading, setIsTweetsLoading] = useState(false);
-
-  const onTweet = async (text: string) => {
-    await sendTweet({
-      text,
-      date: new Date().toISOString(),
-      author: user,
-      likes: [],
-    });
-  };
 
   const openModal = () => {
     setIsModalActive(true);
@@ -115,7 +105,7 @@ export const Profile = ({ user }: ProfileProps) => {
             Edit profile
           </EditButton>
         </ProfileBar>
-        <NewTweet iconUrl={user.avatar} onTweet={onTweet} />
+        <NewTweet user={user} />
         <TweetsTitle>Tweets</TweetsTitle>
         <Tweets tweets={tweets} isLoading={isTweetsLoading} user={user} />
       </div>

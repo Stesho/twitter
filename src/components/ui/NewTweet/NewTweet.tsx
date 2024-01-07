@@ -10,27 +10,33 @@ import {
   NewTweetTextArea,
   NewTweetWrapper,
 } from '@/components/ui/NewTweet/NewTweet.styled';
+import { sendTweet } from '@/services/tweets/sendTweet';
+import { User } from '@/types/user';
 
 interface NewTweetProps {
-  iconUrl?: string;
-  onTweet: (text: string) => void;
+  user: User;
 }
 
-export const NewTweet = ({ iconUrl, onTweet }: NewTweetProps) => {
+export const NewTweet = ({ user }: NewTweetProps) => {
   const [text, setText] = useState<string>('');
 
   const onInputText = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
   };
 
-  const onTweetClick = () => {
-    onTweet(text);
+  const onTweet = async () => {
+    await sendTweet({
+      text,
+      date: new Date().toISOString(),
+      author: user,
+      likes: [],
+    });
     setText('');
   };
 
   return (
     <NewTweetWrapper>
-      <NewTweetAvatar src={iconUrl || DefaultAvatar} alt='avatar' />
+      <NewTweetAvatar src={user.avatar || DefaultAvatar} alt='avatar' />
       <NewTweetContent>
         <NewTweetTextArea
           value={text}
@@ -39,10 +45,7 @@ export const NewTweet = ({ iconUrl, onTweet }: NewTweetProps) => {
         />
         <NewTweetMedia>
           <NewTweetMediaIcon src={MediaImg} alt='media' />
-          <NewTweetButton
-            disabled={text.trim().length < 1}
-            onClick={onTweetClick}
-          >
+          <NewTweetButton disabled={text.trim().length < 1} onClick={onTweet}>
             Tweet
           </NewTweetButton>
         </NewTweetMedia>

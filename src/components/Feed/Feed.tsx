@@ -4,7 +4,6 @@ import { Head } from '@/pages/HomePage/HomePage.styled';
 import { Switch } from '@/components/ui/Switch/Switch';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
-import { sendTweet } from '@/services/tweets/sendTweet';
 import { Tweet, Tweet as TweetType } from '@/types/tweet';
 import { User } from '@/types/user';
 import { db } from '@/db/firesbase';
@@ -17,15 +16,6 @@ interface FeedProps {
 const Feed = ({ user }: FeedProps) => {
   const [tweets, setTweets] = useState<Tweet[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const onTweet = async (text: string) => {
-    await sendTweet({
-      text,
-      date: new Date().toISOString(),
-      author: user,
-      likes: [],
-    });
-  };
 
   useEffect(() => {
     const tweetsQuery = query(
@@ -56,7 +46,7 @@ const Feed = ({ user }: FeedProps) => {
         <span>Home</span>
         <Switch onChange={() => {}} />
       </Head>
-      <NewTweet iconUrl={user.avatar} onTweet={onTweet} />
+      <NewTweet user={user} />
       <Tweets tweets={tweets} isLoading={isLoading} user={user} />
     </>
   );
