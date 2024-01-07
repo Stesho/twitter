@@ -13,7 +13,9 @@ import { Collections } from '@/types/collections';
 
 export const updateUser = async (userData: User) => {
   try {
-    await verifyBeforeUpdateEmail(auth.currentUser!, userData.email);
+    if (auth.currentUser?.email !== userData.email) {
+      await verifyBeforeUpdateEmail(auth.currentUser!, userData.email);
+    }
 
     const tweetsQuery = query(
       collection(db, Collections.Tweets),

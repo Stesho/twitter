@@ -8,6 +8,7 @@ import {
 
 interface InputProps<T extends FieldValues> {
   type?: HTMLInputTypeAttribute;
+  disabled?: boolean;
   placeholder?: string;
   label: Path<T>;
   register: UseFormRegister<T>;
@@ -16,6 +17,7 @@ interface InputProps<T extends FieldValues> {
 
 export const Input = <T extends FieldValues>({
   type = 'text',
+  disabled,
   placeholder,
   label,
   register,
@@ -25,6 +27,7 @@ export const Input = <T extends FieldValues>({
     <InputStyled
       $isError={errorMessage !== undefined}
       type={type}
+      disabled={disabled}
       placeholder={placeholder}
       {...register(label)}
     />

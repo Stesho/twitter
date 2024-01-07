@@ -27,6 +27,7 @@ import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import { setUser } from '@/store/slices/userSlice';
 import { ImageEditor } from '@/components/ui/ImageEditor/ImageEditor';
 import DefaultAvatar from '@/assets/images/default_avatar_big.png';
+import { isAuthWithGoogle } from '@/utils/isAuthWithGoogle';
 
 interface ProfileEditModalProps {
   onClose: () => void;
@@ -35,6 +36,7 @@ interface ProfileEditModalProps {
 
 export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   const dispatch = useDispatch();
+  const isUserAuthWithGoogle = isAuthWithGoogle();
   const { year, month, day } = getDateValuesFromISOString(user.birthday);
   const {
     register,
@@ -106,6 +108,7 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
           errorMessage={errors.phoneNumber?.message}
         />
         <Input
+          disabled={isUserAuthWithGoogle}
           placeholder='Email'
           label='email'
           register={register}
