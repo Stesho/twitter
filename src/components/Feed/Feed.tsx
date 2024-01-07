@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { Head } from '@/pages/HomePage/HomePage.styled';
 import { Switch } from '@/components/ui/Switch/Switch';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
 import { sendTweet } from '@/services/tweets/sendTweet';
-import { deleteTweet } from '@/services/tweets/deleteTweet';
 import { Tweet, Tweet as TweetType } from '@/types/tweet';
-import { updateTweet } from '@/services/tweets/updateTweet';
 import { User } from '@/types/user';
-import { getAllTweets } from '@/services/tweets/getAllTweets';
+import { db } from '@/db/firesbase';
+import { Collections } from '@/types/collections';
 
 interface FeedProps {
   user: User;
@@ -16,68 +16,39 @@ interface FeedProps {
 
 const Feed = ({ user }: FeedProps) => {
   const [tweets, setTweets] = useState<Tweet[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onTweet = async (text: string) => {
-    const tweet = await sendTweet({
+    await sendTweet({
       text,
       date: new Date().toISOString(),
       author: user,
       likes: [],
     });
-
-    if (tweet) {
-      setTweets((prevTweets) => [tweet, ...prevTweets]);
-    }
-  };
-
-  const onDeleteTweet = async (tweetId: string) => {
-    const deletedTweet = await deleteTweet(tweetId);
-
-    if (deletedTweet === null) {
-      return null;
-    }
-
-    return setTweets((prevTweets) => [
-      ...prevTweets.filter((tweet) => tweet.id !== tweetId),
-    ]);
-  };
-
-  const onUpdateTweet = async (newTweet: TweetType) => {
-    const updatedTweet = await updateTweet(newTweet);
-
-    if (updatedTweet === null) {
-      return null;
-    }
-
-    return setTweets((prevTweets) => [
-      ...prevTweets.map((tweet) =>
-        tweet.id === newTweet.id ? newTweet : tweet,
-      ),
-    ]);
-  };
-
-  const onLike = async (tweet: TweetType) => {
-    const newLikes =
-      tweet.likes.indexOf(user.id) !== -1
-        ? [...tweet.likes.filter((userId) => userId !== user.id)]
-        : [user.id, ...tweet.likes];
-
-    await onUpdateTweet({
-      ...tweet,
-      likes: newLikes,
-    });
   };
 
   useEffect(() => {
+    const tweetsQuery = query(
+      collection(db, Collections.Tweets),
+      orderBy('date', 'desc'),
+    );
+
     setIsLoading(true);
-    getAllTweets().then((tweetsData) => {
-      if (tweetsData) {
-        setTweets(tweetsData);
-      }
+    const unsubscribe = onSnapshot(tweetsQuery, (snapshot) => {
+      const updatedTweets = snapshot.docs.map((tweetDoc) => {
+        const tweetData = tweetDoc.data();
+        return {
+          id: tweetDoc.id,
+          ...tweetData,
+        };
+      }) as TweetType[];
+
       setIsLoading(false);
+      setTweets(updatedTweets);
     });
-  }, []);
+
+    return unsubscribe;
+  }, [user.id]);
 
   return (
     <>
@@ -86,13 +57,7 @@ const Feed = ({ user }: FeedProps) => {
         <Switch onChange={() => {}} />
       </Head>
       <NewTweet iconUrl={user.avatar} onTweet={onTweet} />
-      <Tweets
-        tweets={tweets}
-        isLoading={isLoading}
-        onDeleteTweet={onDeleteTweet}
-        onUpdateTweet={onUpdateTweet}
-        onLike={onLike}
-      />
+      <Tweets tweets={tweets} isLoading={isLoading} user={user} />
     </>
   );
 };

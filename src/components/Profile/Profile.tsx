@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
 import { User } from '@/types/user';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import {
@@ -24,34 +30,28 @@ import ProfileBg from '@/assets/images/profile_bg.jpg';
 import DefaultAvatar from '@/assets/images/default_avatar_big.png';
 import { ButtonTypes } from '@/types/buttonTypes';
 import { sendTweet } from '@/services/tweets/sendTweet';
-import { getUserTweets } from '@/services/tweets/getUserTweets';
 import { Tweet as TweetType } from '@/types/tweet';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
-import { deleteTweet } from '@/services/tweets/deleteTweet';
-import { updateTweet } from '@/services/tweets/updateTweet';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
+import { db } from '@/db/firesbase';
+import { Collections } from '@/types/collections';
 
 interface ProfileProps {
   user: User;
 }
 
 export const Profile = ({ user }: ProfileProps) => {
-  const dispatch = useDispatch();
   const [tweets, setTweets] = useState<TweetType[]>([]);
   const [isModalActive, setIsModalActive] = useState(false);
   const [isTweetsLoading, setIsTweetsLoading] = useState(false);
 
   const onTweet = async (text: string) => {
-    const tweet = await sendTweet({
+    await sendTweet({
       text,
       date: new Date().toISOString(),
       author: user,
       likes: [],
     });
-
-    if (tweet) {
-      setTweets((prevTweets) => [tweet, ...prevTweets]);
-    }
   };
 
   const openModal = () => {
@@ -62,53 +62,29 @@ export const Profile = ({ user }: ProfileProps) => {
     setIsModalActive(false);
   };
 
-  const onDeleteTweet = async (tweetId: string) => {
-    const deletedTweet = await deleteTweet(tweetId);
-
-    if (deletedTweet === null) {
-      return null;
-    }
-
-    return setTweets((prevTweets) => [
-      ...prevTweets.filter((tweet) => tweet.id !== tweetId),
-    ]);
-  };
-
-  const onUpdateTweet = async (newTweet: TweetType) => {
-    const updatedTweet = await updateTweet(newTweet);
-
-    if (updatedTweet === null) {
-      return null;
-    }
-
-    return setTweets((prevTweets) => [
-      ...prevTweets.map((tweet) =>
-        tweet.id === newTweet.id ? newTweet : tweet,
-      ),
-    ]);
-  };
-
-  const onLike = async (tweet: TweetType) => {
-    const newLikes =
-      tweet.likes.indexOf(user.id) !== -1
-        ? [...tweet.likes.filter((userId) => userId !== user.id)]
-        : [user.id, ...tweet.likes];
-
-    await onUpdateTweet({
-      ...tweet,
-      likes: newLikes,
-    });
-  };
-
   useEffect(() => {
+    const tweetsQuery = query(
+      collection(db, Collections.Tweets),
+      where('author.id', '==', user.id),
+      orderBy('date', 'desc'),
+    );
+
     setIsTweetsLoading(true);
-    getUserTweets(user).then((tweetsData) => {
-      if (tweetsData) {
-        setTweets(tweetsData);
-      }
+    const unsubscribe = onSnapshot(tweetsQuery, (snapshot) => {
+      const updatedTweets = snapshot.docs.map((tweetDoc) => {
+        const tweetData = tweetDoc.data();
+        return {
+          id: tweetDoc.id,
+          ...tweetData,
+        };
+      }) as TweetType[];
+
       setIsTweetsLoading(false);
+      setTweets(updatedTweets);
     });
-  }, [user, dispatch]);
+
+    return unsubscribe;
+  }, [user.id]);
 
   return (
     <ProfileWrapper>
@@ -141,13 +117,7 @@ export const Profile = ({ user }: ProfileProps) => {
         </ProfileBar>
         <NewTweet iconUrl={user.avatar} onTweet={onTweet} />
         <TweetsTitle>Tweets</TweetsTitle>
-        <Tweets
-          tweets={tweets}
-          onDeleteTweet={onDeleteTweet}
-          onUpdateTweet={onUpdateTweet}
-          onLike={onLike}
-          isLoading={isTweetsLoading}
-        />
+        <Tweets tweets={tweets} isLoading={isTweetsLoading} user={user} />
       </div>
       {isModalActive && <ProfileEditModal user={user} onClose={closeModal} />}
     </ProfileWrapper>
