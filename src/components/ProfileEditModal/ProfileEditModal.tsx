@@ -15,7 +15,8 @@ import { getCurrentYear } from '@/utils/getCurrentYear';
 import {
   Buttons,
   Form,
-  ImageLoader,
+  ImageEditor,
+  ImageLoaderWrapper,
   SaveButton,
   Selects,
 } from './ProfileEditModal.styled';
@@ -25,7 +26,7 @@ import { getDate } from '@/utils/getDate';
 import { updateUser } from '@/services/user/updateUser';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import { setUser } from '@/store/slices/userSlice';
-import { ImageEditor } from '@/components/ui/ImageEditor/ImageEditor';
+import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
 import DefaultAvatar from '@/assets/images/default_avatar_big.png';
 import { isAuthWithGoogle } from '@/utils/isAuthWithGoogle';
 
@@ -87,14 +88,14 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   return (
     <Modal id='profile-modal' onClose={onClose}>
       <Form onSubmit={handleSubmit(onSubmitForm)}>
-        <ImageLoader>
+        <ImageEditor>
           <img src={watch('avatar') || DefaultAvatar} alt='avatar' />
-          <ImageEditor
-            onLoadCallback={(newImage) => setValue('avatar', newImage || '')}
-            label='avatar'
-            register={register}
-          />
-        </ImageLoader>
+          <ImageLoaderWrapper>
+            <ImageLoader
+              onLoadCallback={(newImage) => setValue('avatar', newImage || '')}
+            />
+          </ImageLoaderWrapper>
+        </ImageEditor>
         <Input
           placeholder='Name'
           label='name'

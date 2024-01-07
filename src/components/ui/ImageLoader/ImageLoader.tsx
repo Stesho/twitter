@@ -1,20 +1,14 @@
 import React from 'react';
-import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
 import { checkImageFile } from '@/utils/checkImageFile';
-import loaderImage from '@/assets/icons/image_loader.svg';
-import { Input, ImageEditorWrapper } from './ImageEditor.styled';
+import loaderImage from '@/assets/images/media.png';
+import { Input, ImageEditorWrapper } from './ImageLoader.styled';
 
-interface ImageEditorProps<T extends FieldValues> {
+interface ImageEditorProps {
   onLoadCallback: (image: string | null) => void;
-  label: Path<T>;
-  register: UseFormRegister<T>;
+  iconSrc?: string;
 }
 
-export const ImageEditor = <T extends FieldValues>({
-  label,
-  register,
-  onLoadCallback,
-}: ImageEditorProps<T>) => {
+export const ImageLoader = ({ onLoadCallback, iconSrc }: ImageEditorProps) => {
   const onLoadFile = (newFile: File): void => {
     const reader: FileReader = new FileReader();
     reader.onloadend = () => onLoadCallback(reader.result?.toString() || null);
@@ -31,11 +25,10 @@ export const ImageEditor = <T extends FieldValues>({
 
   return (
     <ImageEditorWrapper>
-      <img src={loaderImage} alt='loader' />
+      <img src={iconSrc || loaderImage} alt='loader' />
       <Input
         type='file'
         accept='image/png, image/gif, image/jpeg'
-        {...register(label)}
         onChange={onInputLoad}
       />
     </ImageEditorWrapper>

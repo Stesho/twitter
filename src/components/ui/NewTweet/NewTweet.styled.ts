@@ -22,7 +22,6 @@ export const NewTweetContent = styled.div`
 
 export const NewTweetTextArea = styled.textarea`
   width: 100%;
-  height: 61px;
   padding: 5px;
   font-size: 18px;
   border: none;
@@ -42,16 +41,17 @@ export const NewTweetTextArea = styled.textarea`
   }
 `;
 
+export const NewTweetImage = styled.img`
+  width: 679px;
+  height: 453px;
+  border-radius: 20px;
+  object-fit: cover;
+`;
+
 export const NewTweetMedia = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const NewTweetMediaIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
 `;
 
 export const NewTweetButton = styled(PrimaryButton)`
