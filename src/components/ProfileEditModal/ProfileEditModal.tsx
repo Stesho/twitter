@@ -51,9 +51,9 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
       name: user.name,
       phoneNumber: user.phoneNumber,
       email: user.email,
-      year: year.toString(),
-      month,
-      day: day.toString(),
+      year: (year || '').toString(),
+      month: month || '',
+      day: (day || '').toString(),
     },
   });
 
