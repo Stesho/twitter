@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import MediaImg from '@/assets/images/media.png';
 import DefaultAvatar from '@/assets/images/default_avatar.png';
 import {
@@ -9,13 +9,12 @@ import {
   NewTweetImageCancel,
   NewTweetImageWrapper,
   NewTweetMedia,
-  NewTweetTextArea,
   NewTweetWrapper,
 } from '@/components/ui/NewTweet/NewTweet.styled';
 import { sendTweet } from '@/services/tweets/sendTweet';
 import { User } from '@/types/user';
 import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
-import { useAutosizeTextArea } from '@/hooks/useAutosizeTextArea';
+import { TweetTextArea } from '@/components/ui/TweetTextArea/TweetTextArea';
 
 interface NewTweetProps {
   user: User;
@@ -25,21 +24,6 @@ export const NewTweet = ({ user }: NewTweetProps) => {
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
   const [imageLoaderKey, setImageLoaderKey] = useState('');
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-  const initialTextAreaHeightPx = 61;
-  const maxTextAreaHeightPx = 250;
-
-  useAutosizeTextArea(
-    textAreaRef.current,
-    text,
-    initialTextAreaHeightPx,
-    maxTextAreaHeightPx,
-  );
-
-  const onInputText = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(event.target.value);
-  };
 
   const onTweet = async () => {
     await sendTweet({
@@ -62,10 +46,9 @@ export const NewTweet = ({ user }: NewTweetProps) => {
     <NewTweetWrapper>
       <NewTweetAvatar src={user.avatar || DefaultAvatar} alt='avatar' />
       <NewTweetContent>
-        <NewTweetTextArea
-          ref={textAreaRef}
+        <TweetTextArea
           value={text}
-          onChange={onInputText}
+          onChange={setText}
           placeholder='What’s happening'
         />
         {image && (
