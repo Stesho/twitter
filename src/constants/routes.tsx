@@ -4,7 +4,7 @@ import { SignupWithEmailPage } from '@/pages/SignupWithEmailPage/SignupWithEmail
 import { SignupPage } from '@/pages/SignupPage/SignupPage';
 import { ProfilePage } from '@/pages/ProfilePage/ProfilePage';
 import { HomePage } from '@/pages/HomePage/HomePage';
-import TweetPage from '@/pages/TweetPage/TweetPage';
+import { TweetPage } from '@/pages/TweetPage/TweetPage';
 
 export const ROUTES = {
   home: {
