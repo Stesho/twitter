@@ -24,24 +24,16 @@ import FilledLikeIcon from '@/assets/icons/like_filled.svg?react';
 import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { Tweet as TweetType } from '@/types/tweet';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
+import { deleteTweet } from '@/services/tweets/deleteTweet';
+import { updateTweet } from '@/services/tweets/updateTweet';
+import { User } from '@/types/user';
 
 export interface TweetProps {
   tweet: TweetType;
-  onDeleteTweet: (tweetId: string) => void;
-  onUpdateTweet: (newTweet: TweetType) => void;
-  onLike: (tweet: TweetType) => void;
-  isLikedByUser: boolean;
-  isUserAuthor: boolean;
+  user: User;
 }
 
-export const Tweet = ({
-  tweet,
-  onDeleteTweet,
-  onUpdateTweet,
-  onLike,
-  isLikedByUser,
-  isUserAuthor,
-}: TweetProps) => {
+export const Tweet = ({ tweet, user }: TweetProps) => {
   const [newText, setNewText] = useState(tweet.text);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isPopupActive, setIsPopupActive] = useState(false);
@@ -65,25 +57,38 @@ export const Tweet = ({
     setIsEditingMode(true);
     setIsPopupActive(false);
   };
+
   const editingModeOff = () => setIsEditingMode(false);
 
-  const onDelete = () => onDeleteTweet(tweet.id);
+  const onDelete = async () => {
+    await deleteTweet(tweet.id);
+  };
 
   const onUpdate = async () => {
-    await onUpdateTweet({
+    await updateTweet({
       ...tweet,
       text: newText,
     });
     editingModeOff();
   };
 
-  const onLikeClick = () => {
-    onLike(tweet);
+  const onLike = async () => {
+    const newLikes =
+      tweet.likes.indexOf(user.id) !== -1
+        ? [...tweet.likes.filter((userId) => userId !== user.id)]
+        : [user.id, ...tweet.likes];
+
+    await updateTweet({
+      ...tweet,
+      likes: newLikes,
+    });
+
+    editingModeOff();
   };
 
   return (
     <TweetWrapper>
-      <TweetAuthorImg src={DefaultAvatar} alt='avatar' />
+      <TweetAuthorImg src={tweet.author.avatar || DefaultAvatar} alt='avatar' />
       <TweetContent>
         <TweetHead>
           <div>
@@ -92,7 +97,7 @@ export const Tweet = ({
               username · {fromISOStringToReadable(tweet.date)}
             </TweetAuthorUsername>
           </div>
-          {isUserAuthor && (
+          {tweet.author.id === user!.id && (
             <TweetDots ref={dotsRef} onClick={togglePopup}>
               <TweetDot />
               <TweetDot />
@@ -106,8 +111,12 @@ export const Tweet = ({
           <TweetText>{tweet.text}</TweetText>
         )}
         <div>
-          <TweetLikeButton onClick={onLikeClick}>
-            {isLikedByUser ? <FilledLikeIcon /> : <LikeIcon />}
+          <TweetLikeButton onClick={onLike}>
+            {tweet.likes.indexOf(user!.id) !== -1 ? (
+              <FilledLikeIcon />
+            ) : (
+              <LikeIcon />
+            )}
             <TweetLikes>{tweet.likes.length}</TweetLikes>
           </TweetLikeButton>
         </div>

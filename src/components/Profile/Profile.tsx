@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useMemo, useState } from 'react';
+import { collection, orderBy, query, where } from 'firebase/firestore';
 import { User } from '@/types/user';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import {
@@ -23,39 +23,28 @@ import {
 import ProfileBg from '@/assets/images/profile_bg.jpg';
 import DefaultAvatar from '@/assets/images/default_avatar_big.png';
 import { ButtonTypes } from '@/types/buttonTypes';
-import { sendTweet } from '@/services/tweets/sendTweet';
-import { getUserTweets } from '@/services/tweets/getUserTweets';
-import { Tweet as TweetType } from '@/types/tweet';
-import { userSelector } from '@/store/selectors/userSelectors';
-import { Loader } from '@/components/ui/Loader/Loader';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
-import { deleteTweet } from '@/services/tweets/deleteTweet';
-import { updateTweet } from '@/services/tweets/updateTweet';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
+import { db } from '@/db/firesbase';
+import { Collections } from '@/types/collections';
+import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
 
 interface ProfileProps {
   user: User;
 }
 
 export const Profile = ({ user }: ProfileProps) => {
-  const dispatch = useDispatch();
-  const userStore = useSelector(userSelector);
-  const [tweets, setTweets] = useState<TweetType[]>([]);
   const [isModalActive, setIsModalActive] = useState(false);
-  const [isTweetsLoading, setIsTweetsLoading] = useState(false);
-
-  const onTweet = async (text: string) => {
-    const tweet = await sendTweet({
-      text,
-      date: new Date().toISOString(),
-      author: user,
-      likes: [],
-    });
-
-    if (tweet) {
-      setTweets((prevTweets) => [tweet, ...prevTweets]);
-    }
-  };
+  const tweetsQuery = useMemo(
+    () =>
+      query(
+        collection(db, Collections.Tweets),
+        where('author.id', '==', user.id),
+        orderBy('date', 'desc'),
+      ),
+    [user.id],
+  );
+  const { tweets, isTweetsLoading } = useTweetsSnapshot(tweetsQuery);
 
   const openModal = () => {
     setIsModalActive(true);
@@ -64,62 +53,6 @@ export const Profile = ({ user }: ProfileProps) => {
   const closeModal = () => {
     setIsModalActive(false);
   };
-
-  const onDeleteTweet = async (tweetId: string) => {
-    const deletedTweet = await deleteTweet(tweetId);
-
-    if (deletedTweet === null) {
-      return null;
-    }
-
-    return setTweets((prevTweets) => [
-      ...prevTweets.filter((tweet) => tweet.id !== tweetId),
-    ]);
-  };
-
-  const onUpdateTweet = async (newTweet: TweetType) => {
-    const updatedTweet = await updateTweet(newTweet);
-
-    if (updatedTweet === null) {
-      return null;
-    }
-
-    return setTweets((prevTweets) => [
-      ...prevTweets.map((tweet) =>
-        tweet.id === newTweet.id ? newTweet : tweet,
-      ),
-    ]);
-  };
-
-  const onLike = async (tweet: TweetType) => {
-    const newLikes =
-      tweet.likes.indexOf(user.id) !== -1
-        ? [...tweet.likes.filter((userId) => userId !== user.id)]
-        : [user.id, ...tweet.likes];
-
-    await onUpdateTweet({
-      ...tweet,
-      likes: newLikes,
-    });
-  };
-
-  useEffect(() => {
-    setIsTweetsLoading(true);
-    getUserTweets(user).then((tweetsData) => {
-      if (tweetsData) {
-        setTweets(tweetsData);
-      }
-      setIsTweetsLoading(false);
-    });
-  }, [user, dispatch]);
-
-  if (!userStore.user) {
-    return (
-      <ProfileWrapper>
-        <Loader />
-      </ProfileWrapper>
-    );
-  }
 
   return (
     <ProfileWrapper>
@@ -131,7 +64,7 @@ export const Profile = ({ user }: ProfileProps) => {
         <BgImg src={ProfileBg} alt='background' />
         <ProfileBar>
           <MainInfo>
-            <Avatar src={DefaultAvatar} alt='avatar' />
+            <Avatar src={user.avatar || DefaultAvatar} alt='avatar' />
             <Name>{user.name}</Name>
             <Username>@bobur_mavlonov</Username>
             <Occupation>UX&UI designer at @abutechuz</Occupation>
@@ -150,15 +83,9 @@ export const Profile = ({ user }: ProfileProps) => {
             Edit profile
           </EditButton>
         </ProfileBar>
-        <NewTweet onTweet={onTweet} />
+        <NewTweet user={user} />
         <TweetsTitle>Tweets</TweetsTitle>
-        <Tweets
-          tweets={tweets}
-          onDeleteTweet={onDeleteTweet}
-          onUpdateTweet={onUpdateTweet}
-          onLike={onLike}
-          isLoading={isTweetsLoading}
-        />
+        <Tweets tweets={tweets} isLoading={isTweetsLoading} user={user} />
       </div>
       {isModalActive && <ProfileEditModal user={user} onClose={closeModal} />}
     </ProfileWrapper>

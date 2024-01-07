@@ -8,45 +8,41 @@ import {
   where,
 } from 'firebase/firestore';
 import { auth, db } from '@/db/firesbase';
-import { SignupUserData, User } from '@/types/user';
+import { User } from '@/types/user';
 import { Collections } from '@/types/collections';
 
 export const updateUser = async (userData: User) => {
-  if (userData.email !== auth.currentUser?.email) {
-    const emailRes = await verifyBeforeUpdateEmail(
-      auth.currentUser!,
-      userData.email,
-    ).catch((error) => {
-      console.error(error);
-      return null;
-    });
-
-    if (emailRes === null) {
-      return null;
+  try {
+    if (auth.currentUser?.email !== userData.email) {
+      await verifyBeforeUpdateEmail(auth.currentUser!, userData.email);
     }
-  }
 
-  const tweetsQuery = query(
-    collection(db, Collections.Tweets),
-    where('author.id', '==', userData.id),
-  );
+    const tweetsQuery = query(
+      collection(db, Collections.Tweets),
+      where('author.id', '==', userData.id),
+    );
 
-  const tweetsData = await getDocs(tweetsQuery);
+    const tweetsData = await getDocs(tweetsQuery);
 
-  tweetsData.forEach((tweetDoc) => {
-    updateDoc(tweetDoc.ref, {
-      author: userData,
+    tweetsData.forEach((tweetDoc) => {
+      updateDoc(tweetDoc.ref, {
+        author: userData,
+      });
     });
-  });
 
-  const updatedUser: SignupUserData = {
-    name: userData.name,
-    email: userData.email,
-    phoneNumber: userData.phoneNumber,
-    birthday: userData.birthday,
-  };
+    const updatedUser = {
+      avatar: userData.avatar,
+      name: userData.name,
+      email: userData.email,
+      phoneNumber: userData.phoneNumber,
+      birthday: userData.birthday,
+    };
 
-  await updateDoc(doc(db, Collections.Users, userData.id), updatedUser);
+    await updateDoc(doc(db, Collections.Users, userData.id), updatedUser);
 
-  return userData;
+    return userData;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };

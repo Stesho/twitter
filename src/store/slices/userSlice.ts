@@ -6,22 +6,16 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  user: {
-    id: '',
-    name: '',
-    phoneNumber: '',
-    email: '',
-    birthday: '',
-  },
+  user: null,
 };
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User | null>) => {
-      state.user = action.payload;
-    },
+    setUser: (_, action: PayloadAction<User | null>) => ({
+      user: action.payload,
+    }),
   },
 });
 

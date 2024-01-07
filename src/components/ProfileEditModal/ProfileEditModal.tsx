@@ -12,13 +12,22 @@ import { MONTHS } from '@/constants/selectOptions';
 import { getDaysInMonth } from '@/utils/getDaysInMonth';
 import { getYearsInRange } from '@/utils/getYearsInRange';
 import { getCurrentYear } from '@/utils/getCurrentYear';
-import { Buttons, Form, SaveButton, Selects } from './ProfileEditModal.styled';
+import {
+  Buttons,
+  Form,
+  ImageLoader,
+  SaveButton,
+  Selects,
+} from './ProfileEditModal.styled';
 import { Button } from '@/components/ui/Button/Button';
 import { EditUserFormData } from '@/types/forms';
 import { getDate } from '@/utils/getDate';
 import { updateUser } from '@/services/user/updateUser';
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import { setUser } from '@/store/slices/userSlice';
+import { ImageEditor } from '@/components/ui/ImageEditor/ImageEditor';
+import DefaultAvatar from '@/assets/images/default_avatar_big.png';
+import { isAuthWithGoogle } from '@/utils/isAuthWithGoogle';
 
 interface ProfileEditModalProps {
   onClose: () => void;
@@ -27,6 +36,7 @@ interface ProfileEditModalProps {
 
 export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   const dispatch = useDispatch();
+  const isUserAuthWithGoogle = isAuthWithGoogle();
   const { year, month, day } = getDateValuesFromISOString(user.birthday);
   const {
     register,
@@ -34,16 +44,18 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
     watch,
     reset,
     setError,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(signupUserFormSchema),
     defaultValues: {
+      avatar: user.avatar,
       name: user.name,
       phoneNumber: user.phoneNumber,
       email: user.email,
-      year: year.toString(),
-      month,
-      day: day.toString(),
+      year: (year || '').toString(),
+      month: month || '',
+      day: (day || '').toString(),
     },
   });
 
@@ -52,9 +64,10 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   };
 
   const onSubmitForm = async (data: EditUserFormData) => {
-    const { name, phoneNumber, email } = data;
+    const { avatar, name, phoneNumber, email } = data;
     const newUser = await updateUser({
       id: user.id,
+      avatar: avatar || '',
       name,
       phoneNumber,
       email,
@@ -74,6 +87,14 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   return (
     <Modal id='profile-modal' onClose={onClose}>
       <Form onSubmit={handleSubmit(onSubmitForm)}>
+        <ImageLoader>
+          <img src={watch('avatar') || DefaultAvatar} alt='avatar' />
+          <ImageEditor
+            onLoadCallback={(newImage) => setValue('avatar', newImage || '')}
+            label='avatar'
+            register={register}
+          />
+        </ImageLoader>
         <Input
           placeholder='Name'
           label='name'
@@ -87,6 +108,7 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
           errorMessage={errors.phoneNumber?.message}
         />
         <Input
+          disabled={isUserAuthWithGoogle}
           placeholder='Email'
           label='email'
           register={register}

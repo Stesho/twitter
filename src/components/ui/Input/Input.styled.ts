@@ -21,6 +21,12 @@ export const InputStyled = styled.input<{
   &::placeholder {
     color: #00000099;
   }
+
+  &:disabled {
+    background-color: #00000019;
+    color: #00000099;
+    cursor: not-allowed;
+  }
 `;
 
 export const ErrorMessage = styled.span`

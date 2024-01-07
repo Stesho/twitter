@@ -9,7 +9,7 @@ import {
   Title,
   TwitterLogo,
 } from './SignupSteps.styled';
-import { isUserExist } from '@/services/user/isUserExist';
+import { getUserByEmailOrPhone } from '@/services/user/getUserByEmailOrPhone';
 import { SignupUserData } from '@/types/user';
 import { signup } from '@/services/user/signup';
 
@@ -20,7 +20,7 @@ export const SignupSteps = () => {
   const [isError, setIsError] = useState(false);
 
   const onNextClick = async (user: SignupUserData) => {
-    const isUser = await isUserExist(user);
+    const isUser = await getUserByEmailOrPhone(user.email, user.phoneNumber);
 
     if (isUser) {
       return setIsError(true);
@@ -42,7 +42,6 @@ export const SignupSteps = () => {
       return setIsError(true);
     }
 
-    // dispatch(setUser(newUser));
     return navigate('/profile');
   };
 
