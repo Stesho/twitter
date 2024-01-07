@@ -1,24 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
-import { userSelector } from '@/store/selectors/userSelectors';
-import Feed from '@/components/Feed/Feed';
-import { Loader } from '@/components/ui/Loader/Loader';
+import { Outlet } from 'react-router-dom';
+import { Border, Main, Page } from './HomePage.styled';
+import { Menu } from '@/components/ui/Menu/Menu';
+import { TweetsAside } from '@/components/TweetsAside/TweetsAside';
 
-export const HomePage = () => {
-  const { user } = useSelector(userSelector);
-
-  if (!user) {
-    return (
-      <PageWrapper>
-        <Loader />
-      </PageWrapper>
-    );
-  }
-
-  return (
-    <PageWrapper>
-      <Feed user={user!} />
-    </PageWrapper>
-  );
-};
+export const HomePage = () => (
+  <Page>
+    <Menu />
+    <Border />
+    <Main>
+      <Outlet />
+    </Main>
+    <Border />
+    <TweetsAside />
+  </Page>
+);

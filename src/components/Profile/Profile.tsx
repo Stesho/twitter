@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { collection, orderBy, query, where } from 'firebase/firestore';
+import { useSelector } from 'react-redux';
 import { User } from '@/types/user';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import {
@@ -28,12 +29,15 @@ import { Tweets } from '@/components/ui/Tweets/Tweets';
 import { db } from '@/db/firesbase';
 import { Collections } from '@/types/collections';
 import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
+import { userSelector } from '@/store/selectors/userSelectors';
 
 interface ProfileProps {
   user: User;
 }
 
 export const Profile = ({ user }: ProfileProps) => {
+  const userStore = useSelector(userSelector);
+  const isProfileOwner = userStore.user?.id === user.id;
   const [isModalActive, setIsModalActive] = useState(false);
   const tweetsQuery = useMemo(
     () =>
@@ -79,13 +83,19 @@ export const Profile = ({ user }: ProfileProps) => {
               </div>
             </Followers>
           </MainInfo>
-          <EditButton onClick={openModal} styleType={ButtonTypes.Neutral}>
-            Edit profile
-          </EditButton>
+          {isProfileOwner && (
+            <EditButton onClick={openModal} styleType={ButtonTypes.Neutral}>
+              Edit profile
+            </EditButton>
+          )}
         </ProfileBar>
-        <NewTweet user={user} />
+        {isProfileOwner && <NewTweet user={user} />}
         <TweetsTitle>Tweets</TweetsTitle>
-        <Tweets tweets={tweets} isLoading={isTweetsLoading} user={user} />
+        <Tweets
+          tweets={tweets}
+          isLoading={isTweetsLoading}
+          user={userStore.user!}
+        />
       </div>
       {isModalActive && <ProfileEditModal user={user} onClose={closeModal} />}
     </ProfileWrapper>

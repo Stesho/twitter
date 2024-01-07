@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import SearchIconSvg from "@/assets/icons/search.svg?react";
+import styled from 'styled-components';
+import SearchIconSvg from '@/assets/icons/search.svg?react';
 
 export const SearchWrapper = styled.div`
   position: relative;
@@ -25,9 +25,12 @@ export const SearchInput = styled.input`
   background: #eff3f4;
   border: none;
   border-radius: 31px;
-  color: #5c6c79;
   font-family: Roboto, sans-serif;
   font-size: 18px;
   font-weight: 400;
   outline: none;
+
+  &::placeholder {
+    color: #5c6c79;
+  }
 `;

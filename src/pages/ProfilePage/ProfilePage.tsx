@@ -1,24 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { userSelector } from '@/store/selectors/userSelectors';
-import { Profile } from '@/components/Profile/Profile';
-import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
-import { Loader } from '@/components/ui/Loader/Loader';
+import { Outlet } from 'react-router-dom';
+import { Border, Main, Page } from './ProfilePage.styled';
+import { Menu } from '@/components/ui/Menu/Menu';
+import { UsersAside } from '@/components/UsersAside/UsersAside';
 
-export const ProfilePage = () => {
-  const { user } = useSelector(userSelector);
-
-  if (!user) {
-    return (
-      <PageWrapper>
-        <Loader />
-      </PageWrapper>
-    );
-  }
-
-  return (
-    <PageWrapper>
-      <Profile user={user!} />
-    </PageWrapper>
-  );
-};
+export const ProfilePage = () => (
+  <Page>
+    <Menu />
+    <Border />
+    <Main>
+      <Outlet />
+    </Main>
+    <Border />
+    <UsersAside />
+  </Page>
+);

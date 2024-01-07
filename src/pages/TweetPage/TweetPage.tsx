@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { Tweet as TweetType } from '@/types/tweet';
 import { Tweet } from '@/components/ui/Tweet/Tweet';
-import { getTweetById } from '@/services/tweets/getTweetById';
 import { userSelector } from '@/store/selectors/userSelectors';
 import { Loader } from '@/components/ui/Loader/Loader';
 import { Switch } from '@/components/ui/Switch/Switch';
 import { ArrowBack, BackButton, Head } from './TweetPage.styled';
 import { ROUTES } from '@/constants/routes';
+import { Collections } from '@/types/collections';
+import { db } from '@/db/firesbase';
 
-const TweetPage = () => {
+export const TweetPage = () => {
   const { user } = useSelector(userSelector);
   const navigate = useNavigate();
   const [tweet, setTweet] = useState<TweetType>(null!);
@@ -19,31 +20,35 @@ const TweetPage = () => {
   const { tweetId } = useParams();
 
   useEffect(() => {
-    if (tweetId) {
-      setIsLoading(true);
-      getTweetById(tweetId).then((tweetData) => {
-        if (tweetData) {
-          setTweet(tweetData);
-        }
-        setIsLoading(false);
-      });
-    }
-  }, [tweetId]);
+    const tweetDocRef = doc(db, Collections.Tweets, tweetId || '');
+    setIsLoading(true);
+    const unsubscribe = onSnapshot(tweetDocRef, (tweetDoc) => {
+      const tweetData = tweetDoc.data();
+
+      if (!tweetData) {
+        navigate(ROUTES.home.path);
+      }
+
+      setIsLoading(false);
+      setTweet({
+        id: tweetDoc.id,
+        ...tweetData,
+      } as TweetType);
+    });
+
+    return unsubscribe;
+  }, [navigate, tweetId]);
 
   const onBackClick = () => {
     navigate(ROUTES.home.path);
   };
 
-  if (isLoading) {
-    return (
-      <PageWrapper>
-        <Loader />
-      </PageWrapper>
-    );
+  if (isLoading || !user) {
+    return <Loader />;
   }
 
   return (
-    <PageWrapper>
+    <>
       <Head>
         <BackButton onClick={onBackClick}>
           <ArrowBack />
@@ -51,16 +56,7 @@ const TweetPage = () => {
         </BackButton>
         <Switch onChange={() => {}} />
       </Head>
-      <Tweet
-        tweet={tweet}
-        onDeleteTweet={() => {}}
-        onUpdateTweet={() => {}}
-        onLike={() => {}}
-        isLikedByUser={tweet.likes.indexOf(user!.id) !== -1}
-        isUserAuthor={tweet.author.id === user!.id}
-      />
-    </PageWrapper>
+      <Tweet tweet={tweet} user={user} />
+    </>
   );
 };
-
-export default TweetPage;
