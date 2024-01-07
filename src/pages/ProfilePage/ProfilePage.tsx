@@ -1,8 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Aside from '@/components/Aside/Aside';
 import { Border, Main, Page } from './ProfilePage.styled';
 import { Menu } from '@/components/ui/Menu/Menu';
+import { UsersAside } from '@/components/UsersAside/UsersAside';
 
 export const ProfilePage = () => (
   <Page>
@@ -12,6 +12,6 @@ export const ProfilePage = () => (
       <Outlet />
     </Main>
     <Border />
-    <Aside placeholder='Search users' />
+    <UsersAside />
   </Page>
 );

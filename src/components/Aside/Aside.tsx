@@ -1,62 +1,25 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { ReactNode } from 'react';
 import { Search } from '@/components/ui/Search/Search';
 import {
   AsideWrapper,
-  NoResults,
-  ResultsImg,
-  ResultsInfo,
-  ResultsItem,
-  ResultsName,
   ResultsTitle,
-  ResultsUsername,
   SearchResults,
 } from '@/components/Aside/Aside.styled';
-import { Tweet } from '@/types/tweet';
-import { getTweetsByText } from '@/services/tweets/getTweetsByText';
 
 interface AsideProps {
   placeholder?: string;
+  onSearch: (text: string) => void;
+  children: ReactNode;
 }
 
-const Aside = ({ placeholder }: AsideProps) => {
-  const navigate = useNavigate();
-  const [tweets, setTweets] = useState<Tweet[]>([]);
-
-  const onResultClick = (tweetId: string) => () => {
-    navigate(`/tweets/${tweetId}`);
-  };
-
-  const search = async (text: string) => {
-    const tweetsData = await getTweetsByText(text);
-    if (tweetsData) {
-      setTweets(tweetsData);
-    }
-  };
-
-  return (
-    <AsideWrapper>
-      <Search onSearch={search} placeholder={placeholder} />
-      <SearchResults>
-        <ResultsTitle>Search Results</ResultsTitle>
-        {tweets.length === 0 ? (
-          <NoResults>No results</NoResults>
-        ) : (
-          <ul>
-            {tweets.map((tweet) => (
-              <ResultsItem key={tweet.id} onClick={onResultClick(tweet.id)}>
-                <ResultsImg src={tweet.author.avatar} alt='avatar' />
-                <ResultsInfo>
-                  <ResultsName>{tweet.author.name}</ResultsName>
-                  <ResultsUsername>{tweet.author.email}</ResultsUsername>
-                </ResultsInfo>
-              </ResultsItem>
-            ))}
-          </ul>
-        )}
-      </SearchResults>
-    </AsideWrapper>
-  );
-};
+const Aside = ({ onSearch, children, placeholder }: AsideProps) => (
+  <AsideWrapper>
+    <Search onSearch={onSearch} placeholder={placeholder} />
+    <SearchResults>
+      <ResultsTitle>Search Results</ResultsTitle>
+      {children}
+    </SearchResults>
+  </AsideWrapper>
+);
 
 export default Aside;
