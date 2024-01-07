@@ -6,6 +6,8 @@ import {
   NewTweetButton,
   NewTweetContent,
   NewTweetImage,
+  NewTweetImageCancel,
+  NewTweetImageWrapper,
   NewTweetMedia,
   NewTweetTextArea,
   NewTweetWrapper,
@@ -41,6 +43,10 @@ export const NewTweet = ({ user }: NewTweetProps) => {
     setText('');
   };
 
+  const resetImage = () => {
+    setImage('');
+  };
+
   return (
     <NewTweetWrapper>
       <NewTweetAvatar src={user.avatar || DefaultAvatar} alt='avatar' />
@@ -51,7 +57,12 @@ export const NewTweet = ({ user }: NewTweetProps) => {
           onChange={onInputText}
           placeholder='What’s happening'
         />
-        {image && <NewTweetImage src={image} alt='media' />}
+        {image && (
+          <NewTweetImageWrapper>
+            <NewTweetImage src={image} alt='media' />
+            <NewTweetImageCancel onClick={resetImage}>✖</NewTweetImageCancel>
+          </NewTweetImageWrapper>
+        )}
         <NewTweetMedia>
           <ImageLoader
             iconSrc={MediaImg}
