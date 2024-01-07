@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import { Tweet as TweetType } from '@/types/tweet';
 import { Tweet } from '@/components/ui/Tweet/Tweet';
 import { userSelector } from '@/store/selectors/userSelectors';
@@ -45,15 +44,11 @@ export const TweetPage = () => {
   };
 
   if (isLoading || !user) {
-    return (
-      <PageWrapper>
-        <Loader />
-      </PageWrapper>
-    );
+    return <Loader />;
   }
 
   return (
-    <PageWrapper>
+    <>
       <Head>
         <BackButton onClick={onBackClick}>
           <ArrowBack />
@@ -62,6 +57,6 @@ export const TweetPage = () => {
         <Switch onChange={() => {}} />
       </Head>
       <Tweet tweet={tweet} user={user} />
-    </PageWrapper>
+    </>
   );
 };

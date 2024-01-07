@@ -8,16 +8,19 @@ import { ProfilePage } from '@/pages/ProfilePage/ProfilePage';
 import { UserPage } from '@/pages/UserPage/UserPage';
 import { TweetPage } from '@/pages/TweetPage/TweetPage';
 import { ProfileOutlet } from '@/components/ProfileOutlet/ProfileOutlet';
+import { Feed } from '@/components/Feed/Feed';
 
 export const RootRoute = () => (
   <Routes>
     <Route path='/' element={<Navigate to='/signup' />} />
-    <Route path='home' element={<HomePage />} />
+    <Route path='home' element={<HomePage />}>
+      <Route index element={<Feed />} />
+      <Route path=':tweetId' element={<TweetPage />} />
+    </Route>
     <Route path='profile' element={<ProfilePage />}>
       <Route index element={<ProfileOutlet />} />
       <Route path=':userId' element={<UserPage />} />
     </Route>
-    <Route path='tweets/:tweetId' element={<TweetPage />} />
     <Route path='signup-email' element={<SignupWithEmailPage />} />
     <Route path='signup' element={<SignupPage />} />
     <Route path='login' element={<LoginPage />} />
