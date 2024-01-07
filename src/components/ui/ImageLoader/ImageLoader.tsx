@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { checkImageFile } from '@/utils/checkImageFile';
 import loaderImage from '@/assets/images/media.png';
 import { Input, ImageEditorWrapper } from './ImageLoader.styled';
@@ -9,15 +9,13 @@ interface ImageEditorProps {
 }
 
 export const ImageLoader = ({ onLoadCallback, iconSrc }: ImageEditorProps) => {
-  const onLoadFile = (newFile: File): void => {
+  const onLoadFile = (newFile: File) => {
     const reader: FileReader = new FileReader();
     reader.onloadend = () => onLoadCallback(reader.result?.toString() || null);
     reader.readAsDataURL(newFile);
   };
 
-  const onInputLoad = (
-    event: React.SyntheticEvent<HTMLInputElement, Event>,
-  ): void => {
+  const onInputLoad = (event: SyntheticEvent<HTMLInputElement, Event>) => {
     if (checkImageFile(event.currentTarget.files)) {
       onLoadFile(event.currentTarget.files![0]);
     }

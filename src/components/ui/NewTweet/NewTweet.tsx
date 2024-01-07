@@ -24,7 +24,9 @@ interface NewTweetProps {
 export const NewTweet = ({ user }: NewTweetProps) => {
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
+  const [imageLoaderKey, setImageLoaderKey] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
   const initialTextAreaHeightPx = 61;
   const maxTextAreaHeightPx = 250;
 
@@ -42,15 +44,18 @@ export const NewTweet = ({ user }: NewTweetProps) => {
   const onTweet = async () => {
     await sendTweet({
       text,
-      date: new Date().toISOString(),
       author: user,
+      date: new Date().toISOString(),
+      image,
       likes: [],
     });
     setText('');
+    setImage('');
   };
 
   const resetImage = () => {
     setImage('');
+    setImageLoaderKey(Math.random().toString(36));
   };
 
   return (
@@ -71,6 +76,7 @@ export const NewTweet = ({ user }: NewTweetProps) => {
         )}
         <NewTweetMedia>
           <ImageLoader
+            key={imageLoaderKey}
             iconSrc={MediaImg}
             onLoadCallback={(newImage) => setImage(newImage || '')}
           />
