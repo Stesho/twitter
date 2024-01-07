@@ -5,6 +5,7 @@ import { SignupPage } from '@/pages/SignupPage/SignupPage';
 import { ProfilePage } from '@/pages/ProfilePage/ProfilePage';
 import { HomePage } from '@/pages/HomePage/HomePage';
 import { TweetPage } from '@/pages/TweetPage/TweetPage';
+import { UserPage } from '@/pages/UserPage/UserPage';
 
 export const ROUTES = {
   home: {
@@ -26,6 +27,10 @@ export const ROUTES = {
   profile: {
     path: '/profile',
     element: <ProfilePage />,
+  },
+  user: {
+    path: '/users/:userId',
+    element: <UserPage />,
   },
   tweet: {
     path: '/tweets/:tweetId',
