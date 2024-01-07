@@ -25,9 +25,15 @@ export const NewTweet = ({ user }: NewTweetProps) => {
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const initialTextAreaHeight = 61;
+  const initialTextAreaHeightPx = 61;
+  const maxTextAreaHeightPx = 250;
 
-  useAutosizeTextArea(textAreaRef.current, text, initialTextAreaHeight);
+  useAutosizeTextArea(
+    textAreaRef.current,
+    text,
+    initialTextAreaHeightPx,
+    maxTextAreaHeightPx,
+  );
 
   const onInputText = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
