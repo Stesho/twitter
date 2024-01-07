@@ -11,3 +11,7 @@ export const Head = styled.div`
   font-weight: 700;
   border-bottom: 1px solid #d8d8d8;
 `;
+
+export const FeedTweets = styled.div`
+  margin: 70px;
+`;

@@ -22,7 +22,6 @@ export const NewTweetContent = styled.div`
 
 export const NewTweetTextArea = styled.textarea`
   width: 100%;
-  height: 61px;
   padding: 5px;
   font-size: 18px;
   border: none;
@@ -42,16 +41,39 @@ export const NewTweetTextArea = styled.textarea`
   }
 `;
 
+export const NewTweetImageWrapper = styled.div`
+  position: relative;
+  width: fit-content;
+`;
+
+export const NewTweetImageCancel = styled.button`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  line-height: 100%;
+  top: 0;
+  left: 100%;
+  transform: translate(-140%, 40%);
+  border-radius: 50%;
+  background-color: #eff3f4;
+  cursor: pointer;
+`;
+
+export const NewTweetImage = styled.img`
+  width: 679px;
+  height: 453px;
+  border-radius: 20px;
+  object-fit: cover;
+`;
+
 export const NewTweetMedia = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const NewTweetMediaIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
 `;
 
 export const NewTweetButton = styled(PrimaryButton)`

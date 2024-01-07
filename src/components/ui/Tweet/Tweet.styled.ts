@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { PrimaryButton } from '@/components/ui/Button/Button.styled';
-import { NewTweetTextArea } from '@/components/ui/NewTweet/NewTweet.styled';
 
 export const TweetWrapper = styled.div`
   position: relative;
@@ -65,17 +64,49 @@ export const TweetDot = styled.div`
   background-color: #000;
 `;
 
-export const EditingTextArea = styled(NewTweetTextArea)`
-  outline: auto;
-`;
-
 export const TweetText = styled.p`
   margin: 5px 26px 22px 0;
+  white-space: pre-wrap;
+`;
+
+export const TweetImageWrapper = styled.div`
+  position: relative;
+  width: fit-content;
+  margin: 0 0 5px 0;
+`;
+
+export const CancelImageButton = styled.button`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  line-height: 100%;
+  top: 0;
+  left: 100%;
+  transform: translate(-140%, 40%);
+  border-radius: 50%;
+  background-color: #eff3f4;
+  cursor: pointer;
+`;
+
+export const TweetImage = styled.img`
+  width: 679px;
+  height: 453px;
+  border-radius: 20px;
+  object-fit: cover;
+`;
+
+export const BottomBar = styled.div`
+  display: flex;
 `;
 
 export const TweetLikeButton = styled.button`
   display: flex;
   align-items: center;
+  margin: 0 30px 0 0;
   cursor: pointer;
 
   &:hover {

@@ -1,10 +1,11 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import DefaultAvatar from '@/assets/images/default_avatar.png';
 import {
+  BottomBar,
+  CancelImageButton,
   EditingButtons,
   EditingCancelButton,
   EditingSaveButton,
-  EditingTextArea,
   TweetAuthorImg,
   TweetAuthorName,
   TweetAuthorUsername,
@@ -12,6 +13,8 @@ import {
   TweetDot,
   TweetDots,
   TweetHead,
+  TweetImage,
+  TweetImageWrapper,
   TweetLikeButton,
   TweetLikes,
   TweetPopup,
@@ -27,6 +30,8 @@ import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { deleteTweet } from '@/services/tweets/deleteTweet';
 import { updateTweet } from '@/services/tweets/updateTweet';
 import { User } from '@/types/user';
+import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
+import { TweetTextArea } from '@/components/ui/TweetTextArea/TweetTextArea';
 
 export interface TweetProps {
   tweet: TweetType;
@@ -35,6 +40,7 @@ export interface TweetProps {
 
 export const Tweet = ({ tweet, user }: TweetProps) => {
   const [newText, setNewText] = useState(tweet.text);
+  const [image, setImage] = useState(tweet.image);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isPopupActive, setIsPopupActive] = useState(false);
   const dotsRef = useRef<HTMLDivElement>(null);
@@ -48,17 +54,18 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
     setIsPopupActive(!isPopupActive);
   };
 
-  const onInputText = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setNewText(event.target.value);
-  };
-
   const editingModeOn = () => {
     setNewText(tweet.text);
     setIsEditingMode(true);
     setIsPopupActive(false);
+    setImage(tweet.image);
   };
 
-  const editingModeOff = () => setIsEditingMode(false);
+  const editingModeOff = () => {
+    setImage(tweet.image);
+    setIsEditingMode(false);
+    setImage('');
+  };
 
   const onDelete = async () => {
     await deleteTweet(tweet.id);
@@ -68,6 +75,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
     await updateTweet({
       ...tweet,
       text: newText,
+      image,
     });
     editingModeOff();
   };
@@ -84,6 +92,14 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
     });
 
     editingModeOff();
+  };
+
+  const onLoadImage = (newImage: string | null) => {
+    setImage(newImage || '');
+  };
+
+  const removeImage = () => {
+    setImage('');
   };
 
   return (
@@ -106,11 +122,23 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
           )}
         </TweetHead>
         {isEditingMode ? (
-          <EditingTextArea value={newText} onChange={onInputText} />
+          <TweetTextArea value={newText} onChange={setNewText} />
         ) : (
           <TweetText>{tweet.text}</TweetText>
         )}
-        <div>
+        {isEditingMode
+          ? image && (
+              <TweetImageWrapper>
+                <TweetImage src={image} alt='media' />
+                <CancelImageButton onClick={removeImage}>✖</CancelImageButton>
+              </TweetImageWrapper>
+            )
+          : tweet.image && (
+              <TweetImageWrapper>
+                <TweetImage src={tweet.image} alt='media' />
+              </TweetImageWrapper>
+            )}
+        <BottomBar>
           <TweetLikeButton onClick={onLike}>
             {tweet.likes.indexOf(user!.id) !== -1 ? (
               <FilledLikeIcon />
@@ -119,7 +147,8 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
             )}
             <TweetLikes>{tweet.likes.length}</TweetLikes>
           </TweetLikeButton>
-        </div>
+          {isEditingMode && <ImageLoader onLoadCallback={onLoadImage} />}
+        </BottomBar>
       </TweetContent>
       {isPopupActive && (
         <TweetPopup ref={popupRef}>
@@ -132,12 +161,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
           <EditingCancelButton onClick={editingModeOff}>
             Cancel
           </EditingCancelButton>
-          <EditingSaveButton
-            onClick={onUpdate}
-            disabled={tweet.text === newText}
-          >
-            Save
-          </EditingSaveButton>
+          <EditingSaveButton onClick={onUpdate}>Save</EditingSaveButton>
         </EditingButtons>
       )}
     </TweetWrapper>

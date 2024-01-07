@@ -5,5 +5,6 @@ export interface Tweet {
   text: string;
   author: User;
   date: string;
+  image?: string;
   likes: string[];
 }

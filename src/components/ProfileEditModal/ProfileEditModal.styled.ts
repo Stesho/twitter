@@ -14,7 +14,7 @@ export const Form = styled.form`
   }
 `;
 
-export const ImageLoader = styled.div`
+export const ImageEditor = styled.div`
   position: relative;
   width: 200px;
   height: 200px;
@@ -26,12 +26,18 @@ export const ImageLoader = styled.div`
     object-fit: cover;
   }
 
-  & label {
+  & > div {
     position: absolute;
     top: 100%;
     left: 100%;
     transform: translate(-100%, -100%);
   }
+`;
+
+export const ImageLoaderWrapper = styled.div`
+  background-color: #fff;
+  border: 1px solid #00000033;
+  border-radius: 5px;
 `;
 
 export const Selects = styled.div`
