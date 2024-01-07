@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { PageWrapper } from '@/components/PageWrapper/PageWrapper';
 import { User } from '@/types/user';
 import { getUserById } from '@/services/user/getUserById';
 import { Loader } from '@/components/ui/Loader/Loader';
@@ -22,17 +21,5 @@ export const UserPage = () => {
     fetchUser();
   }, [userId]);
 
-  if (!user) {
-    return (
-      <PageWrapper>
-        <Loader />
-      </PageWrapper>
-    );
-  }
-
-  return (
-    <PageWrapper>
-      <Profile user={user} />
-    </PageWrapper>
-  );
+  return user ? <Profile user={user} /> : <Loader />;
 };

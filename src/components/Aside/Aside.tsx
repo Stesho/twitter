@@ -15,7 +15,11 @@ import {
 import { Tweet } from '@/types/tweet';
 import { getTweetsByText } from '@/services/tweets/getTweetsByText';
 
-const Aside = () => {
+interface AsideProps {
+  placeholder?: string;
+}
+
+const Aside = ({ placeholder }: AsideProps) => {
   const navigate = useNavigate();
   const [tweets, setTweets] = useState<Tweet[]>([]);
 
@@ -32,7 +36,7 @@ const Aside = () => {
 
   return (
     <AsideWrapper>
-      <Search onSearch={search} placeholder='Search Twitter' />
+      <Search onSearch={search} placeholder={placeholder} />
       <SearchResults>
         <ResultsTitle>Search Results</ResultsTitle>
         {tweets.length === 0 ? (

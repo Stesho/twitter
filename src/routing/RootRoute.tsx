@@ -1,11 +1,26 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { ROUTES } from '@/constants/routes';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { HomePage } from '@/pages/HomePage/HomePage';
+import { SignupWithEmailPage } from '@/pages/SignupWithEmailPage/SignupWithEmailPage';
+import { SignupPage } from '@/pages/SignupPage/SignupPage';
+import { LoginPage } from '@/pages/LoginPage/LoginPage';
+import { ProfilePage } from '@/pages/ProfilePage/ProfilePage';
+import { UserPage } from '@/pages/UserPage/UserPage';
+import { TweetPage } from '@/pages/TweetPage/TweetPage';
+import { ProfileOutlet } from '@/components/ProfileOutlet/ProfileOutlet';
 
 export const RootRoute = () => (
   <Routes>
-    {Object.values(ROUTES).map(({ path, element }) => (
-      <Route key={path} path={path} element={element} />
-    ))}
+    <Route path='/' element={<Navigate to='/signup' />} />
+    <Route path='home' element={<HomePage />} />
+    <Route path='profile' element={<ProfilePage />}>
+      <Route index element={<ProfileOutlet />} />
+      <Route path=':userId' element={<UserPage />} />
+    </Route>
+    <Route path='tweets/:tweetId' element={<TweetPage />} />
+    <Route path='signup-email' element={<SignupWithEmailPage />} />
+    <Route path='signup' element={<SignupPage />} />
+    <Route path='login' element={<LoginPage />} />
+    <Route path='*' element={<div>Not Found</div>} />
   </Routes>
 );
