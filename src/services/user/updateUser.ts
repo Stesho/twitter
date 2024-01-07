@@ -8,7 +8,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { auth, db } from '@/db/firesbase';
-import { SignupUserData, User } from '@/types/user';
+import { User } from '@/types/user';
 import { Collections } from '@/types/collections';
 
 export const updateUser = async (userData: User) => {
@@ -28,7 +28,7 @@ export const updateUser = async (userData: User) => {
       });
     });
 
-    const updatedUser: SignupUserData = {
+    const updatedUser = {
       avatar: userData.avatar,
       name: userData.name,
       email: userData.email,
