@@ -4,26 +4,21 @@ import {
   SearchInput,
   SearchWrapper,
 } from '@/components/ui/Search/Search.styled';
-import { Tweet } from '@/types/tweet';
-import { getTweetsByText } from '@/services/tweets/getTweetsByText';
 
 interface SearchProps {
   placeholder?: string;
-  setTweets: (tweets: Tweet[]) => void;
+  onSearch: (text: string) => void;
 }
 
-export const Search = ({ setTweets, placeholder }: SearchProps) => {
+export const Search = ({ onSearch, placeholder }: SearchProps) => {
   const [text, setText] = useState('');
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
   };
 
-  const search = async () => {
-    const tweetsData = await getTweetsByText(text);
-    if (tweetsData) {
-      setTweets(tweetsData);
-    }
+  const search = () => {
+    onSearch(text);
   };
 
   return (

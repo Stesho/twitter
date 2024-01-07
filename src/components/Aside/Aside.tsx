@@ -13,6 +13,7 @@ import {
   SearchResults,
 } from '@/components/Aside/Aside.styled';
 import { Tweet } from '@/types/tweet';
+import { getTweetsByText } from '@/services/tweets/getTweetsByText';
 
 const Aside = () => {
   const navigate = useNavigate();
@@ -22,9 +23,16 @@ const Aside = () => {
     navigate(`/tweets/${tweetId}`);
   };
 
+  const search = async (text: string) => {
+    const tweetsData = await getTweetsByText(text);
+    if (tweetsData) {
+      setTweets(tweetsData);
+    }
+  };
+
   return (
     <AsideWrapper>
-      <Search setTweets={setTweets} placeholder='Search Twitter' />
+      <Search onSearch={search} placeholder='Search Twitter' />
       <SearchResults>
         <ResultsTitle>Search Results</ResultsTitle>
         {tweets.length === 0 ? (
