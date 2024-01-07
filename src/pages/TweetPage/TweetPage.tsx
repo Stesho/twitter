@@ -34,7 +34,7 @@ const TweetPage = () => {
     navigate(ROUTES.home.path);
   };
 
-  if (isLoading) {
+  if (isLoading || !user) {
     return (
       <PageWrapper>
         <Loader />
@@ -51,14 +51,7 @@ const TweetPage = () => {
         </BackButton>
         <Switch onChange={() => {}} />
       </Head>
-      <Tweet
-        tweet={tweet}
-        onDeleteTweet={() => {}}
-        onUpdateTweet={() => {}}
-        onLike={() => {}}
-        isLikedByUser={tweet.likes.indexOf(user!.id) !== -1}
-        isUserAuthor={tweet.author.id === user!.id}
-      />
+      <Tweet tweet={tweet} user={user} />
     </PageWrapper>
   );
 };

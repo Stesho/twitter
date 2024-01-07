@@ -6,13 +6,13 @@ export const AsideWrapper = styled.aside`
 
 export const SearchResults = styled.div`
   margin: 30px 0 0 0;
-  padding: 15px;
+  padding: 15px 5px;
   border-radius: 10px;
   background: #f7f9f9;
 `;
 
 export const ResultsTitle = styled.h3`
-  margin: 0 0 29px 0;
+  margin: 0 10px 24px 10px;
   font-family:
     Roboto Serif,
     sans-serif;
@@ -21,13 +21,22 @@ export const ResultsTitle = styled.h3`
 `;
 
 export const NoResults = styled.div`
+  padding: 0 10px;
   font-size: 20px;
   font-weight: 600;
 `;
 
 export const ResultsItem = styled.li`
   display: flex;
-  margin: 0 0 25px 0;
+  padding: 5px 10px;
+  margin: 0 0 15px 0;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  &:hover {
+    background: #e1e1e1;
+  }
 `;
 
 export const ResultsImg = styled.img`

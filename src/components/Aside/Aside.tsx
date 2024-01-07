@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search } from '@/components/ui/Search/Search';
 import {
   AsideWrapper,
@@ -14,7 +15,12 @@ import {
 import { Tweet } from '@/types/tweet';
 
 const Aside = () => {
+  const navigate = useNavigate();
   const [tweets, setTweets] = useState<Tweet[]>([]);
+
+  const onResultClick = (tweetId: string) => () => {
+    navigate(`/tweets/${tweetId}`);
+  };
 
   return (
     <AsideWrapper>
@@ -26,7 +32,7 @@ const Aside = () => {
         ) : (
           <ul>
             {tweets.map((tweet) => (
-              <ResultsItem key={tweet.id}>
+              <ResultsItem key={tweet.id} onClick={onResultClick(tweet.id)}>
                 <ResultsImg src={tweet.author.avatar} alt='avatar' />
                 <ResultsInfo>
                   <ResultsName>{tweet.author.name}</ResultsName>
