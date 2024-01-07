@@ -10,7 +10,7 @@ export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (userData) => {
+    const unsubscribe = onAuthStateChanged(auth, async (userData) => {
       if (userData) {
         const existedUser = await getUserById(userData.uid);
 
@@ -21,6 +21,8 @@ export const App = () => {
         dispatch(setUser(null));
       }
     });
+
+    return unsubscribe;
   });
 
   return <Layout />;

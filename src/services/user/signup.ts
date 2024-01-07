@@ -12,7 +12,7 @@ export const signup = (userData: SignupUserData, password: string) =>
       const user = {
         avatar: photoURL || '',
         ...userData,
-      } as User;
+      };
 
       await setDoc(doc(db, Collections.Users, uid), user);
 
