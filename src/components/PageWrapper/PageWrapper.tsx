@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Menu } from '@/components/ui/Menu/Menu';
-import { Search } from '@/components/ui/Search/Search';
 import {
   Main,
   Page,
   Border,
 } from '@/components/PageWrapper/PageWrapper.styled';
+import Aside from '@/components/Aside/Aside';
 
 interface PageWrapperProps {
   children: ReactNode;
@@ -17,11 +17,6 @@ export const PageWrapper = ({ children }: PageWrapperProps) => (
     <Border />
     <Main>{children}</Main>
     <Border />
-    <aside>
-      <Search />
-      <div>
-        <span>You might like</span>
-      </div>
-    </aside>
+    <Aside />
   </Page>
 );
