@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from 'firebase/firestore';
+import React, { useMemo, useState } from 'react';
+import { collection, orderBy, query, where } from 'firebase/firestore';
 import { User } from '@/types/user';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import {
@@ -29,20 +23,28 @@ import {
 import ProfileBg from '@/assets/images/profile_bg.jpg';
 import DefaultAvatar from '@/assets/images/default_avatar_big.png';
 import { ButtonTypes } from '@/types/buttonTypes';
-import { Tweet as TweetType } from '@/types/tweet';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
 import { db } from '@/db/firesbase';
 import { Collections } from '@/types/collections';
+import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
 
 interface ProfileProps {
   user: User;
 }
 
 export const Profile = ({ user }: ProfileProps) => {
-  const [tweets, setTweets] = useState<TweetType[]>([]);
   const [isModalActive, setIsModalActive] = useState(false);
-  const [isTweetsLoading, setIsTweetsLoading] = useState(false);
+  const tweetsQuery = useMemo(
+    () =>
+      query(
+        collection(db, Collections.Tweets),
+        where('author.id', '==', user.id),
+        orderBy('date', 'desc'),
+      ),
+    [user.id],
+  );
+  const { tweets, isTweetsLoading } = useTweetsSnapshot(tweetsQuery);
 
   const openModal = () => {
     setIsModalActive(true);
@@ -51,30 +53,6 @@ export const Profile = ({ user }: ProfileProps) => {
   const closeModal = () => {
     setIsModalActive(false);
   };
-
-  useEffect(() => {
-    const tweetsQuery = query(
-      collection(db, Collections.Tweets),
-      where('author.id', '==', user.id),
-      orderBy('date', 'desc'),
-    );
-
-    setIsTweetsLoading(true);
-    const unsubscribe = onSnapshot(tweetsQuery, (snapshot) => {
-      const updatedTweets = snapshot.docs.map((tweetDoc) => {
-        const tweetData = tweetDoc.data();
-        return {
-          id: tweetDoc.id,
-          ...tweetData,
-        };
-      }) as TweetType[];
-
-      setIsTweetsLoading(false);
-      setTweets(updatedTweets);
-    });
-
-    return unsubscribe;
-  }, [user.id]);
 
   return (
     <ProfileWrapper>
