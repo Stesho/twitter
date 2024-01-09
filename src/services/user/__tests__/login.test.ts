@@ -1,37 +1,32 @@
-// import {signInWithEmailAndPassword} from "firebase/auth";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { login, LoginData } from '@/services/user/login';
-
-jest.mock('firebase/auth', () => ({
-  signInWithEmailAndPassword: jest.fn(
-    () =>
-      new Promise((resolve) => {
-        resolve({
-          user: {
-            displayName: 'Ivan',
-          },
-        });
-      }),
-  ),
-}));
-
-jest.mock('@/db/firesbase', () => ({
-  database: {},
-}));
 
 const loginData: LoginData = {
   identifier: 'test@test.test',
   password: 'test',
 };
 
-describe('login', () => {
+jest.mock('firebase/auth', () => ({
+  signInWithEmailAndPassword: jest.fn(
+    () =>
+      new Promise((resolve) => {
+        resolve({
+          user: loginData,
+        });
+      }),
+  ),
+}));
+
+jest.mock('@/db/firesbase', () => ({
+  db: {},
+}));
+
+describe('log in', () => {
   it('should call firebase sign in method', async () => {
     const user = await login(loginData);
 
     expect(signInWithEmailAndPassword).toHaveBeenCalled();
-    expect(user).toEqual({
-      displayName: 'Ivan',
-    });
+    expect(user).toEqual(loginData);
   });
 
   it('should call firebase sign in method with correct params', async () => {
@@ -57,7 +52,7 @@ describe('login', () => {
     } catch (error) {
       expect(signInWithEmailAndPassword).toThrowError();
       expect((signInWithEmailAndPassword as jest.Mock).mock.results[0]).toBe(
-        error,
+        credentialError,
       );
       expect(user).toBeNull();
     }
