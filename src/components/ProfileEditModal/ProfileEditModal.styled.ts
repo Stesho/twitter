@@ -3,6 +3,7 @@ import { PrimaryButton } from '@/components/ui/Button/Button.styled';
 
 export const Form = styled.form`
   width: 670px;
+  color: ${(props) => props.theme.textDark500};
   & > div {
     margin: 0 0 25px 0;
   }

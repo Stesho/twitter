@@ -1,11 +1,11 @@
-import HomeIcon from '@/assets/icons/home.svg';
-import ExploreIcon from '@/assets/icons/explore.svg';
-import NotificationIcon from '@/assets/icons/notification.svg';
-import MessagesIcon from '@/assets/icons/messages.svg';
-import BookmarksIcon from '@/assets/icons/bookmarks.svg';
-import ListsIcon from '@/assets/icons/lists.svg';
-import ProfileIcon from '@/assets/icons/profile.svg';
-import MoreIcon from '@/assets/icons/more.svg';
+import HomeIcon from '@/assets/icons/home.svg?react';
+import ExploreIcon from '@/assets/icons/explore.svg?react';
+import NotificationIcon from '@/assets/icons/notification.svg?react';
+import MessagesIcon from '@/assets/icons/messages.svg?react';
+import BookmarksIcon from '@/assets/icons/bookmarks.svg?react';
+import ListsIcon from '@/assets/icons/lists.svg?react';
+import ProfileIcon from '@/assets/icons/profile.svg?react';
+import MoreIcon from '@/assets/icons/more.svg?react';
 
 export const MENU_ITEMS = [
   {

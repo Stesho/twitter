@@ -15,14 +15,14 @@ export const ButtonWrapper = styled.button`
   cursor: pointer;
 
   &:not(:disabled):hover {
-    box-shadow: 0 0 5px ${(props) => props.theme.bgSecondaryLight100};
+    box-shadow: 0 0 8px ${(props) => props.theme.bgSecondaryLight100};
     background-color: ${(props) =>
       lighten(0.1, props.theme.bgSecondaryLight100)};
   }
 
   &:disabled {
     background-color: ${(props) => props.theme.bgSecondaryLight200};
-    box-shadow: 0 10px 20px 0 ${(props) => props.theme.blackTransparent100};
+    box-shadow: 0 10px 20px 0 ${(props) => props.theme.shadow};
   }
 `;
 

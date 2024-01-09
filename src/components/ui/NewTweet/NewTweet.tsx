@@ -42,6 +42,8 @@ export const NewTweet = ({ user }: NewTweetProps) => {
     setImageLoaderKey(Math.random().toString(36));
   };
 
+  const isDisabledButton = () => text.trim().length < 1 && image === '';
+
   return (
     <NewTweetWrapper>
       <NewTweetAvatar src={user.avatar || DefaultAvatar} alt='avatar' />
@@ -63,7 +65,7 @@ export const NewTweet = ({ user }: NewTweetProps) => {
             iconSrc={MediaImg}
             onLoadCallback={(newImage) => setImage(newImage || '')}
           />
-          <NewTweetButton disabled={text.trim().length < 1} onClick={onTweet}>
+          <NewTweetButton disabled={isDisabledButton()} onClick={onTweet}>
             Tweet
           </NewTweetButton>
         </NewTweetMedia>

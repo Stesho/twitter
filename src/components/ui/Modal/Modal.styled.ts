@@ -31,6 +31,7 @@ export const CloseButton = styled.button`
   justify-content: center;
   width: 30px;
   height: 30px;
+  color: ${(props) => props.theme.textDark500};
   font-size: 35px;
   top: 7px;
   left: calc(100% - 30px - 7px);

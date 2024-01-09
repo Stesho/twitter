@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 export const TweetTextAreaWrapper = styled.textarea`
   width: 100%;
@@ -24,7 +25,7 @@ export const TweetTextAreaWrapper = styled.textarea`
     border-radius: 5px;
   }
   &::-webkit-scrollbar-thumb {
-    background: ${(props) => props.theme.textDark100};
+    background: ${(props) => darken(0.2, props.theme.bgSecondaryDark200)};
     border-radius: 4px;
   }
 `;
