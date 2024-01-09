@@ -7,6 +7,13 @@ export const TweetTextAreaWrapper = styled.textarea`
   border: none;
   resize: none;
 
+  &::placeholder {
+    color: #828282;
+    font-family: Roboto, sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+  }
+
   &::-webkit-scrollbar {
     width: 6px;
   }
