@@ -1,11 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { lighten } from 'polished';
 
 export const ButtonWrapper = styled.button`
   width: 100%;
   padding: 19px 0;
-  background-color: #1da1f2;
+  background-color: ${(props) => props.theme.bgSecondaryLight100};
   border-radius: 76px;
-  color: #fff;
+  color: ${(props) => props.theme.textLight};
   text-align: center;
   font-family: Roboto, sans-serif;
   font-size: 18px;
@@ -14,26 +15,27 @@ export const ButtonWrapper = styled.button`
   cursor: pointer;
 
   &:not(:disabled):hover {
-    box-shadow: 0 0 5px #01a0ff;
-    background-color: #4fbfff;
+    box-shadow: 0 0 8px ${(props) => props.theme.bgSecondaryLight100};
+    background-color: ${(props) =>
+      lighten(0.1, props.theme.bgSecondaryLight100)};
   }
 
   &:disabled {
-    background-color: rgba(29, 161, 242, 0.3);
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.08);
+    background-color: ${(props) => props.theme.bgSecondaryLight200};
+    box-shadow: 0 10px 20px 0 ${(props) => props.theme.shadow};
   }
 `;
 
 export const PrimaryButton = styled(ButtonWrapper)`
-  background-color: #1da1f2;
+  background-color: ${(props) => props.theme.bgSecondaryLight100};
 `;
 
 export const SecondaryButton = styled(ButtonWrapper)`
-  background-color: #000;
+  background-color: ${(props) => props.theme.bgSecondaryDark400};
 `;
 
 export const NeutralButton = styled(ButtonWrapper)`
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  color: #000;
+  background-color: ${(props) => props.theme.bgPrimary};
+  border: 1px solid ${(props) => props.theme.border400};
+  color: ${(props) => props.theme.textDark500};
 `;

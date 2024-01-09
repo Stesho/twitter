@@ -10,7 +10,7 @@ export const Overlay = styled.div`
   top: 0;
   left: 0;
   z-index: 4;
-  background-color: rgb(0, 0, 0, 0.5);
+  background-color: #0000007f;
 `;
 
 export const Content = styled.div`
@@ -19,8 +19,8 @@ export const Content = styled.div`
   align-items: center;
   position: relative;
   padding: 45px;
-  background-color: #fff;
-  border: 1px solid #a0a0a0;
+  background-color: ${(props) => props.theme.bgPrimary};
+  border: 1px solid ${(props) => props.theme.border100};
   border-radius: 8px;
 `;
 
@@ -31,6 +31,7 @@ export const CloseButton = styled.button`
   justify-content: center;
   width: 30px;
   height: 30px;
+  color: ${(props) => props.theme.textDark500};
   font-size: 35px;
   top: 7px;
   left: calc(100% - 30px - 7px);

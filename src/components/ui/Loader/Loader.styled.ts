@@ -22,7 +22,7 @@ export const Spinner = styled.div`
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border: 7px solid black;
+  border: 7px solid ${(props) => props.theme.bgSecondaryDark400};
   border-top: 7px solid transparent;
   border-radius: 50%;
   animation: ${rotate} 0.9s linear infinite;

@@ -19,7 +19,7 @@ export const Inputs = styled.div`
 
 export const UseEmail = styled.span`
   margin: 0 0 17px 0;
-  color: #1da1f2;
+  color: ${(props) => props.theme.bgSecondaryLight100};
   font-family: Roboto, sans-serif;
   font-size: 18px;
 `;

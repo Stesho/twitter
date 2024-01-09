@@ -8,7 +8,7 @@ export const SearchResults = styled.div`
   margin: 30px 0 0 0;
   padding: 15px 5px;
   border-radius: 10px;
-  background: #f7f9f9;
+  background: ${(props) => props.theme.bgSecondaryDark100};
 `;
 
 export const ResultsTitle = styled.h3`
@@ -35,7 +35,7 @@ export const ResultsItem = styled.li`
   cursor: pointer;
 
   &:hover {
-    background: #e1e1e1;
+    background: ${(props) => props.theme.bgSecondaryDark200};
   }
 `;
 

@@ -28,8 +28,8 @@ export const SwitchButton = styled.label`
   span:before {
     position: absolute;
     content: '';
-    height: 28px;
-    width: 28px;
+    height: 30px;
+    width: 30px;
     top: -1px;
     left: -2px;
     -webkit-transition: 0.4s;
@@ -48,8 +48,8 @@ export const SwitchButton = styled.label`
   }
 
   input:checked + span:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(25px);
+    -ms-transform: translateX(25px);
+    transform: translateX(25px);
   }
 `;

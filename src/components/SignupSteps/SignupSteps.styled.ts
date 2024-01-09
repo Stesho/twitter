@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StepsWrapper = styled.div`
   position: relative;
@@ -25,6 +25,6 @@ export const ErrorMessage = styled.span`
   position: absolute;
   top: 115px;
   left: 0;
-  color: #ff0000;
+  color: ${(props) => props.theme.error};
   font-size: 20px;
 `;

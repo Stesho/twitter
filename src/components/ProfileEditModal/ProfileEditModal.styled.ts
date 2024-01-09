@@ -3,6 +3,7 @@ import { PrimaryButton } from '@/components/ui/Button/Button.styled';
 
 export const Form = styled.form`
   width: 670px;
+  color: ${(props) => props.theme.textDark500};
   & > div {
     margin: 0 0 25px 0;
   }
@@ -35,8 +36,8 @@ export const ImageEditor = styled.div`
 `;
 
 export const ImageLoaderWrapper = styled.div`
-  background-color: #fff;
-  border: 1px solid #00000033;
+  background-color: ${(props) => props.theme.bgPrimary};
+  border: 1px solid ${(props) => props.theme.border300};
   border-radius: 5px;
 `;
 

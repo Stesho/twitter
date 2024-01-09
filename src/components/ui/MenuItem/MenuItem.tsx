@@ -1,17 +1,25 @@
-import React from 'react';
-import { Icon, Item, ItemLink } from '@/components/ui/MenuItem/MenuItem.styled';
+import React, { FunctionComponent, SVGProps } from 'react';
+import {
+  ItemIcon,
+  Item,
+  ItemLink,
+} from '@/components/ui/MenuItem/MenuItem.styled';
 
 interface MenuItemProps {
-  iconUrl: string;
-  alt: string;
+  Icon: FunctionComponent<
+    SVGProps<SVGSVGElement> & { title?: string | undefined }
+  >;
   caption: string;
   link: string;
 }
 
-export const MenuItem = ({ iconUrl, alt, caption, link }: MenuItemProps) => (
+export const MenuItem = ({ Icon, caption, link }: MenuItemProps) => (
   <Item>
     <ItemLink to={link}>
-      <Icon src={iconUrl} alt={alt} />
+      {/* <Icon src={iconUrl} alt={alt} /> */}
+      <ItemIcon>
+        <Icon />
+      </ItemIcon>
       <span>{caption}</span>
     </ItemLink>
   </Item>

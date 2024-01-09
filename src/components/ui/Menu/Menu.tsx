@@ -27,7 +27,7 @@ export const Menu = () => {
         {MENU_ITEMS.map((item) => (
           <MenuItem
             key={item.caption}
-            iconUrl={item.iconUrl}
+            Icon={item.iconUrl}
             alt={item.alt}
             caption={item.caption}
             link={item.link}

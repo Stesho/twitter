@@ -29,7 +29,7 @@ import { Tweets } from '@/components/ui/Tweets/Tweets';
 import { db } from '@/db/firesbase';
 import { Collections } from '@/types/collections';
 import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
-import { userSelector } from '@/store/selectors/userSelectors';
+import { userSelector } from '@/store/selectors/selectors';
 
 interface ProfileProps {
   user: User;

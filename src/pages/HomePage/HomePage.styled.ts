@@ -5,6 +5,7 @@ export const Page = styled.div`
   justify-content: center;
   margin: 0 auto;
   padding: 0 0 100px 0;
+  background-color: ${(props) => props.theme.bgPrimary};
 `;
 
 export const Main = styled.main`
@@ -15,5 +16,5 @@ export const Main = styled.main`
 export const Border = styled.div`
   width: 1px;
   height: 990px;
-  background-color: #c4c4c4;
+  background-color: ${(props) => props.theme.border200};
 `;

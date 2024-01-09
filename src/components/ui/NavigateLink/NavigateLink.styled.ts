@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { lighten } from 'polished';
 
 export const NavLinkWrapper = styled(NavLink)`
-  color: #1e97e1;
+  color: ${(props) => props.theme.bgSecondaryLight100};
   font-family: Roboto, sans-serif;
   font-weight: 400;
 
   &:hover {
-    color: #4fbfff;
+    color: ${(props) => lighten(0.2, props.theme.bgSecondaryLight100)};
   }
 `;

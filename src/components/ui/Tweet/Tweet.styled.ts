@@ -6,11 +6,10 @@ export const TweetWrapper = styled.div`
   display: flex;
   max-width: 909px;
   padding: 10px 34px 20px 34px;
-  color: #000;
   font-family: Roboto, sans-serif;
   font-size: 18px;
   font-weight: 400;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid ${(props) => props.theme.border100};
 `;
 
 export const TweetAuthorImg = styled.img`
@@ -61,7 +60,7 @@ export const TweetDot = styled.div`
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: #000;
+  background-color: ${(props) => props.theme.bgSecondaryDark400};
 `;
 
 export const TweetText = styled.p`
@@ -88,7 +87,7 @@ export const CancelImageButton = styled.button`
   left: 100%;
   transform: translate(-140%, 40%);
   border-radius: 50%;
-  background-color: #eff3f4;
+  background-color: ${(props) => props.theme.bgSecondaryDark200};
   cursor: pointer;
 `;
 
@@ -111,22 +110,22 @@ export const TweetLikeButton = styled.button`
 
   &:hover {
     span {
-      color: #ef1c5c;
+      color: ${(props) => props.theme.neutral};
     }
 
     svg {
-      fill: #ef1c5c;
+      fill: ${(props) => props.theme.neutral};
     }
   }
 
   svg {
-    fill: #536471;
+    fill: ${(props) => props.theme.textDark300};
   }
 `;
 
 export const TweetLikes = styled.span`
   margin: 0 0 0 10px;
-  color: #536471;
+  color: ${(props) => props.theme.textDark300};
   font-size: 16px;
 `;
 
@@ -135,8 +134,8 @@ export const TweetPopup = styled.div`
   top: 0;
   left: 100%;
   transform: translate(-120%, 50%);
-  background-color: #fff;
-  border: 1px solid #a0a0a0;
+  background-color: ${(props) => props.theme.bgPrimary};
+  border: 1px solid ${(props) => props.theme.border200};
   border-radius: 8px;
 `;
 
@@ -147,7 +146,7 @@ export const TweetPopupButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(29, 161, 242, 0.3);
+    background-color: ${(props) => props.theme.bgSecondaryLight200};
   }
 `;
 
