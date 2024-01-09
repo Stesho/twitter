@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { userSelector } from '@/store/selectors/userSelectors';
+import { userSelector } from '@/store/selectors/selectors';
 import { Loader } from '@/components/ui/Loader/Loader';
 import { Profile } from '@/components/Profile/Profile';
 

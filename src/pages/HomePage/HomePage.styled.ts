@@ -5,6 +5,7 @@ export const Page = styled.div`
   justify-content: center;
   margin: 0 auto;
   padding: 0 0 100px 0;
+  background-color: ${(props) => props.theme.bgPrimary};
 `;
 
 export const Main = styled.main`

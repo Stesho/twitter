@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { Tweet as TweetType } from '@/types/tweet';
 import { Tweet } from '@/components/ui/Tweet/Tweet';
-import { userSelector } from '@/store/selectors/userSelectors';
+import { userSelector } from '@/store/selectors/selectors';
 import { Loader } from '@/components/ui/Loader/Loader';
 import { Switch } from '@/components/ui/Switch/Switch';
 import { ArrowBack, BackButton, Head } from './TweetPage.styled';
@@ -54,7 +54,7 @@ export const TweetPage = () => {
           <ArrowBack />
           <span> Home</span>
         </BackButton>
-        <Switch onChange={() => {}} />
+        <Switch />
       </Head>
       <Tweet tweet={tweet} user={user} />
     </>

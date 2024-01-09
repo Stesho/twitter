@@ -1,14 +1,27 @@
-import React from "react";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { SwitchButton } from "@/components/ui/Switch/Switch.styled";
+import { SwitchButton } from '@/components/ui/Switch/Switch.styled';
+import { themeSelector } from '@/store/selectors/selectors';
+import { toggleTheme } from '@/store/slices/themeSlice';
+import { Theme } from '@/types/theme';
 
-interface SwitchProps {
-  onChange: () => void;
-}
+export const Switch = () => {
+  const theme = useSelector(themeSelector);
+  const dispatch = useDispatch();
 
-export const Switch = ({ onChange }: SwitchProps) => (
-  <SwitchButton>
-    <input type="checkbox" onChange={onChange} />
-    <span />
-  </SwitchButton>
-);
+  const onChange = () => {
+    dispatch(toggleTheme());
+  };
+
+  return (
+    <SwitchButton>
+      <input
+        type='checkbox'
+        checked={theme === Theme.dark}
+        onChange={onChange}
+      />
+      <span />
+    </SwitchButton>
+  );
+};

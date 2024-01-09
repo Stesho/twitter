@@ -8,7 +8,7 @@ import { db } from '@/db/firesbase';
 import { Collections } from '@/types/collections';
 import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
 import { FeedTweets, Head } from './Feed.styled';
-import { userSelector } from '@/store/selectors/userSelectors';
+import { userSelector } from '@/store/selectors/selectors';
 import { Loader } from '@/components/ui/Loader/Loader';
 
 export const Feed = () => {
@@ -27,7 +27,7 @@ export const Feed = () => {
     <>
       <Head>
         <span>Home</span>
-        <Switch onChange={() => {}} />
+        <Switch />
       </Head>
       <NewTweet user={user} />
       {tweets.length === 0 ? (
