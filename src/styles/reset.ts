@@ -10,7 +10,7 @@ export const ResetStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: Roboto, sans-serif;
     scroll-behavior: smooth;
   }
 

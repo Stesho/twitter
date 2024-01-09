@@ -35,8 +35,8 @@ export const ImageEditor = styled.div`
 `;
 
 export const ImageLoaderWrapper = styled.div`
-  background-color: #fff;
-  border: 1px solid #00000033;
+  background-color: ${(props) => props.theme.bgPrimary};
+  border: 1px solid ${(props) => props.theme.border300};
   border-radius: 5px;
 `;
 

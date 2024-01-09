@@ -24,7 +24,7 @@ export const ErrorMessage = styled.span`
   position: absolute;
   top: 130px;
   left: 0;
-  color: #ff0000;
+  color: ${(props) => props.theme.error};
   font-size: 20px;
 `;
 
@@ -38,7 +38,7 @@ export const Signup = styled.span`
   display: block;
   width: 100%;
   text-align: right;
-  color: #1da1f2;
+  color: ${(props) => props.theme.bgSecondaryLight100};
   font-family: Roboto, sans-serif;
   font-size: 18px;
 `;

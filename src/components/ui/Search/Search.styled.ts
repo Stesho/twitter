@@ -22,15 +22,16 @@ export const SearchInput = styled.input`
   width: 100%;
   height: 100%;
   padding: 15px 25px 15px 64px;
-  background: #eff3f4;
+  background: ${(props) => props.theme.bgSecondaryDark200};
   border: none;
   border-radius: 31px;
+  color: ${(props) => props.theme.textDark500};
   font-family: Roboto, sans-serif;
   font-size: 18px;
   font-weight: 400;
   outline: none;
 
   &::placeholder {
-    color: #5c6c79;
+    color: ${(props) => props.theme.textDark200};
   }
 `;

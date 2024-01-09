@@ -4,7 +4,6 @@ import ArrowIconSvg from '@/assets/icons/arrow.svg?react';
 export const SelectWrapper = styled.div`
   position: relative;
   width: 100%;
-  color: rgba(0, 0, 0, 0.6);
   font-family: Roboto, sans-serif;
 `;
 
@@ -30,8 +29,10 @@ export const SelectButton = styled.select<{
   align-items: center;
   padding: 21px 20px;
   border-radius: 6px;
-  border: 1px solid ${(props) => (props.$isError ? '#ff0000' : '#00000033')};
-  background: #fff;
+  border: 1px solid
+    ${(props) => (props.$isError ? props.theme.error : props.theme.border300)};
+  background: ${(props) => props.theme.bgPrimary};
+  color: ${(props) => props.theme.textDark500};
   font-size: 18px;
   font-weight: 400;
   outline: none;
@@ -45,5 +46,5 @@ export const ErrorMessage = styled.span`
   top: 100%;
   left: 0;
   font-size: 14px;
-  color: #ff0000;
+  color: ${(props) => props.theme.error};
 `;

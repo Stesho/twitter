@@ -4,11 +4,13 @@ export const TweetTextAreaWrapper = styled.textarea`
   width: 100%;
   padding: 5px;
   font-size: 18px;
+  color: ${(props) => props.theme.textDark500};
+  background-color: ${(props) => props.theme.bgPrimary};
   border: none;
   resize: none;
 
   &::placeholder {
-    color: #828282;
+    color: ${(props) => props.theme.textDark100};
     font-family: Roboto, sans-serif;
     font-size: 22px;
     font-weight: 500;
@@ -18,11 +20,11 @@ export const TweetTextAreaWrapper = styled.textarea`
     width: 6px;
   }
   &::-webkit-scrollbar-track {
-    background: #eff3f4;
+    background: ${(props) => props.theme.bgSecondaryDark200};
     border-radius: 5px;
   }
   &::-webkit-scrollbar-thumb {
-    background: #828282;
+    background: ${(props) => props.theme.textDark100};
     border-radius: 4px;
   }
 `;

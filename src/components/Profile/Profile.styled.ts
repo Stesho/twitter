@@ -36,7 +36,7 @@ export const ProfileBar = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 25px;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid ${(props) => props.theme.border100};
 `;
 
 export const MainInfo = styled.div`
@@ -116,5 +116,5 @@ export const TweetsTitle = styled.div`
     sans-serif;
   font-size: 18px;
   font-weight: 700;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid ${(props) => props.theme.border100};
 `;

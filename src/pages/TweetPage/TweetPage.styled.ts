@@ -10,7 +10,7 @@ export const Head = styled.div`
     sans-serif;
   font-size: 24px;
   font-weight: 700;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid ${(props) => props.theme.border100};
 `;
 
 export const BackButton = styled.button`

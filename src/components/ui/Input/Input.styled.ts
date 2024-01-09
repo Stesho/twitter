@@ -11,20 +11,22 @@ export const InputStyled = styled.input<{
   padding: 23px 20px 26px 20px;
   flex-shrink: 0;
   border-radius: 6px;
-  border: 1px solid ${(props) => (props.$isError ? '#ff0000' : '#00000033')};
-  background: #fff;
+  border: 1px solid
+    ${(props) => (props.$isError ? props.theme.error : props.theme.border300)};
+  background: ${(props) => props.theme.bgPrimary};
+  color: ${(props) => props.theme.textDark500};
   font-family: Roboto, sans-serif;
   font-size: 18px;
   font-weight: 400;
   outline: none;
 
   &::placeholder {
-    color: #00000099;
+    color: ${(props) => props.theme.textDark400};
   }
 
   &:disabled {
-    background-color: #00000019;
-    color: #00000099;
+    background-color: ${(props) => props.theme.bgSecondaryDark200};
+    color: ${(props) => props.theme.textDark400};
     cursor: not-allowed;
   }
 `;
@@ -35,5 +37,5 @@ export const ErrorMessage = styled.span`
   top: 100%;
   left: 0;
   font-size: 14px;
-  color: #ff0000;
+  color: ${(props) => props.theme.error};
 `;

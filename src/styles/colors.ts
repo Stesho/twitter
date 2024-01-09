@@ -13,14 +13,16 @@ export const colors = {
   blue300: '#1da1f2',
   blue400: '#1da1f24c',
 
-  red: '#EF1C5C',
+  red100: '#EF1C5C',
+  red200: '#ff0000',
 
   grey100: '#F7F9F9',
   grey200: '#eff3f4',
   grey300: '#d8d8d8',
-  grey400: '#B3B8BB',
-  grey500: '#9d9d9dff',
-  grey600: '#828282',
-  grey700: '#5c6c79',
-  grey800: '#536471',
+  grey400: '#c4c4c4',
+  grey500: '#B3B8BB',
+  grey600: '#9d9d9dff',
+  grey700: '#828282',
+  grey800: '#5c6c79',
+  grey900: '#536471',
 } as const;
