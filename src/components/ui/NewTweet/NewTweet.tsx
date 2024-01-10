@@ -45,7 +45,7 @@ export const NewTweet = ({ user }: NewTweetProps) => {
   const isDisabledButton = () => text.trim().length < 1 && image === '';
 
   return (
-    <NewTweetWrapper>
+    <NewTweetWrapper data-cy='newTweetTextArea'>
       <NewTweetAvatar src={user.avatar || DefaultAvatar} alt='avatar' />
       <NewTweetContent>
         <TweetTextArea
@@ -66,6 +66,7 @@ export const NewTweet = ({ user }: NewTweetProps) => {
             onLoadCallback={(newImage) => setImage(newImage || '')}
           />
           <NewTweetButton
+            data-cy='newTweetButton'
             disabled={isDisabledButton()}
             onClick={onTweet}
             data-testid='newTweetButton'

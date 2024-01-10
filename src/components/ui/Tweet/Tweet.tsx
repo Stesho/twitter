@@ -103,7 +103,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
   };
 
   return (
-    <TweetWrapper>
+    <TweetWrapper data-cy='tweet'>
       <TweetAuthorImg src={tweet.author.avatar || DefaultAvatar} alt='avatar' />
       <TweetContent>
         <TweetHead>
@@ -115,6 +115,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
           </div>
           {tweet.author.id === user!.id && (
             <TweetDots
+              data-cy='tweetDotsButton'
               ref={dotsRef}
               onClick={togglePopup}
               data-testid='tweetDots'
@@ -157,7 +158,11 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
       </TweetContent>
       {isPopupActive && (
         <TweetPopup ref={popupRef} data-testid='tweetPopup'>
-          <TweetPopupButton onClick={onDelete} data-testid='tweetDeleteButton'>
+          <TweetPopupButton
+            onClick={onDelete}
+            data-testid='tweetDeleteButton'
+            data-cy='tweetDeleteButton'
+          >
             Delete
           </TweetPopupButton>
           <TweetPopupButton onClick={editingModeOn}>Edit</TweetPopupButton>
