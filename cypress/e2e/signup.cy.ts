@@ -14,7 +14,7 @@ const fillForm = ({
   cy.get('[data-cy=year]').select(year);
 };
 
-describe('Profile page', () => {
+describe('Signup page', () => {
   beforeEach(() => {
     cy.visit('/signup-email');
   });
