@@ -31,7 +31,7 @@ jest.mock('@/db/firesbase', () => ({
   },
 }));
 
-describe('sign up with google account', () => {
+describe('update user', () => {
   let user: User;
   let tweets: Tweet[];
 
@@ -55,7 +55,7 @@ describe('sign up with google account', () => {
     ];
   });
 
-  it('should send an email if the user updates the mail', async () => {
+  it('should send an email if the user updates email', async () => {
     user.email = 'newEmail';
     await updateUser(user);
 
