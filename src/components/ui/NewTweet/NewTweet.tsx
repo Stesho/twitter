@@ -65,7 +65,11 @@ export const NewTweet = ({ user }: NewTweetProps) => {
             iconSrc={MediaImg}
             onLoadCallback={(newImage) => setImage(newImage || '')}
           />
-          <NewTweetButton disabled={isDisabledButton()} onClick={onTweet}>
+          <NewTweetButton
+            disabled={isDisabledButton()}
+            onClick={onTweet}
+            data-testid='newTweetButton'
+          >
             Tweet
           </NewTweetButton>
         </NewTweetMedia>
