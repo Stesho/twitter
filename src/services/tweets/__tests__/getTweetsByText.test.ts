@@ -38,7 +38,7 @@ jest.mock('@/db/firesbase', () => ({
   db: {},
 }));
 
-describe('update tweet', () => {
+describe('get tweet by text', () => {
   it('should receive tweets started with passed text', async () => {
     const text = 'text';
     const tweetData = await getTweetsByText(text);
