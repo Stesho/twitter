@@ -114,7 +114,11 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
             </TweetAuthorUsername>
           </div>
           {tweet.author.id === user!.id && (
-            <TweetDots ref={dotsRef} onClick={togglePopup}>
+            <TweetDots
+              ref={dotsRef}
+              onClick={togglePopup}
+              data-testid='tweetDots'
+            >
               <TweetDot />
               <TweetDot />
               <TweetDot />
@@ -139,7 +143,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
               </TweetImageWrapper>
             )}
         <BottomBar>
-          <TweetLikeButton onClick={onLike}>
+          <TweetLikeButton onClick={onLike} data-testid='tweetLikeButton'>
             <img
               src={
                 tweet.likes.indexOf(user!.id) !== -1 ? FilledLikeIcon : LikeIcon
@@ -152,8 +156,10 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
         </BottomBar>
       </TweetContent>
       {isPopupActive && (
-        <TweetPopup ref={popupRef}>
-          <TweetPopupButton onClick={onDelete}>Delete</TweetPopupButton>
+        <TweetPopup ref={popupRef} data-testid='tweetPopup'>
+          <TweetPopupButton onClick={onDelete} data-testid='tweetDeleteButton'>
+            Delete
+          </TweetPopupButton>
           <TweetPopupButton onClick={editingModeOn}>Edit</TweetPopupButton>
         </TweetPopup>
       )}
