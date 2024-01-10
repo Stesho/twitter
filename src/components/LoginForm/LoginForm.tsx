@@ -49,15 +49,21 @@ export const LoginForm = () => {
     <Form onSubmit={handleSubmit(onSubmitForm)}>
       <TwitterLogo src={TwitterLogoSrc} alt='twitter logo' />
       <Title>Log in to Twitter</Title>
-      {isError && <ErrorMessage>Invalid email or password</ErrorMessage>}
+      {isError && (
+        <ErrorMessage data-cy='invalidCredentialError'>
+          Invalid email or password
+        </ErrorMessage>
+      )}
       <Inputs>
         <Input
+          dataCy='email'
           placeholder='Phone number, email address'
           label='identifier'
           register={register}
           errorMessage={errors.identifier?.message}
         />
         <Input
+          dataCy='password'
           type='password'
           placeholder='Password'
           label='password'
@@ -65,7 +71,9 @@ export const LoginForm = () => {
           errorMessage={errors.password?.message}
         />
       </Inputs>
-      <LoginButton type='submit'>Log In</LoginButton>
+      <LoginButton type='submit' data-cy='loginButton'>
+        Log In
+      </LoginButton>
       <Signup>
         <NavigateLink to={ROUTES.signup.path}>Sign up to Twitter</NavigateLink>
       </Signup>

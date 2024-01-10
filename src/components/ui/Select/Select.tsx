@@ -13,6 +13,7 @@ interface SelectProps<T extends FieldValues> {
   label: Path<T>;
   register: UseFormRegister<T>;
   errorMessage?: string;
+  dataCy?: string;
 }
 
 export const Select = <T extends FieldValues>({
@@ -21,10 +22,12 @@ export const Select = <T extends FieldValues>({
   label,
   register,
   errorMessage,
+  dataCy,
 }: SelectProps<T>) => (
   <SelectWrapper>
     <ArrowIcon />
     <SelectButton
+      data-cy={dataCy}
       $isError={errorMessage !== undefined}
       {...register(label)}
       defaultValue={caption}
@@ -40,6 +43,8 @@ export const Select = <T extends FieldValues>({
         </option>
       ))}
     </SelectButton>
-    {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+    {errorMessage && (
+      <ErrorMessage data-cy={`${dataCy}Error`}>{errorMessage}</ErrorMessage>
+    )}
   </SelectWrapper>
 );

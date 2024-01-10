@@ -37,6 +37,7 @@ export const TweetTextArea = ({
 
   return (
     <TweetTextAreaWrapper
+      data-testid='tweetTextArea'
       ref={textAreaRef}
       value={value}
       onChange={onInputValue}

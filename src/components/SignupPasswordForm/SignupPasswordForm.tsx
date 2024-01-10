@@ -47,6 +47,7 @@ const SignupPasswordForm = ({
     <Form onSubmit={handleSubmit(onSubmitForm)}>
       <Inputs>
         <Input
+          dataCy='password'
           type='password'
           placeholder='Password'
           label='password'

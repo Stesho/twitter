@@ -22,8 +22,8 @@ import {
   TweetText,
   TweetWrapper,
 } from '@/components/ui/Tweet/Tweet.styled';
-import LikeIcon from '@/assets/icons/like.svg?react';
-import FilledLikeIcon from '@/assets/icons/like_filled.svg?react';
+import LikeIcon from '@/assets/icons/like.svg';
+import FilledLikeIcon from '@/assets/icons/like_filled.svg';
 import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { Tweet as TweetType } from '@/types/tweet';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
@@ -103,7 +103,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
   };
 
   return (
-    <TweetWrapper>
+    <TweetWrapper data-cy='tweet'>
       <TweetAuthorImg src={tweet.author.avatar || DefaultAvatar} alt='avatar' />
       <TweetContent>
         <TweetHead>
@@ -114,7 +114,12 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
             </TweetAuthorUsername>
           </div>
           {tweet.author.id === user!.id && (
-            <TweetDots ref={dotsRef} onClick={togglePopup}>
+            <TweetDots
+              data-cy='tweetDotsButton'
+              ref={dotsRef}
+              onClick={togglePopup}
+              data-testid='tweetDots'
+            >
               <TweetDot />
               <TweetDot />
               <TweetDot />
@@ -139,20 +144,27 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
               </TweetImageWrapper>
             )}
         <BottomBar>
-          <TweetLikeButton onClick={onLike}>
-            {tweet.likes.indexOf(user!.id) !== -1 ? (
-              <FilledLikeIcon />
-            ) : (
-              <LikeIcon />
-            )}
+          <TweetLikeButton onClick={onLike} data-testid='tweetLikeButton'>
+            <img
+              src={
+                tweet.likes.indexOf(user!.id) !== -1 ? FilledLikeIcon : LikeIcon
+              }
+              alt='likes'
+            />
             <TweetLikes>{tweet.likes.length}</TweetLikes>
           </TweetLikeButton>
           {isEditingMode && <ImageLoader onLoadCallback={onLoadImage} />}
         </BottomBar>
       </TweetContent>
       {isPopupActive && (
-        <TweetPopup ref={popupRef}>
-          <TweetPopupButton onClick={onDelete}>Delete</TweetPopupButton>
+        <TweetPopup ref={popupRef} data-testid='tweetPopup'>
+          <TweetPopupButton
+            onClick={onDelete}
+            data-testid='tweetDeleteButton'
+            data-cy='tweetDeleteButton'
+          >
+            Delete
+          </TweetPopupButton>
           <TweetPopupButton onClick={editingModeOn}>Edit</TweetPopupButton>
         </TweetPopup>
       )}

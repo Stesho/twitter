@@ -23,8 +23,13 @@ export const Search = ({ onSearch, placeholder }: SearchProps) => {
 
   return (
     <SearchWrapper>
-      <SearchIcon onClick={search} />
-      <SearchInput value={text} onChange={onChange} placeholder={placeholder} />
+      <SearchIcon onClick={search} data-cy='searchButton' />
+      <SearchInput
+        data-cy='search'
+        value={text}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
     </SearchWrapper>
   );
 };

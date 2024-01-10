@@ -30,7 +30,7 @@ export const UsersAside = () => {
   return (
     <Aside placeholder='Search users' onSearch={search}>
       {users.length === 0 ? (
-        <NoResults>No results</NoResults>
+        <NoResults data-cy='noResults'>No results</NoResults>
       ) : (
         <ul>
           {users.map((user) => (
