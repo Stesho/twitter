@@ -10,6 +10,7 @@
     "format": "prettier --write src",
     "format:check": "prettier --check src",
     "test": "jest",
+    "test:e2e": "cypress open",
     "lint": "eslint --ext ts,tsx src",
     "lint:fix": "eslint --fix --ext ts,tsx src",
     "prepare": "husky install"
@@ -49,6 +50,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "babel-plugin-transform-import-meta": "^2.2.1",
     "babel-preset-vite": "^1.1.2",
+    "cypress": "^13.6.2",
     "eslint": "^8.56.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",

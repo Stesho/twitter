@@ -13,6 +13,7 @@ interface InputProps<T extends FieldValues> {
   label: Path<T>;
   register: UseFormRegister<T>;
   errorMessage?: string;
+  dataCy?: string;
 }
 
 export const Input = <T extends FieldValues>({
@@ -22,15 +23,19 @@ export const Input = <T extends FieldValues>({
   label,
   register,
   errorMessage,
+  dataCy,
 }: InputProps<T>) => (
   <InputWrapper>
     <InputStyled
+      data-cy={dataCy}
       $isError={errorMessage !== undefined}
       type={type}
       disabled={disabled}
       placeholder={placeholder}
       {...register(label)}
     />
-    {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+    {errorMessage && (
+      <ErrorMessage data-cy={`${dataCy}Error`}>{errorMessage}</ErrorMessage>
+    )}
   </InputWrapper>
 );

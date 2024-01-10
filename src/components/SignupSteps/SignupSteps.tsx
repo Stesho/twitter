@@ -50,7 +50,9 @@ export const SignupSteps = () => {
       <TwitterLogo src={TwitterLogoSrc} alt='twitter logo' />
       <Title>Create an account</Title>
       {isError && (
-        <ErrorMessage>User with passed email already exist</ErrorMessage>
+        <ErrorMessage data-cy='existedUserError'>
+          User with passed email already exist
+        </ErrorMessage>
       )}
       {step === 0 ? (
         <SignupUserForm onSubmit={onNextClick} initialUserData={userData} />

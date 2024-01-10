@@ -13,7 +13,13 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["dist", ".eslintrc.json", ".d.ts", "vite.config.ts"],
+  "ignorePatterns": [
+    "dist",
+    ".d.ts",
+    "vite.config.ts",
+    "cypress.config.ts",
+    "cypress"
+  ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["react-refresh"],
   "rules": {

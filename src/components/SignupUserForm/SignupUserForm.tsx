@@ -68,18 +68,21 @@ export const SignupUserForm = ({
     <Form onSubmit={handleSubmit(onSubmitForm)}>
       <Inputs>
         <Input
+          dataCy='name'
           placeholder='Name'
           label='name'
           register={register}
           errorMessage={errors.name?.message}
         />
         <Input
+          dataCy='phone'
           placeholder='Phone number'
           label='phoneNumber'
           register={register}
           errorMessage={errors.phoneNumber?.message}
         />
         <Input
+          dataCy='email'
           placeholder='Email'
           label='email'
           register={register}
@@ -98,6 +101,7 @@ export const SignupUserForm = ({
       </Text>
       <Selects>
         <Select
+          dataCy='month'
           options={MONTHS}
           caption='Month'
           label='month'
@@ -105,6 +109,7 @@ export const SignupUserForm = ({
           errorMessage={errors.month?.message}
         />
         <Select
+          dataCy='day'
           options={getDaysInMonth(
             +watch('year') || 2000,
             MONTHS.indexOf(watch('month')) + 1,
@@ -115,6 +120,7 @@ export const SignupUserForm = ({
           errorMessage={errors.day?.message}
         />
         <Select
+          dataCy='year'
           options={getYearsInRange(
             getCurrentYear() - 100,
             getCurrentYear(),
@@ -125,7 +131,9 @@ export const SignupUserForm = ({
           errorMessage={errors.year?.message}
         />
       </Selects>
-      <SubmitButton type='submit'>Next</SubmitButton>
+      <SubmitButton type='submit' data-cy='next'>
+        Next
+      </SubmitButton>
     </Form>
   );
 };
