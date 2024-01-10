@@ -21,6 +21,7 @@
     ]
   },
   "moduleNameMapper": {
+    "\\.(jpg|ico|jpeg|png|webp|svg)$": "<rootDir>/src/__mocks__/fileMock.js",
     "^@/(.*)$": "<rootDir>/src/$1"
   },
   "testEnvironment": "jest-environment-jsdom",

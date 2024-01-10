@@ -22,8 +22,8 @@ import {
   TweetText,
   TweetWrapper,
 } from '@/components/ui/Tweet/Tweet.styled';
-import LikeIcon from '@/assets/icons/like.svg?react';
-import FilledLikeIcon from '@/assets/icons/like_filled.svg?react';
+import LikeIcon from '@/assets/icons/like.svg';
+import FilledLikeIcon from '@/assets/icons/like_filled.svg';
 import { fromISOStringToReadable } from '@/utils/fromISOStringToReadable';
 import { Tweet as TweetType } from '@/types/tweet';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
@@ -140,11 +140,12 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
             )}
         <BottomBar>
           <TweetLikeButton onClick={onLike}>
-            {tweet.likes.indexOf(user!.id) !== -1 ? (
-              <FilledLikeIcon />
-            ) : (
-              <LikeIcon />
-            )}
+            <img
+              src={
+                tweet.likes.indexOf(user!.id) !== -1 ? FilledLikeIcon : LikeIcon
+              }
+              alt='likes'
+            />
             <TweetLikes>{tweet.likes.length}</TweetLikes>
           </TweetLikeButton>
           {isEditingMode && <ImageLoader onLoadCallback={onLoadImage} />}
