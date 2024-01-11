@@ -131,12 +131,33 @@ export const TweetLikes = styled.span`
 
 export const TweetPopup = styled.div`
   position: absolute;
-  top: 0;
+  top: 8px;
   left: 100%;
   transform: translate(-120%, 50%);
   background-color: ${(props) => props.theme.bgPrimary};
   border: 1px solid ${(props) => props.theme.border200};
   border-radius: 8px;
+
+  &:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid ${(props) => props.theme.border200};
+    left: 43px;
+    top: -9px;
+  }
+  &:after {
+    position: absolute;
+    content: '';
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid ${(props) => props.theme.bgPrimary};
+    left: 43px;
+    top: -8px;
+  }
 `;
 
 export const TweetPopupButton = styled.button`

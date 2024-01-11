@@ -32,6 +32,7 @@ import { updateTweet } from '@/services/tweets/updateTweet';
 import { User } from '@/types/user';
 import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
 import { TweetTextArea } from '@/components/ui/TweetTextArea/TweetTextArea';
+import ConfirmationModal from '@/components/ui/ConfirmationModal/ConfirmationModal';
 
 export interface TweetProps {
   tweet: TweetType;
@@ -43,6 +44,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
   const [image, setImage] = useState(tweet.image);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const [isPopupActive, setIsPopupActive] = useState(false);
+  const [isConfirmationModal, setIsConfirmationModal] = useState(false);
   const dotsRef = useRef<HTMLDivElement>(null);
   const popupRef = useOutsideClick((event) => {
     if (!dotsRef?.current?.contains(event?.target as Node)) {
@@ -159,7 +161,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
       {isPopupActive && (
         <TweetPopup ref={popupRef} data-testid='tweetPopup'>
           <TweetPopupButton
-            onClick={onDelete}
+            onClick={() => setIsConfirmationModal(true)}
             data-testid='tweetDeleteButton'
             data-cy='tweetDeleteButton'
           >
@@ -175,6 +177,13 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
           </EditingCancelButton>
           <EditingSaveButton onClick={onUpdate}>Save</EditingSaveButton>
         </EditingButtons>
+      )}
+      {isConfirmationModal && (
+        <ConfirmationModal
+          onCancel={() => setIsConfirmationModal(false)}
+          onDelete={onDelete}
+          onClose={() => setIsConfirmationModal(false)}
+        />
       )}
     </TweetWrapper>
   );
