@@ -13,9 +13,9 @@ export const TweetWrapper = styled.div`
 `;
 
 export const TweetAuthorImg = styled.img`
-  width: 50px;
-  height: 54px;
-  margin: 0 5px 0 0;
+  width: 52px;
+  height: 52px;
+  margin: 0 8px 0 0;
   border-radius: 50%;
   object-fit: cover;
 `;
