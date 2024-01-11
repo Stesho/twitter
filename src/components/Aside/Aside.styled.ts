@@ -4,7 +4,7 @@ export const AsideWrapper = styled.aside`
   padding: 20px 28px;
 `;
 
-export const SearchResults = styled.div`
+export const SearchResultsWrapper = styled.div`
   margin: 30px 0 0 0;
   padding: 15px 5px;
   border-radius: 10px;
@@ -60,6 +60,10 @@ export const ResultsName = styled.span`
 `;
 
 export const ResultsUsername = styled.span`
+  max-width: 265px;
   font-weight: 400;
   opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import {
   SearchIcon,
   SearchInput,
@@ -7,27 +7,22 @@ import {
 
 interface SearchProps {
   placeholder?: string;
-  onSearch: (text: string) => void;
+  onChange: (text: string) => void;
+  text: string;
 }
 
-export const Search = ({ onSearch, placeholder }: SearchProps) => {
-  const [text, setText] = useState('');
-
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setText(event.target.value);
-  };
-
-  const search = () => {
-    onSearch(text);
+export const Search = ({ placeholder, text, onChange }: SearchProps) => {
+  const onChangeValue = (event: ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value);
   };
 
   return (
     <SearchWrapper>
-      <SearchIcon onClick={search} data-cy='searchButton' />
+      <SearchIcon data-cy='searchButton' />
       <SearchInput
         data-cy='search'
         value={text}
-        onChange={onChange}
+        onChange={onChangeValue}
         placeholder={placeholder}
       />
     </SearchWrapper>

@@ -32,6 +32,7 @@ export const PrimaryButton = styled(ButtonWrapper)`
 
 export const SecondaryButton = styled(ButtonWrapper)`
   background-color: ${(props) => props.theme.bgSecondaryDark400};
+  color: ${(props) => props.theme.bgPrimary};
 `;
 
 export const NeutralButton = styled(ButtonWrapper)`
