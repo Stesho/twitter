@@ -46,13 +46,16 @@ export const TweetAuthorUsername = styled.span`
 export const TweetDots = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 26px;
-  padding: 6px 4px;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 6px;
+  border-radius: 50%;
   flex-shrink: 0;
   cursor: pointer;
 
-  &:hover div {
-    opacity: 0.6;
+  &:hover {
+    background-color: ${(props) => props.theme.bgSecondaryDark200};
   }
 `;
 
@@ -133,7 +136,7 @@ export const TweetPopup = styled.div`
   position: absolute;
   top: 8px;
   left: 100%;
-  transform: translate(-120%, 50%);
+  transform: translate(-122%, 50%);
   background-color: ${(props) => props.theme.bgPrimary};
   border: 1px solid ${(props) => props.theme.border200};
   border-radius: 8px;
