@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { lighten } from 'polished';
 
 export const AsideWrapper = styled.aside`
   padding: 20px 28px;
@@ -66,4 +67,16 @@ export const ResultsUsername = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+export const ShowMore = styled.button`
+  padding: 0 10px;
+  color: ${(props) => props.theme.textNeutral};
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+
+  &:hover {
+    color: ${(props) => lighten(0.2, props.theme.bgSecondaryLight100)};
+  }
 `;

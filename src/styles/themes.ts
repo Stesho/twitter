@@ -21,6 +21,7 @@ export const lightTheme = {
   textDark300: colors.grey800,
   textDark400: colors.blackTransparent400,
   textDark500: colors.black,
+  textNeutral: colors.blue300,
 
   neutral: colors.red100,
 
@@ -50,6 +51,7 @@ export const darkTheme = {
   textDark300: colors.grey400,
   textDark400: colors.grey300,
   textDark500: colors.grey200,
+  textNeutral: colors.grey200,
 
   neutral: colors.red100,
 
