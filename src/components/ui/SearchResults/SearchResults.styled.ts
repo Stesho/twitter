@@ -5,7 +5,7 @@ export const ResultsItem = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 10px;
+  padding: 5px 12px;
   margin: 0 0 15px 0;
   border-radius: 10px;
 
@@ -23,6 +23,10 @@ export const ResultsUsername = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media (max-width: 768px) {
+    max-width: 100px;
+  }
 `;
 
 export const ResultsItemContent = styled.div`
@@ -33,4 +37,9 @@ export const FollowButton = styled(SecondaryButton)`
   width: 98px;
   height: 39px;
   padding: 0;
+
+  @media (max-width: 768px) {
+    width: 65px;
+    height: 26px;
+  }
 `;

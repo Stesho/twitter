@@ -6,6 +6,7 @@ import {
   ResultsImg,
   ResultsInfo,
   ResultsItem,
+  ResultsList,
   ResultsName,
   ResultsTitle,
   ResultsUsername,
@@ -18,6 +19,7 @@ import { User } from '@/types/user';
 import { useDebounce } from '@/hooks/useDebounce';
 import { Loader } from '@/components/ui/Loader/Loader';
 import { SearchResults } from '@/components/ui/SearchResults/SearchResults';
+import { useWindowSize } from '@/hooks/useWindowSize';
 
 interface AsideProps {
   placeholder?: string;
@@ -27,11 +29,13 @@ interface AsideProps {
 
 const Aside = ({ onSearch, onResultClick, placeholder }: AsideProps) => {
   const itemsDisplayCount = 3;
+  const maxWindowSize = 1024;
   const [text, setText] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [recommendedUsers, setRecommendedUsers] = useState<User[]>([]);
   const [searchedUsers, setSearchedUsers] = useState<User[]>([]);
   const [displayCount, setDisplayCount] = useState(itemsDisplayCount);
+  const [windowSize] = useWindowSize();
   const searchText = useDebounce(text, 600);
 
   const onResult = (userId: string) => () => {
@@ -63,47 +67,50 @@ const Aside = ({ onSearch, onResultClick, placeholder }: AsideProps) => {
   return (
     <AsideWrapper>
       <Search placeholder={placeholder} text={text} onChange={setText} />
-      <SearchResultsWrapper>
-        <ResultsTitle>
-          {searchText.length > 0 ? 'Search Results' : 'You might like'}
-        </ResultsTitle>
-        {isSearching ? (
-          <Loader />
-        ) : (
-          <SearchResults
-            searchText={searchText}
-            users={recommendedUsers}
-            displayCount={displayCount}
-            onShowMore={onShowMore}
-          >
-            {searchedUsers.length === 0 ? (
-              <NoResults>No results</NoResults>
-            ) : (
-              <>
-                <ul>
-                  {searchedUsers.slice(0, displayCount).map((user) => (
-                    <ResultsItem key={user.id} onClick={onResult(user.id)}>
-                      <ResultsImg
-                        src={user.avatar || DefaultAvatar}
-                        alt='avatar'
-                      />
-                      <ResultsInfo>
-                        <ResultsName>{user.name}</ResultsName>
-                        <ResultsUsername>{user.email}</ResultsUsername>
-                      </ResultsInfo>
-                    </ResultsItem>
-                  ))}
-                </ul>
-                {displayCount < searchedUsers.length && (
-                  <ShowMore type='button' onClick={onShowMore}>
-                    Show more
-                  </ShowMore>
-                )}
-              </>
-            )}
-          </SearchResults>
-        )}
-      </SearchResultsWrapper>
+      {(windowSize[0] > maxWindowSize ||
+        (windowSize[0] <= maxWindowSize && searchText.length > 0)) && (
+        <SearchResultsWrapper>
+          <ResultsTitle>
+            {searchText.length > 0 ? 'Search Results' : 'You might like'}
+          </ResultsTitle>
+          {isSearching ? (
+            <Loader />
+          ) : (
+            <SearchResults
+              searchText={searchText}
+              users={recommendedUsers}
+              displayCount={displayCount}
+              onShowMore={onShowMore}
+            >
+              {searchedUsers.length === 0 ? (
+                <NoResults>No results</NoResults>
+              ) : (
+                <>
+                  <ResultsList>
+                    {searchedUsers.slice(0, displayCount).map((user) => (
+                      <ResultsItem key={user.id} onClick={onResult(user.id)}>
+                        <ResultsImg
+                          src={user.avatar || DefaultAvatar}
+                          alt='avatar'
+                        />
+                        <ResultsInfo>
+                          <ResultsName>{user.name}</ResultsName>
+                          <ResultsUsername>{user.email}</ResultsUsername>
+                        </ResultsInfo>
+                      </ResultsItem>
+                    ))}
+                  </ResultsList>
+                  {displayCount < searchedUsers.length && (
+                    <ShowMore type='button' onClick={onShowMore}>
+                      Show more
+                    </ShowMore>
+                  )}
+                </>
+              )}
+            </SearchResults>
+          )}
+        </SearchResultsWrapper>
+      )}
     </AsideWrapper>
   );
 };

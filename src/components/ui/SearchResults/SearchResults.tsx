@@ -14,6 +14,7 @@ import {
   ResultsItemContent,
   ResultsUsername,
 } from '@/components/ui/SearchResults/SearchResults.styled';
+import { useWindowSize } from '@/hooks/useWindowSize';
 
 interface SearchResultsProps {
   searchText: string;
@@ -30,13 +31,15 @@ export const SearchResults = ({
   displayCount,
   onShowMore,
 }: SearchResultsProps) => {
+  const [windowSize] = useWindowSize();
   const navigate = useNavigate();
+  const maxWindowSize = 1024;
 
   const onUserClick = (userId: string) => () => {
     navigate(`/profile/${userId}`);
   };
 
-  return searchText.length > 0 ? (
+  return searchText.length > 0 || windowSize[0] <= maxWindowSize ? (
     children
   ) : (
     <>

@@ -1,17 +1,34 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Border, Main, Page } from './ProfilePage.styled';
+import {
+  AsideWrapper,
+  Border,
+  HeaderWrapper,
+  Main,
+  MenuWrapper,
+  Page,
+} from './ProfilePage.styled';
 import { Menu } from '@/components/ui/Menu/Menu';
 import { UsersAside } from '@/components/UsersAside/UsersAside';
+import { Header } from '@/components/ui/Header/Header';
 
 export const ProfilePage = () => (
   <Page>
-    <Menu />
+    <HeaderWrapper>
+      <Header>
+        <UsersAside />
+      </Header>
+    </HeaderWrapper>
+    <MenuWrapper>
+      <Menu />
+    </MenuWrapper>
     <Border />
     <Main>
       <Outlet />
     </Main>
     <Border />
-    <UsersAside />
+    <AsideWrapper>
+      <UsersAside />
+    </AsideWrapper>
   </Page>
 );

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { adaptiveFont } from '@/utils/adaptiveFont';
 
 export const StepsWrapper = styled.div`
   position: relative;
@@ -10,6 +11,10 @@ export const TwitterLogo = styled.img`
   width: 40px;
   height: 33px;
   margin: 0 auto 43px auto;
+
+  @media (max-width: 768px) {
+    margin: 0 auto 20px auto;
+  }
 `;
 
 export const Title = styled.h2`
@@ -17,8 +22,12 @@ export const Title = styled.h2`
   font-family:
     Roboto Serif,
     sans-serif;
-  font-size: 30px;
+  font-size: ${adaptiveFont(30, 22)};
   font-weight: 700;
+
+  @media (max-width: 768px) {
+    margin: 0 0 20px 0;
+  }
 `;
 
 export const ErrorMessage = styled.span`
@@ -26,5 +35,9 @@ export const ErrorMessage = styled.span`
   top: 115px;
   left: 0;
   color: ${(props) => props.theme.error};
-  font-size: 20px;
+  font-size: ${adaptiveFont(20, 16)};
+
+  @media (max-width: 768px) {
+    top: 80px;
+  }
 `;

@@ -30,7 +30,7 @@ export const SwitchButton = styled.label`
     content: '';
     height: 30px;
     width: 30px;
-    top: -1px;
+    top: -2px;
     left: -2px;
     -webkit-transition: 0.4s;
     transition: 0.4s;

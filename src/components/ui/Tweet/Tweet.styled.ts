@@ -10,6 +10,10 @@ export const TweetWrapper = styled.div`
   font-size: 18px;
   font-weight: 400;
   border-bottom: 1px solid ${(props) => props.theme.border100};
+
+  @media (max-width: 425px) {
+    padding: 10px 10px 20px 10px;
+  }
 `;
 
 export const TweetAuthorImg = styled.img`
@@ -99,6 +103,16 @@ export const TweetImage = styled.img`
   height: 453px;
   border-radius: 20px;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 450px;
+    height: 300px;
+  }
+
+  @media (max-width: 425px) {
+    width: 300px;
+    height: 200px;
+  }
 `;
 
 export const BottomBar = styled.div`

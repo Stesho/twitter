@@ -30,6 +30,7 @@ export const HeadTweets = styled.span`
 
 export const BgImg = styled.img`
   height: 280px;
+  object-fit: cover;
 `;
 
 export const ProfileBar = styled.div`

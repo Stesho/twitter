@@ -20,6 +20,10 @@ export const Inputs = styled.div`
 export const Buttons = styled.div`
   display: flex;
   margin: 20px 0 0 0;
+
+  @media (max-width: 768px) {
+    margin: 0;
+  }
 `;
 
 export const FormButton = styled(PrimaryButton)`
