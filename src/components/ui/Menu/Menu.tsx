@@ -28,7 +28,6 @@ export const Menu = () => {
           <MenuItem
             key={item.caption}
             Icon={item.iconUrl}
-            alt={item.alt}
             caption={item.caption}
             link={item.link}
           />

@@ -16,7 +16,6 @@ interface MenuItemProps {
 export const MenuItem = ({ Icon, caption, link }: MenuItemProps) => (
   <Item>
     <ItemLink to={link}>
-      {/* <Icon src={iconUrl} alt={alt} /> */}
       <ItemIcon>
         <Icon />
       </ItemIcon>
