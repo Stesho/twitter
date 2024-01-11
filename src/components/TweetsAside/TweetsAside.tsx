@@ -14,16 +14,27 @@ import {
 
 export const TweetsAside = () => {
   const navigate = useNavigate();
+  const [searchText, setSearchText] = useState('');
   const [tweets, setTweets] = useState<Tweet[]>([]);
 
-  const onResultClick = (tweetId: string) => () => {
-    navigate(`/home/${tweetId}`);
+  const onResultClick = (userId: string) => () => {
+    navigate({
+      pathname: `/home/user/${userId}`,
+      search: `?search=${searchText}`,
+    });
   };
 
   const search = async (text: string) => {
     const tweetsData = await getTweetsByText(text);
     if (tweetsData) {
-      setTweets(tweetsData);
+      const filteredTweets = tweetsData.filter(
+        (tweet, index) =>
+          tweetsData.findIndex((item) => item.author.id === tweet.author.id) ===
+          index,
+      );
+
+      setTweets(filteredTweets);
+      setSearchText(text);
     }
   };
 
@@ -34,7 +45,10 @@ export const TweetsAside = () => {
       ) : (
         <ul>
           {tweets.map((tweet) => (
-            <ResultsItem key={tweet.id} onClick={onResultClick(tweet.id)}>
+            <ResultsItem
+              key={tweet.id}
+              onClick={onResultClick(tweet.author.id)}
+            >
               <ResultsImg src={tweet.author.avatar} alt='avatar' />
               <ResultsInfo>
                 <ResultsName>{tweet.author.name}</ResultsName>
