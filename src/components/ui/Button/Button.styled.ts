@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { lighten } from 'polished';
+import { adaptiveFont } from '@/utils/adaptiveFont';
 
 export const ButtonWrapper = styled.button`
   width: 100%;
@@ -9,7 +10,7 @@ export const ButtonWrapper = styled.button`
   color: ${(props) => props.theme.textLight};
   text-align: center;
   font-family: Roboto, sans-serif;
-  font-size: 18px;
+  font-size: ${adaptiveFont(18, 14)};
   font-weight: 700;
   transition: all 200ms;
   cursor: pointer;
@@ -23,6 +24,10 @@ export const ButtonWrapper = styled.button`
   &:disabled {
     background-color: ${(props) => props.theme.bgSecondaryLight200};
     box-shadow: 0 10px 20px 0 ${(props) => props.theme.shadow};
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px 0;
   }
 `;
 
