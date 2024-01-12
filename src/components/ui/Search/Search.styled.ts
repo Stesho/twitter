@@ -5,10 +5,13 @@ export const SearchWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  max-width: 373px;
-  width: 100%;
+  width: 373px;
   height: 55px;
 
+  @media (max-width: 425px) {
+    max-width: 373px;
+    width: 100%;
+  }
   @media (max-width: 425px) {
     max-width: 170px;
     height: 35px;
