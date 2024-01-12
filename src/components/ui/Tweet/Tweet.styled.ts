@@ -10,12 +10,16 @@ export const TweetWrapper = styled.div`
   font-size: 18px;
   font-weight: 400;
   border-bottom: 1px solid ${(props) => props.theme.border100};
+
+  @media (max-width: 425px) {
+    padding: 10px 10px 20px 10px;
+  }
 `;
 
 export const TweetAuthorImg = styled.img`
-  width: 50px;
-  height: 54px;
-  margin: 0 5px 0 0;
+  width: 52px;
+  height: 52px;
+  margin: 0 8px 0 0;
   border-radius: 50%;
   object-fit: cover;
 `;
@@ -46,13 +50,16 @@ export const TweetAuthorUsername = styled.span`
 export const TweetDots = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 26px;
-  padding: 6px 4px;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 6px;
+  border-radius: 50%;
   flex-shrink: 0;
   cursor: pointer;
 
-  &:hover div {
-    opacity: 0.6;
+  &:hover {
+    background-color: ${(props) => props.theme.bgSecondaryDark200};
   }
 `;
 
@@ -96,6 +103,16 @@ export const TweetImage = styled.img`
   height: 453px;
   border-radius: 20px;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 450px;
+    height: 300px;
+  }
+
+  @media (max-width: 425px) {
+    width: 300px;
+    height: 200px;
+  }
 `;
 
 export const BottomBar = styled.div`
@@ -131,12 +148,33 @@ export const TweetLikes = styled.span`
 
 export const TweetPopup = styled.div`
   position: absolute;
-  top: 0;
+  top: 8px;
   left: 100%;
-  transform: translate(-120%, 50%);
+  transform: translate(-122%, 50%);
   background-color: ${(props) => props.theme.bgPrimary};
   border: 1px solid ${(props) => props.theme.border200};
   border-radius: 8px;
+
+  &:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid ${(props) => props.theme.border200};
+    left: 43px;
+    top: -9px;
+  }
+  &:after {
+    position: absolute;
+    content: '';
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 9px solid ${(props) => props.theme.bgPrimary};
+    left: 43px;
+    top: -8px;
+  }
 `;
 
 export const TweetPopupButton = styled.button`

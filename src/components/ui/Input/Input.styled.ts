@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { adaptiveFont } from '@/utils/adaptiveFont';
 
 export const InputWrapper = styled.div`
   position: relative;
@@ -16,7 +17,7 @@ export const InputStyled = styled.input<{
   background: ${(props) => props.theme.bgPrimary};
   color: ${(props) => props.theme.textDark500};
   font-family: Roboto, sans-serif;
-  font-size: 18px;
+  font-size: ${adaptiveFont(18, 14)};
   font-weight: 400;
   outline: none;
 
@@ -29,6 +30,10 @@ export const InputStyled = styled.input<{
     color: ${(props) => props.theme.textDark400};
     cursor: not-allowed;
   }
+
+  @media (max-width: 768px) {
+    padding: 15px 12px 18px 12px;
+  }
 `;
 
 export const ErrorMessage = styled.span`
@@ -36,6 +41,6 @@ export const ErrorMessage = styled.span`
   z-index: 1;
   top: 100%;
   left: 0;
-  font-size: 14px;
+  font-size: ${adaptiveFont(14, 12)};
   color: ${(props) => props.theme.error};
 `;

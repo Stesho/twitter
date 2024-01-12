@@ -1,17 +1,34 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Border, Main, Page } from './HomePage.styled';
+import {
+  AsideWrapper,
+  Border,
+  HeaderWrapper,
+  Main,
+  MenuWrapper,
+  Page,
+} from './HomePage.styled';
 import { Menu } from '@/components/ui/Menu/Menu';
 import { TweetsAside } from '@/components/TweetsAside/TweetsAside';
+import { Header } from '@/components/ui/Header/Header';
 
 export const HomePage = () => (
   <Page>
-    <Menu />
+    <HeaderWrapper>
+      <Header>
+        <TweetsAside />
+      </Header>
+    </HeaderWrapper>
+    <MenuWrapper>
+      <Menu />
+    </MenuWrapper>
     <Border />
     <Main>
       <Outlet />
     </Main>
     <Border />
-    <TweetsAside />
+    <AsideWrapper>
+      <TweetsAside />
+    </AsideWrapper>
   </Page>
 );

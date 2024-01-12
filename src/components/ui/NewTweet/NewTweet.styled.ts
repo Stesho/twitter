@@ -9,8 +9,8 @@ export const NewTweetWrapper = styled.div`
 `;
 
 export const NewTweetAvatar = styled.img`
-  width: 50px;
-  height: 54px;
+  width: 52px;
+  height: 52px;
   margin: 0 5px 0 0;
   border-radius: 50%;
   object-fit: cover;

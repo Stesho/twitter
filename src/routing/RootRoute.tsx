@@ -9,6 +9,7 @@ import { UserPage } from '@/pages/UserPage/UserPage';
 import { TweetPage } from '@/pages/TweetPage/TweetPage';
 import { ProfileOutlet } from '@/components/ProfileOutlet/ProfileOutlet';
 import { Feed } from '@/components/Feed/Feed';
+import { UserTweetsPage } from '@/pages/UserTweetsPage/UserTweetsPage';
 
 export const RootRoute = () => (
   <Routes>
@@ -16,6 +17,7 @@ export const RootRoute = () => (
     <Route path='home' element={<HomePage />}>
       <Route index element={<Feed />} />
       <Route path=':tweetId' element={<TweetPage />} />
+      <Route path='user/:userId' element={<UserTweetsPage />} />
     </Route>
     <Route path='profile' element={<ProfilePage />}>
       <Route index element={<ProfileOutlet />} />

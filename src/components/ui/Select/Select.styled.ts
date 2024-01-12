@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ArrowIconSvg from '@/assets/icons/arrow.svg?react';
+import { adaptiveFont } from '@/utils/adaptiveFont';
 
 export const SelectWrapper = styled.div`
   position: relative;
@@ -33,11 +34,15 @@ export const SelectButton = styled.select<{
     ${(props) => (props.$isError ? props.theme.error : props.theme.border300)};
   background: ${(props) => props.theme.bgPrimary};
   color: ${(props) => props.theme.textDark500};
-  font-size: 18px;
+  font-size: ${adaptiveFont(18, 14)};
   font-weight: 400;
   outline: none;
 
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    padding: 13px 12px;
+  }
 `;
 
 export const ErrorMessage = styled.span`
@@ -45,6 +50,6 @@ export const ErrorMessage = styled.span`
   z-index: 1;
   top: 100%;
   left: 0;
-  font-size: 14px;
+  font-size: ${adaptiveFont(14, 12)};
   color: ${(props) => props.theme.error};
 `;

@@ -7,6 +7,15 @@ export const SearchWrapper = styled.div`
   align-items: center;
   width: 373px;
   height: 55px;
+
+  @media (max-width: 425px) {
+    max-width: 373px;
+    width: 100%;
+  }
+  @media (max-width: 425px) {
+    max-width: 170px;
+    height: 35px;
+  }
 `;
 
 export const SearchIcon = styled(SearchIconSvg)`
@@ -16,6 +25,10 @@ export const SearchIcon = styled(SearchIconSvg)`
   top: 15px;
   left: 20px;
   cursor: pointer;
+
+  @media (max-width: 425px) {
+    display: none;
+  }
 `;
 
 export const SearchInput = styled.input`
@@ -33,5 +46,9 @@ export const SearchInput = styled.input`
 
   &::placeholder {
     color: ${(props) => props.theme.textDark200};
+  }
+
+  @media (max-width: 425px) {
+    padding: 15px;
   }
 `;

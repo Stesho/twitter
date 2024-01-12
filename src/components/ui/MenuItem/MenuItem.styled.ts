@@ -9,6 +9,10 @@ export const Item = styled.li`
   &:hover {
     font-weight: 600;
   }
+
+  @media (max-width: 768px) {
+    margin: 0 0 5px 0;
+  }
 `;
 
 export const ItemLink = styled(NavLink)`
@@ -27,4 +31,8 @@ export const ItemIcon = styled.div`
   width: 28px;
   height: 28px;
   margin: 0 20px 0 0;
+
+  @media (max-width: 768px) {
+    margin: 0 10px 0 0;
+  }
 `;
