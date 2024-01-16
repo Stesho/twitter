@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 import { Notifications } from '@/types/notifications';
+import { adaptiveFont } from '@/utils/adaptiveFont';
 
 const close = keyframes`
   0% {
@@ -43,6 +44,11 @@ export const NotificationWrapper = styled.div<{
   background-color: ${(props) => props.theme.bgSecondaryDark100};
 
   animation: ${open} 400ms linear;
+
+  @media (max-width: 768px) {
+    width: 220px;
+    padding: 14px;
+  }
 `;
 
 export const Text = styled.div`
@@ -54,7 +60,7 @@ export const Title = styled.span<{
   $type: Notifications;
 }>`
   margin: 0 0 4px 0;
-  //@include adaptive-font($pcSize: 18, $mobSize: 14);
+  font-size: ${adaptiveFont(18, 14)};
   color: ${(props) =>
     props.$type === Notifications.Success
       ? props.theme.success
@@ -66,7 +72,7 @@ export const Title = styled.span<{
 export const Message = styled.p`
   white-space: nowrap;
   font-weight: 400;
-  //@include adaptive-font($pcSize: 14, $mobSize: 12);
+  font-size: ${adaptiveFont(14, 12)};
 `;
 
 export const CloseBtn = styled.button`
@@ -79,7 +85,6 @@ export const CloseBtn = styled.button`
   top: 5px;
   left: calc(100% - (14px + 10px));
   line-height: 1;
-  color: var(--secondary-color-200);
   cursor: pointer;
 `;
 

@@ -44,7 +44,7 @@ export const Select = <T extends FieldValues>({
         </option>
       ))}
     </SelectButton>
-    {errorMessage && (
+    {!!errorMessage && (
       <ErrorMessage data-cy={`${dataCy}Error`}>{errorMessage}</ErrorMessage>
     )}
   </SelectWrapper>
