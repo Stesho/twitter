@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import { lighten } from 'polished';
+import styled from 'styled-components';
+
 import { adaptiveFont } from '@/utils/adaptiveFont';
 
 export const AsideWrapper = styled.aside`
@@ -18,11 +19,16 @@ export const SearchResultsWrapper = styled.div`
 
   @media (max-width: 1024px) {
     position: absolute;
-    width: 294px;
+    width: 373px;
     z-index: 1;
     top: 0;
     left: 100%;
-    transform: translate(-328px, 60px);
+    transform: translate(-405px, 60px);
+  }
+
+  @media (max-width: 425px) {
+    width: 300px;
+    transform: translate(-315px, 30px);
   }
 `;
 
@@ -90,6 +96,10 @@ export const ResultsUsername = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media (max-width: 425px) {
+    max-width: 200px;
+  }
 `;
 
 export const ShowMore = styled.button`

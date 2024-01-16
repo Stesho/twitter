@@ -1,11 +1,13 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import '@testing-library/jest-dom';
+
 import { Tweet } from '@/components/ui/Tweet/Tweet';
-import { User } from '@/types/user';
-import { Tweet as TweetType } from '@/types/tweet';
 import { deleteTweet } from '@/services/tweets/deleteTweet';
 import { updateTweet } from '@/services/tweets/updateTweet';
+import { Tweet as TweetType } from '@/types/tweet';
+import { User } from '@/types/user';
+
+import '@testing-library/jest-dom';
 
 const user: User = {
   id: 'userId',
@@ -14,6 +16,7 @@ const user: User = {
   phoneNumber: 'phone',
   avatar: 'url',
   birthday: 'birthday',
+  username: 'email',
 };
 
 const tweet: TweetType = {

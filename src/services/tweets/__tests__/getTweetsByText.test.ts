@@ -1,6 +1,7 @@
 import { getDocs } from 'firebase/firestore';
-import { Tweet } from '@/types/tweet';
+
 import { getTweetsByText } from '@/services/tweets/getTweetsByText';
+import { Tweet } from '@/types/tweet';
 
 const tweet: Tweet = {
   id: 'id',
@@ -12,6 +13,7 @@ const tweet: Tweet = {
     phoneNumber: 'phone',
     avatar: 'avatar',
     birthday: 'birthday',
+    username: 'username',
   },
   image: 'image',
   date: 'date',

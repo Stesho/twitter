@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { adaptiveFont } from '@/utils/adaptiveFont';
 
 export const StepsWrapper = styled.div`

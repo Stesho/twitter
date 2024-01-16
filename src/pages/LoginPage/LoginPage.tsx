@@ -1,6 +1,8 @@
-import React from "react";
-import { Main } from "./LoginPage.styled";
-import { LoginForm } from "@/components/LoginForm/LoginForm";
+import React from 'react';
+
+import { LoginForm } from '@/components/LoginForm/LoginForm';
+
+import { Main } from './LoginPage.styled';
 
 export const LoginPage = () => (
   <Main>

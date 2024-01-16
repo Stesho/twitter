@@ -1,8 +1,10 @@
 import React from 'react';
+
+import { Loader } from '@/components/ui/Loader/Loader';
 import { Tweet, TweetProps } from '@/components/ui/Tweet/Tweet';
 import { Tweet as TweetType } from '@/types/tweet';
+
 import { NoTweets, TweetsLoader } from './Tweets.styled';
-import { Loader } from '@/components/ui/Loader/Loader';
 
 type TweetPropsOmitted = Omit<
   TweetProps,

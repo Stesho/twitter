@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { Tweet as TweetType } from '@/types/tweet';
-import { Tweet } from '@/components/ui/Tweet/Tweet';
-import { userSelector } from '@/store/selectors/selectors';
+
 import { Loader } from '@/components/ui/Loader/Loader';
 import { Switch } from '@/components/ui/Switch/Switch';
-import { ArrowBack, BackButton, Head } from './TweetPage.styled';
+import { Tweet } from '@/components/ui/Tweet/Tweet';
 import { ROUTES } from '@/constants/routes';
-import { Collections } from '@/types/collections';
 import { db } from '@/db/firesbase';
+import { userSelector } from '@/store/selectors/selectors';
+import { Collections } from '@/types/collections';
+import { Tweet as TweetType } from '@/types/tweet';
+
+import { ArrowBack, BackButton, Head } from './TweetPage.styled';
 
 export const TweetPage = () => {
   const { user } = useSelector(userSelector);

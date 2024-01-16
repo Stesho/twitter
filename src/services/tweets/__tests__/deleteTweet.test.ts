@@ -1,4 +1,5 @@
 import { deleteDoc } from 'firebase/firestore';
+
 import { deleteTweet } from '@/services/tweets/deleteTweet';
 
 jest.mock('firebase/firestore', () => ({

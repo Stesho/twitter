@@ -1,8 +1,9 @@
 import React, { FunctionComponent, SVGProps } from 'react';
 import { useLocation } from 'react-router-dom';
+
 import {
-  ItemIcon,
   Item,
+  ItemIcon,
   ItemLink,
 } from '@/components/ui/MenuItem/MenuItem.styled';
 

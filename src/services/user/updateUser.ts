@@ -7,9 +7,10 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
+
 import { auth, db } from '@/db/firesbase';
-import { User } from '@/types/user';
 import { Collections } from '@/types/collections';
+import { User } from '@/types/user';
 
 export const updateUser = async (userData: User) => {
   try {
@@ -30,10 +31,11 @@ export const updateUser = async (userData: User) => {
       });
     });
 
-    const updatedUser = {
+    const updatedUser: Omit<User, 'id'> = {
       avatar: userData.avatar,
       name: userData.name,
       email: userData.email,
+      username: userData.username,
       phoneNumber: userData.phoneNumber,
       birthday: userData.birthday,
     };

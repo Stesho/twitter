@@ -1,5 +1,6 @@
 import React, { HTMLInputTypeAttribute } from 'react';
-import { UseFormRegister, Path, FieldValues } from 'react-hook-form';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+
 import {
   ErrorMessage,
   InputStyled,
@@ -34,7 +35,7 @@ export const Input = <T extends FieldValues>({
       placeholder={placeholder}
       {...register(label)}
     />
-    {errorMessage && (
+    {!!errorMessage && (
       <ErrorMessage data-cy={`${dataCy}Error`}>{errorMessage}</ErrorMessage>
     )}
   </InputWrapper>

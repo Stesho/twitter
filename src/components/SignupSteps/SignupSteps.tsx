@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
-import { SignupUserForm } from '@/components/SignupUserForm/SignupUserForm';
 import SignupPasswordForm from '@/components/SignupPasswordForm/SignupPasswordForm';
+import { SignupUserForm } from '@/components/SignupUserForm/SignupUserForm';
+import { getUserByEmailOrPhone } from '@/services/user/getUserByEmailOrPhone';
+import { signup } from '@/services/user/signup';
+import { SignupUserData } from '@/types/user';
+
 import {
   ErrorMessage,
   StepsWrapper,
   Title,
   TwitterLogo,
 } from './SignupSteps.styled';
-import { getUserByEmailOrPhone } from '@/services/user/getUserByEmailOrPhone';
-import { SignupUserData } from '@/types/user';
-import { signup } from '@/services/user/signup';
 
 export const SignupSteps = () => {
   const navigate = useNavigate();

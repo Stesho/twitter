@@ -1,8 +1,14 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+
+import GoogleIcon from '@/assets/images/google_icon.png';
 import SignupBackground from '@/assets/images/signup_background.jpg';
 import TwitterIcon from '@/assets/images/twitter_logo.png';
-import GoogleIcon from '@/assets/images/google_icon.png';
+import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
+import { FOOTER_LINKS } from '@/constants/footerLinks';
+import { ROUTES } from '@/constants/routes';
+import { signupWithGoogle } from '@/services/user/signupWithGoogle';
+
 import {
   BgImg,
   Content,
@@ -17,10 +23,6 @@ import {
   ToLogIn,
   TwitterLogo,
 } from './SignupPage.styled';
-import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
-import { ROUTES } from '@/constants/routes';
-import { FOOTER_LINKS } from '@/constants/footerLinks';
-import { signupWithGoogle } from '@/services/user/signupWithGoogle';
 
 export const SignupPage = () => {
   const navigate = useNavigate();

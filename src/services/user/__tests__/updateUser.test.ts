@@ -1,8 +1,9 @@
 import { verifyBeforeUpdateEmail } from 'firebase/auth';
 import { getDocs, updateDoc } from 'firebase/firestore';
-import { User } from '@/types/user';
+
 import { updateUser } from '@/services/user/updateUser';
 import { Tweet } from '@/types/tweet';
+import { User } from '@/types/user';
 
 jest.mock('firebase/auth', () => ({
   verifyBeforeUpdateEmail: jest.fn(),
@@ -43,6 +44,7 @@ describe('update user', () => {
       email: 'email',
       phoneNumber: 'phone',
       birthday: '',
+      username: 'username',
     };
     tweets = [
       {

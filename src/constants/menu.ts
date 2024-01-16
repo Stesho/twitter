@@ -1,13 +1,18 @@
-import HomeIcon from '@/assets/icons/menu/home.svg?react';
-import HomeIconFilled from '@/assets/icons/menu/filled/home_filled.svg?react';
-import ExploreIcon from '@/assets/icons/menu/explore.svg?react';
-import NotificationIcon from '@/assets/icons/menu/notification.svg?react';
-import MessagesIcon from '@/assets/icons/menu/messages.svg?react';
 import BookmarksIcon from '@/assets/icons/menu/bookmarks.svg?react';
-import ListsIcon from '@/assets/icons/menu/lists.svg?react';
-import ProfileIcon from '@/assets/icons/menu/profile.svg?react';
+import ExploreIcon from '@/assets/icons/menu/explore.svg?react';
+import BookmarksIconFilled from '@/assets/icons/menu/filled/bookmarks_filled.svg?react';
+import ExploreIconFilled from '@/assets/icons/menu/filled/explore_filled.svg?react';
+import HomeIconFilled from '@/assets/icons/menu/filled/home_filled.svg?react';
+import ListsIconFilled from '@/assets/icons/menu/filled/lists_filled.svg?react';
+import MessagesIconFilled from '@/assets/icons/menu/filled/messages_filled.svg?react';
+import NotificationIconFilled from '@/assets/icons/menu/filled/notifications_filled.svg?react';
 import ProfileIconFilled from '@/assets/icons/menu/filled/profile_filled.svg?react';
+import HomeIcon from '@/assets/icons/menu/home.svg?react';
+import ListsIcon from '@/assets/icons/menu/lists.svg?react';
+import MessagesIcon from '@/assets/icons/menu/messages.svg?react';
 import MoreIcon from '@/assets/icons/menu/more.svg?react';
+import NotificationIcon from '@/assets/icons/menu/notification.svg?react';
+import ProfileIcon from '@/assets/icons/menu/profile.svg?react';
 
 export const MENU_ITEMS = [
   {
@@ -19,35 +24,35 @@ export const MENU_ITEMS = [
   },
   {
     iconUrl: ExploreIcon,
-    iconUrlActive: HomeIconFilled,
+    iconUrlActive: ExploreIconFilled,
     alt: 'Explore',
     caption: 'Explore',
     link: '/explore',
   },
   {
     iconUrl: NotificationIcon,
-    iconUrlActive: HomeIconFilled,
+    iconUrlActive: NotificationIconFilled,
     alt: 'Notifications',
     caption: 'Notifications',
-    link: '/notification',
+    link: '/notifications',
   },
   {
     iconUrl: MessagesIcon,
-    iconUrlActive: HomeIconFilled,
+    iconUrlActive: MessagesIconFilled,
     alt: 'Messages',
     caption: 'Messages',
     link: '/messages',
   },
   {
     iconUrl: BookmarksIcon,
-    iconUrlActive: HomeIconFilled,
+    iconUrlActive: BookmarksIconFilled,
     alt: 'Bookmarks',
     caption: 'Bookmarks',
     link: '/bookmarks',
   },
   {
     iconUrl: ListsIcon,
-    iconUrlActive: HomeIconFilled,
+    iconUrlActive: ListsIconFilled,
     alt: 'Lists',
     caption: 'Lists',
     link: '/lists',
@@ -61,7 +66,7 @@ export const MENU_ITEMS = [
   },
   {
     iconUrl: MoreIcon,
-    iconUrlActive: HomeIconFilled,
+    iconUrlActive: MoreIcon,
     alt: 'More',
     caption: 'More',
     link: '/more',

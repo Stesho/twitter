@@ -1,9 +1,21 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+
 import { Input } from '@/components/ui/Input/Input';
+import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
 import { Select } from '@/components/ui/Select/Select';
+import { ROUTES } from '@/constants/routes';
 import { MONTHS } from '@/constants/selectOptions';
+import { signupUserFormSchema } from '@/constants/validationSchemas';
+import { SignupUserFormData } from '@/types/forms';
+import { SignupUserData } from '@/types/user';
+import { getCurrentYear } from '@/utils/getCurrentYear';
+import { getDate } from '@/utils/getDate';
+import { getDateValuesFromISOString } from '@/utils/getDateValuesFromISOString';
+import { getDaysInMonth } from '@/utils/getDaysInMonth';
+import { getYearsInRange } from '@/utils/getYearsInRange';
+
 import {
   Form,
   Inputs,
@@ -13,16 +25,6 @@ import {
   Text,
   UseEmail,
 } from './SignupUserForm.styled';
-import { getDate } from '@/utils/getDate';
-import { SignupUserData } from '@/types/user';
-import { signupUserFormSchema } from '@/constants/validationSchemas';
-import { SignupUserFormData } from '@/types/forms';
-import { getDaysInMonth } from '@/utils/getDaysInMonth';
-import { getYearsInRange } from '@/utils/getYearsInRange';
-import { getCurrentYear } from '@/utils/getCurrentYear';
-import { getDateValuesFromISOString } from '@/utils/getDateValuesFromISOString';
-import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
-import { ROUTES } from '@/constants/routes';
 
 interface SignupUserFormProps {
   onSubmit: (user: SignupUserData) => void;

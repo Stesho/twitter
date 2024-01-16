@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BurgerButton, BurgerLine } from '@/components/ui/Burger/Burger.styled';
 
 interface BurgerProps {

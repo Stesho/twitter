@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import ArrowBackSvg from '@/assets/icons/arrow_back.svg?react';
 
 export const Head = styled.div`

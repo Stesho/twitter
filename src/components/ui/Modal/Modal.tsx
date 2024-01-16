@@ -1,7 +1,9 @@
 import React, { ReactNode, useEffect } from 'react';
+
 import { Portal } from '@/components/ui/Portal/Portal';
-import { CloseButton, Content, Overlay } from './Modal.styled';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
+
+import { CloseButton, Content, Overlay } from './Modal.styled';
 
 interface ModalProps {
   id: string;

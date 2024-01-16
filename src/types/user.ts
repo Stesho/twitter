@@ -4,7 +4,8 @@ export interface User {
   name: string;
   phoneNumber: string;
   email: string;
+  username: string;
   birthday: string;
 }
 
-export type SignupUserData = Omit<User, 'id' | 'avatar'>;
+export type SignupUserData = Omit<User, 'id' | 'avatar' | 'username'>;

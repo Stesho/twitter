@@ -1,4 +1,5 @@
 import { addDoc } from 'firebase/firestore';
+
 import { sendTweet } from '@/services/tweets/sendTweet';
 import { Tweet } from '@/types/tweet';
 
@@ -27,6 +28,7 @@ describe('send tweet', () => {
         phoneNumber: 'phone',
         avatar: 'avatar',
         birthday: 'birthday',
+        username: 'username',
       },
       image: 'image',
       date: 'date',

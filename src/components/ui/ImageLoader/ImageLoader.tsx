@@ -1,7 +1,9 @@
 import React, { SyntheticEvent } from 'react';
-import { checkImageFile } from '@/utils/checkImageFile';
+
 import loaderImage from '@/assets/images/media.png';
-import { Input, ImageEditorWrapper } from './ImageLoader.styled';
+import { checkImageFile } from '@/utils/checkImageFile';
+
+import { ImageEditorWrapper, Input } from './ImageLoader.styled';
 
 interface ImageEditorProps {
   onLoadCallback: (image: string | null) => void;

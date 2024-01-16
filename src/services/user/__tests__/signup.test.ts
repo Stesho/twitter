@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc } from 'firebase/firestore';
+
 import { signup } from '@/services/user/signup';
 import { SignupUserData } from '@/types/user';
 
@@ -52,6 +53,7 @@ describe('sign up', () => {
       email: 'test@test.test',
       phoneNumber: '+12345678',
       birthday: '',
+      username: 'test',
     });
   });
 
