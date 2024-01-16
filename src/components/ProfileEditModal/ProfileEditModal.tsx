@@ -72,6 +72,7 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
       name,
       phoneNumber,
       email,
+      username: user.username,
       birthday: getDate(data.year, data.month, data.day).toISOString(),
     });
 

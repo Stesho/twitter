@@ -6,6 +6,7 @@ import { User } from '@/types/user';
 import { getUserById } from '@/services/user/getUserById';
 import { store } from '@/store/store';
 import { setUser } from '@/store/slices/userSlice';
+import { getUsernameFromEmail } from '@/utils/getUsernameFromEmail';
 
 export const signupWithGoogle = () =>
   signInWithPopup(auth, provider)
@@ -17,6 +18,7 @@ export const signupWithGoogle = () =>
         avatar: photoURL || '',
         name: displayName || '',
         email: email || '',
+        username: getUsernameFromEmail(email || ''),
         phoneNumber: phoneNumber || '',
         birthday: '',
       };

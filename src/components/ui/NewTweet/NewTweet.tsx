@@ -26,6 +26,8 @@ export const NewTweet = ({ user }: NewTweetProps) => {
   const [imageLoaderKey, setImageLoaderKey] = useState('');
 
   const onTweet = async () => {
+    setText('');
+    setImage('');
     await sendTweet({
       text,
       author: user,
@@ -33,8 +35,6 @@ export const NewTweet = ({ user }: NewTweetProps) => {
       image,
       likes: [],
     });
-    setText('');
-    setImage('');
   };
 
   const resetImage = () => {

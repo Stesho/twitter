@@ -74,7 +74,7 @@ export const Profile = ({ user }: ProfileProps) => {
               alt='avatar'
             />
             <Name>{user.name}</Name>
-            <Username>@bobur_mavlonov</Username>
+            <Username>@{user.username}</Username>
             <Occupation>UX&UI designer at @abutechuz</Occupation>
             <Followers>
               <div>

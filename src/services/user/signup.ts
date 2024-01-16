@@ -5,6 +5,7 @@ import { SignupUserData, User } from '@/types/user';
 import { Collections } from '@/types/collections';
 import { store } from '@/store/store';
 import { setUser } from '@/store/slices/userSlice';
+import { getUsernameFromEmail } from '@/utils/getUsernameFromEmail';
 
 export const signup = (userData: SignupUserData, password: string) =>
   createUserWithEmailAndPassword(auth, userData.email, password)
@@ -13,6 +14,7 @@ export const signup = (userData: SignupUserData, password: string) =>
 
       const user = {
         avatar: photoURL || '',
+        username: getUsernameFromEmail(userData.email),
         ...userData,
       };
 

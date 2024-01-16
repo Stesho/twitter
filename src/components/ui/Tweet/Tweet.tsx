@@ -112,7 +112,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
           <div>
             <TweetAuthorName>{tweet.author.name}</TweetAuthorName>
             <TweetAuthorUsername>
-              username · {fromISOStringToReadable(tweet.date)}
+              {tweet.author.username} · {fromISOStringToReadable(tweet.date)}
             </TweetAuthorUsername>
           </div>
           {tweet.author.id === user!.id && (

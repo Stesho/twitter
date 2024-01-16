@@ -30,10 +30,11 @@ export const updateUser = async (userData: User) => {
       });
     });
 
-    const updatedUser = {
+    const updatedUser: Omit<User, 'id'> = {
       avatar: userData.avatar,
       name: userData.name,
       email: userData.email,
+      username: userData.username,
       phoneNumber: userData.phoneNumber,
       birthday: userData.birthday,
     };
