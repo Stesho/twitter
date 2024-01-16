@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Search } from '@/components/ui/Search/Search';
+
+import DefaultAvatar from '@/assets/images/default_avatar.png';
 import {
   AsideWrapper,
   NoResults,
@@ -13,12 +14,12 @@ import {
   SearchResultsWrapper,
   ShowMore,
 } from '@/components/Aside/Aside.styled';
-import DefaultAvatar from '@/assets/images/default_avatar.png';
-import { User } from '@/types/user';
-import { useDebounce } from '@/hooks/useDebounce';
 import { Loader } from '@/components/ui/Loader/Loader';
+import { Search } from '@/components/ui/Search/Search';
 import { SearchResults } from '@/components/ui/SearchResults/SearchResults';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { User } from '@/types/user';
 
 export interface AsideProps {
   placeholder?: string;

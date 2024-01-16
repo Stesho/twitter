@@ -1,15 +1,17 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { collection, orderBy, query } from 'firebase/firestore';
-import { Switch } from '@/components/ui/Switch/Switch';
+
+import { Loader } from '@/components/ui/Loader/Loader';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
+import { Switch } from '@/components/ui/Switch/Switch';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
 import { db } from '@/db/firesbase';
-import { Collections } from '@/types/collections';
 import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
-import { FeedTweets, Head } from './Feed.styled';
 import { userSelector } from '@/store/selectors/selectors';
-import { Loader } from '@/components/ui/Loader/Loader';
+import { Collections } from '@/types/collections';
+
+import { FeedTweets, Head } from './Feed.styled';
 
 export const Feed = () => {
   const { user } = useSelector(userSelector);

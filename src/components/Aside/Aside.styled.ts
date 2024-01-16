@@ -1,5 +1,6 @@
-import styled from 'styled-components';
 import { lighten } from 'polished';
+import styled from 'styled-components';
+
 import { adaptiveFont } from '@/utils/adaptiveFont';
 
 export const AsideWrapper = styled.aside`

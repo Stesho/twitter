@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useLayoutEffect, useRef } from 'react';
+
 import { TweetTextAreaWrapper } from '@/components/ui/TweetTextArea/TweetTextArea.styled';
 
 interface TweetTextAreaProps {

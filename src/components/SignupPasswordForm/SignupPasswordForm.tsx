@@ -1,7 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+
 import { Input } from '@/components/ui/Input/Input';
+import { ERROR_MESSAGES } from '@/constants/errorMessages';
+import { signupPasswordFormSchema } from '@/constants/validationSchemas';
+import { SignupPasswordFormData } from '@/types/forms';
+
 import {
   BackButton,
   Buttons,
@@ -9,9 +14,6 @@ import {
   FormButton,
   Inputs,
 } from './SignupPasswordForm.styled';
-import { signupPasswordFormSchema } from '@/constants/validationSchemas';
-import { SignupPasswordFormData } from '@/types/forms';
-import { ERROR_MESSAGES } from '@/constants/errorMessages';
 
 interface SignupPasswordFormProps {
   onSubmit: (password: string) => void;

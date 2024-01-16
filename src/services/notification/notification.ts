@@ -1,5 +1,5 @@
-import { store } from '@/store/store';
 import { setNotification } from '@/store/slices/notificationSlice';
+import { store } from '@/store/store';
 import { Notifications } from '@/types/notifications';
 
 interface INotification {

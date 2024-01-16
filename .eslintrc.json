@@ -21,13 +21,33 @@
     "cypress"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["react-refresh"],
+  "plugins": ["react-refresh", "simple-import-sort"],
   "rules": {
     "no-param-reassign": "warn",
     "import/prefer-default-export": "off",
     "import/extensions": "off",
     "react/require-default-props": "warn",
     "react/jsx-props-no-spreading": "warn",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // Packages `react` related packages come first.
+          ["^react", "^@?\\w"],
+          // Internal packages.
+          ["^(@|components)(/.*|$)"],
+          // Side effect imports.
+          ["^\\u0000"],
+          // Parent imports. Put `..` last.
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+          // Other relative imports. Put same-folder imports and `.` last.
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // Style imports.
+          ["^.+\\.?(styled)"]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "error",
     "react/function-component-definition": [
       "error",
       {

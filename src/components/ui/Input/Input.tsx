@@ -1,5 +1,6 @@
 import React, { HTMLInputTypeAttribute } from 'react';
-import { UseFormRegister, Path, FieldValues } from 'react-hook-form';
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form';
+
 import {
   ErrorMessage,
   InputStyled,

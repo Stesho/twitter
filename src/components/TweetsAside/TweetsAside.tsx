@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getTweetsByText } from '@/services/tweets/getTweetsByText';
+
 import Aside, { AsideProps } from '@/components/Aside/Aside';
+import { getTweetsByText } from '@/services/tweets/getTweetsByText';
 
 type TweetsAsideProps = Pick<AsideProps, 'users'>;
 

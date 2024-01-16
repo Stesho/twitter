@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User } from '@/types/user';
+
 import DefaultAvatar from '@/assets/images/default_avatar.png';
 import {
   ResultsImg,
@@ -15,6 +15,7 @@ import {
   ResultsUsername,
 } from '@/components/ui/SearchResults/SearchResults.styled';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { User } from '@/types/user';
 
 interface SearchResultsProps {
   searchText: string;

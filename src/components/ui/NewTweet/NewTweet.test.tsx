@@ -1,11 +1,13 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { ThemeProvider } from 'styled-components';
+
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
-import { User } from '@/types/user';
 import { sendTweet } from '@/services/tweets/sendTweet';
 import { lightTheme } from '@/styles/themes';
+import { User } from '@/types/user';
+
+import '@testing-library/jest-dom';
 
 const userData: User = {
   id: 'id',

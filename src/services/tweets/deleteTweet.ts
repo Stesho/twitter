@@ -1,4 +1,5 @@
-import { doc, deleteDoc } from 'firebase/firestore';
+import { deleteDoc, doc } from 'firebase/firestore';
+
 import { db } from '@/db/firesbase';
 import { Collections } from '@/types/collections';
 

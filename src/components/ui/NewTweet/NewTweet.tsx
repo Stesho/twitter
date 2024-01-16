@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import MediaImg from '@/assets/images/media.png';
+
 import DefaultAvatar from '@/assets/images/default_avatar.png';
+import MediaImg from '@/assets/images/media.png';
+import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
 import {
   NewTweetAvatar,
   NewTweetButton,
@@ -11,10 +13,9 @@ import {
   NewTweetMedia,
   NewTweetWrapper,
 } from '@/components/ui/NewTweet/NewTweet.styled';
+import { TweetTextArea } from '@/components/ui/TweetTextArea/TweetTextArea';
 import { sendTweet } from '@/services/tweets/sendTweet';
 import { User } from '@/types/user';
-import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
-import { TweetTextArea } from '@/components/ui/TweetTextArea/TweetTextArea';
 
 interface NewTweetProps {
   user: User;

@@ -1,17 +1,18 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { SignupWithEmailPage } from '@/pages/SignupWithEmailPage/SignupWithEmailPage';
-import { SignupPage } from '@/pages/SignupPage/SignupPage';
-import { LoginPage } from '@/pages/LoginPage/LoginPage';
-import { UserPage } from '@/pages/UserPage/UserPage';
-import { TweetPage } from '@/pages/TweetPage/TweetPage';
-import { ProfileOutlet } from '@/components/ProfileOutlet/ProfileOutlet';
+
 import { Feed } from '@/components/Feed/Feed';
-import { UserTweetsPage } from '@/pages/UserTweetsPage/UserTweetsPage';
+import { Page } from '@/components/Page/Page';
+import { ProfileOutlet } from '@/components/ProfileOutlet/ProfileOutlet';
+import { TweetsAside } from '@/components/TweetsAside/TweetsAside';
 import { UnrealizedTitle } from '@/components/ui/UnrealizedTitle/UnrealizedTitle';
 import { UsersAside } from '@/components/UsersAside/UsersAside';
-import { Page } from '@/components/Page/Page';
-import { TweetsAside } from '@/components/TweetsAside/TweetsAside';
+import { LoginPage } from '@/pages/LoginPage/LoginPage';
+import { SignupPage } from '@/pages/SignupPage/SignupPage';
+import { SignupWithEmailPage } from '@/pages/SignupWithEmailPage/SignupWithEmailPage';
+import { TweetPage } from '@/pages/TweetPage/TweetPage';
+import { UserPage } from '@/pages/UserPage/UserPage';
+import { UserTweetsPage } from '@/pages/UserTweetsPage/UserTweetsPage';
 
 export const RootRoute = () => (
   <Routes>

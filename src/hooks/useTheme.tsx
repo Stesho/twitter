@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Theme } from "@/types/theme";
+import { useState } from 'react';
+
+import { Theme } from '@/types/theme';
 
 export const useTheme = () => {
   const [theme, setTheme] = useState(Theme.light);

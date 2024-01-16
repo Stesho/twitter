@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+
 import { Notifications } from '@/types/notifications';
 
 const close = keyframes`

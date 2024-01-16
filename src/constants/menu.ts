@@ -1,18 +1,18 @@
-import HomeIcon from '@/assets/icons/menu/home.svg?react';
-import HomeIconFilled from '@/assets/icons/menu/filled/home_filled.svg?react';
-import ExploreIcon from '@/assets/icons/menu/explore.svg?react';
-import ExploreIconFilled from '@/assets/icons/menu/filled/explore_filled.svg?react';
-import NotificationIcon from '@/assets/icons/menu/notification.svg?react';
-import NotificationIconFilled from '@/assets/icons/menu/filled/notifications_filled.svg?react';
-import MessagesIcon from '@/assets/icons/menu/messages.svg?react';
-import MessagesIconFilled from '@/assets/icons/menu/filled/messages_filled.svg?react';
 import BookmarksIcon from '@/assets/icons/menu/bookmarks.svg?react';
+import ExploreIcon from '@/assets/icons/menu/explore.svg?react';
 import BookmarksIconFilled from '@/assets/icons/menu/filled/bookmarks_filled.svg?react';
-import ListsIcon from '@/assets/icons/menu/lists.svg?react';
+import ExploreIconFilled from '@/assets/icons/menu/filled/explore_filled.svg?react';
+import HomeIconFilled from '@/assets/icons/menu/filled/home_filled.svg?react';
 import ListsIconFilled from '@/assets/icons/menu/filled/lists_filled.svg?react';
-import ProfileIcon from '@/assets/icons/menu/profile.svg?react';
+import MessagesIconFilled from '@/assets/icons/menu/filled/messages_filled.svg?react';
+import NotificationIconFilled from '@/assets/icons/menu/filled/notifications_filled.svg?react';
 import ProfileIconFilled from '@/assets/icons/menu/filled/profile_filled.svg?react';
+import HomeIcon from '@/assets/icons/menu/home.svg?react';
+import ListsIcon from '@/assets/icons/menu/lists.svg?react';
+import MessagesIcon from '@/assets/icons/menu/messages.svg?react';
 import MoreIcon from '@/assets/icons/menu/more.svg?react';
+import NotificationIcon from '@/assets/icons/menu/notification.svg?react';
+import ProfileIcon from '@/assets/icons/menu/profile.svg?react';
 
 export const MENU_ITEMS = [
   {

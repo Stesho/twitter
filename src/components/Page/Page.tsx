@@ -1,17 +1,19 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+
 import { Header } from '@/components/ui/Header/Header';
 import { Menu } from '@/components/ui/Menu/Menu';
+import { getAllUsers } from '@/services/user/getAllUsers';
+import { User } from '@/types/user';
+
 import {
-  PageWrapper,
   AsideWrapper,
   Border,
   HeaderWrapper,
   Main,
   MenuWrapper,
+  PageWrapper,
 } from './Page.styled';
-import { getAllUsers } from '@/services/user/getAllUsers';
-import { User } from '@/types/user';
 
 interface PageProps {
   Aside: (props: { users: User[] }) => ReactNode;

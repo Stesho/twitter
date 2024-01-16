@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import SearchIconSvg from '@/assets/icons/search.svg?react';
 
 export const SearchWrapper = styled.div`

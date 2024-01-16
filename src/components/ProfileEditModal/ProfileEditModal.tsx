@@ -1,18 +1,32 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
-import { Modal } from '@/components/ui/Modal/Modal';
-import { User } from '@/types/user';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import DefaultAvatar from '@/assets/images/default_avatar_big.png';
+import { Button } from '@/components/ui/Button/Button';
+import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
 import { Input } from '@/components/ui/Input/Input';
-import { signupUserFormSchema } from '@/constants/validationSchemas';
-import { getDateValuesFromISOString } from '@/utils/getDateValuesFromISOString';
+import { Modal } from '@/components/ui/Modal/Modal';
 import { Select } from '@/components/ui/Select/Select';
+import { ERROR_MESSAGES } from '@/constants/errorMessages';
 import { MONTHS } from '@/constants/selectOptions';
+import { signupUserFormSchema } from '@/constants/validationSchemas';
+import { notification } from '@/services/notification/notification';
+import { logout } from '@/services/user/logout';
+import { updateUser } from '@/services/user/updateUser';
+import { setUser } from '@/store/slices/userSlice';
+import { EditUserFormData } from '@/types/forms';
+import { Notifications } from '@/types/notifications';
+import { User } from '@/types/user';
+import { getCurrentYear } from '@/utils/getCurrentYear';
+import { getDate } from '@/utils/getDate';
+import { getDateValuesFromISOString } from '@/utils/getDateValuesFromISOString';
 import { getDaysInMonth } from '@/utils/getDaysInMonth';
 import { getYearsInRange } from '@/utils/getYearsInRange';
-import { getCurrentYear } from '@/utils/getCurrentYear';
+import { isAuthWithGoogle } from '@/utils/isAuthWithGoogle';
+
 import {
   Buttons,
   Form,
@@ -21,18 +35,6 @@ import {
   SaveButton,
   Selects,
 } from './ProfileEditModal.styled';
-import { Button } from '@/components/ui/Button/Button';
-import { EditUserFormData } from '@/types/forms';
-import { getDate } from '@/utils/getDate';
-import { updateUser } from '@/services/user/updateUser';
-import { ERROR_MESSAGES } from '@/constants/errorMessages';
-import { setUser } from '@/store/slices/userSlice';
-import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
-import DefaultAvatar from '@/assets/images/default_avatar_big.png';
-import { isAuthWithGoogle } from '@/utils/isAuthWithGoogle';
-import { notification } from '@/services/notification/notification';
-import { Notifications } from '@/types/notifications';
-import { logout } from '@/services/user/logout';
 
 interface ProfileEditModalProps {
   onClose: () => void;

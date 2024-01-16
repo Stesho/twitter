@@ -1,6 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+
 import { Portal } from '@/components/ui/Portal/Portal';
+import { notification } from '@/services/notification/notification';
+import { notificationSelector } from '@/store/selectors/selectors';
+
 import {
   Border,
   CloseBtn,
@@ -9,8 +13,6 @@ import {
   Text,
   Title,
 } from './Notification.styled';
-import { notificationSelector } from '@/store/selectors/selectors';
-import { notification } from '@/services/notification/notification';
 
 export const Notification = () => {
   const { isShow, lifeTimeMs, type, text } = useSelector(notificationSelector);

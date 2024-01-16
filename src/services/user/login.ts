@@ -1,4 +1,5 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
+
 import { auth } from '@/db/firesbase';
 
 export interface LoginData {

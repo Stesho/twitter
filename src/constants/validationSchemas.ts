@@ -1,6 +1,7 @@
 import * as yup from 'yup';
-import { passwordRegExp, phoneRegExp } from '@/constants/regExp';
+
 import { ERROR_MESSAGES } from '@/constants/errorMessages';
+import { passwordRegExp, phoneRegExp } from '@/constants/regExp';
 
 export const signupUserFormSchema = yup
   .object({

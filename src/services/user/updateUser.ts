@@ -7,9 +7,10 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
+
 import { auth, db } from '@/db/firesbase';
-import { User } from '@/types/user';
 import { Collections } from '@/types/collections';
+import { User } from '@/types/user';
 
 export const updateUser = async (userData: User) => {
   try {

@@ -1,4 +1,5 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
+
 import { login, LoginData } from '@/services/user/login';
 
 const loginData: LoginData = {

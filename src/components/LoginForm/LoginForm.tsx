@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
 import { Input } from '@/components/ui/Input/Input';
+import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
+import { ROUTES } from '@/constants/routes';
+import { loginFormSchema } from '@/constants/validationSchemas';
+import { login } from '@/services/user/login';
+import { LoginFormData } from '@/types/forms';
+
 import {
   ErrorMessage,
   Form,
@@ -12,12 +20,6 @@ import {
   Title,
   TwitterLogo,
 } from './LoginForm.styled';
-import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
-import { login } from '@/services/user/login';
-import { loginFormSchema } from '@/constants/validationSchemas';
-import { LoginFormData } from '@/types/forms';
-import { NavigateLink } from '@/components/ui/NavigateLink/NavigateLink';
-import { ROUTES } from '@/constants/routes';
 
 export const LoginForm = () => {
   const navigate = useNavigate();

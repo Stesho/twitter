@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc } from 'firebase/firestore';
+
 import { signup } from '@/services/user/signup';
 import { SignupUserData } from '@/types/user';
 
