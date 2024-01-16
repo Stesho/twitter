@@ -44,6 +44,7 @@ describe('update user', () => {
       email: 'email',
       phoneNumber: 'phone',
       birthday: '',
+      username: 'username',
     };
     tweets = [
       {

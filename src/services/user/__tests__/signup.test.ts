@@ -53,6 +53,7 @@ describe('sign up', () => {
       email: 'test@test.test',
       phoneNumber: '+12345678',
       birthday: '',
+      username: 'test',
     });
   });
 
