@@ -1,6 +1,6 @@
-import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { lighten } from 'polished';
+import styled from 'styled-components';
 
 export const NavLinkWrapper = styled(NavLink)`
   color: ${(props) => props.theme.bgSecondaryLight100};

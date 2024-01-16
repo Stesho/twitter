@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { onSnapshot, Query } from 'firebase/firestore';
+
 import { Tweet as TweetType } from '@/types/tweet';
 
 export const useTweetsSnapshot = (tweetsQuery: Query) => {

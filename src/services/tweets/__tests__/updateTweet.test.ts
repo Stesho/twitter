@@ -1,6 +1,7 @@
 import { updateDoc } from 'firebase/firestore';
-import { Tweet } from '@/types/tweet';
+
 import { updateTweet } from '@/services/tweets/updateTweet';
+import { Tweet } from '@/types/tweet';
 
 jest.mock('firebase/firestore', () => ({
   doc: jest.fn(),

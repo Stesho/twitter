@@ -1,7 +1,8 @@
-import { getDoc, doc } from 'firebase/firestore';
-import { User } from '@/types/user';
+import { doc, getDoc } from 'firebase/firestore';
+
 import { db } from '@/db/firesbase';
 import { Collections } from '@/types/collections';
+import { User } from '@/types/user';
 
 export const getUserById = async (userId: string) => {
   try {
@@ -9,6 +10,10 @@ export const getUserById = async (userId: string) => {
 
     const userDoc = await getDoc(userRef);
     const userData = userDoc.data() as User;
+
+    if (!userData) {
+      return null;
+    }
 
     return {
       ...userData,

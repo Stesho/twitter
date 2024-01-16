@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { NeutralButton } from '@/components/ui/Button/Button.styled';
 import { adaptiveFont } from '@/utils/adaptiveFont';
 

@@ -1,4 +1,5 @@
 import { getDoc } from 'firebase/firestore';
+
 import { getUserById } from '@/services/user/getUserById';
 
 const user = {

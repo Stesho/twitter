@@ -1,16 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MenuItem } from '@/components/ui/MenuItem/MenuItem';
-import { MENU_ITEMS } from '@/constants/menu';
+
+import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
 import {
   LogOutButton,
   MenuList,
   Nav,
   TwitterLogo,
 } from '@/components/ui/Menu/Menu.styled';
-import TwitterLogoSrc from '@/assets/images/twitter_logo.png';
-import { logout } from '@/services/user/logout';
+import { MenuItem } from '@/components/ui/MenuItem/MenuItem';
+import { MENU_ITEMS } from '@/constants/menu';
 import { ROUTES } from '@/constants/routes';
+import { logout } from '@/services/user/logout';
 
 export const Menu = () => {
   const navigate = useNavigate();

@@ -1,9 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Aside from '@/components/Aside/Aside';
+
+import Aside, { AsideProps } from '@/components/Aside/Aside';
 import { getUsersByName } from '@/services/user/getUsersByName';
 
-export const UsersAside = () => {
+type UsersAsideProps = Pick<AsideProps, 'users'>;
+
+export const UsersAside = ({ users }: UsersAsideProps) => {
   const navigate = useNavigate();
 
   const onResultClick = (userId: string) => {
@@ -17,6 +20,7 @@ export const UsersAside = () => {
 
   return (
     <Aside
+      users={users}
       placeholder='Search users'
       onSearch={search}
       onResultClick={onResultClick}

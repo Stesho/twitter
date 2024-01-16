@@ -1,5 +1,6 @@
 import { signInWithPopup } from 'firebase/auth';
 import { setDoc } from 'firebase/firestore';
+
 import { getUserById } from '@/services/user/getUserById';
 import { signupWithGoogle } from '@/services/user/signupWithGoogle';
 import { User } from '@/types/user';

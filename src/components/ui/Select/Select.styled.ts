@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import ArrowIconSvg from '@/assets/icons/arrow.svg?react';
 import { adaptiveFont } from '@/utils/adaptiveFont';
 

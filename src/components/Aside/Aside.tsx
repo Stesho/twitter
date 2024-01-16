@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Search } from '@/components/ui/Search/Search';
+
+import DefaultAvatar from '@/assets/images/default_avatar.png';
 import {
   AsideWrapper,
   NoResults,
@@ -13,26 +14,25 @@ import {
   SearchResultsWrapper,
   ShowMore,
 } from '@/components/Aside/Aside.styled';
-import DefaultAvatar from '@/assets/images/default_avatar.png';
-import { getAllUsers } from '@/services/user/getAllUsers';
-import { User } from '@/types/user';
-import { useDebounce } from '@/hooks/useDebounce';
 import { Loader } from '@/components/ui/Loader/Loader';
+import { Search } from '@/components/ui/Search/Search';
 import { SearchResults } from '@/components/ui/SearchResults/SearchResults';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { User } from '@/types/user';
 
-interface AsideProps {
+export interface AsideProps {
   placeholder?: string;
   onSearch: (text: string) => Promise<User[]>;
   onResultClick: (userId: string, text: string) => void;
+  users: User[];
 }
 
-const Aside = ({ onSearch, onResultClick, placeholder }: AsideProps) => {
+const Aside = ({ users, onSearch, onResultClick, placeholder }: AsideProps) => {
   const itemsDisplayCount = 3;
   const maxWindowSize = 1024;
   const [text, setText] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-  const [recommendedUsers, setRecommendedUsers] = useState<User[]>([]);
   const [searchedUsers, setSearchedUsers] = useState<User[]>([]);
   const [displayCount, setDisplayCount] = useState(itemsDisplayCount);
   const [windowSize] = useWindowSize();
@@ -40,23 +40,16 @@ const Aside = ({ onSearch, onResultClick, placeholder }: AsideProps) => {
 
   const onResult = (userId: string) => () => {
     onResultClick(userId, searchText);
+    if (windowSize[0] <= maxWindowSize) {
+      setText('');
+    }
   };
 
   const onShowMore = () => setDisplayCount((prev) => prev + itemsDisplayCount);
 
   useEffect(() => {
-    getAllUsers().then((users) => {
-      if (users) {
-        setRecommendedUsers(users);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
     if (searchText) {
-      if (searchedUsers.length === 0) {
-        setIsSearching(true);
-      }
+      setIsSearching(true);
       onSearch(searchText).then((usersResult) => {
         setSearchedUsers(usersResult);
         setIsSearching(false);
@@ -78,7 +71,7 @@ const Aside = ({ onSearch, onResultClick, placeholder }: AsideProps) => {
           ) : (
             <SearchResults
               searchText={searchText}
-              users={recommendedUsers}
+              users={users}
               displayCount={displayCount}
               onShowMore={onShowMore}
             >

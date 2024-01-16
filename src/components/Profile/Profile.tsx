@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { collection, orderBy, query, where } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
-import { User } from '@/types/user';
-import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
+import { collection, orderBy, query, where } from 'firebase/firestore';
+
+import DefaultAvatar from '@/assets/images/default_avatar_big.png';
+import ProfileBg from '@/assets/images/profile_bg.jpg';
 import {
   Avatar,
   BgImg,
@@ -21,15 +22,15 @@ import {
   TweetsTitle,
   Username,
 } from '@/components/Profile/Profile.styled';
-import ProfileBg from '@/assets/images/profile_bg.jpg';
-import DefaultAvatar from '@/assets/images/default_avatar_big.png';
-import { ButtonTypes } from '@/types/buttonTypes';
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
+import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
 import { db } from '@/db/firesbase';
-import { Collections } from '@/types/collections';
 import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
 import { userSelector } from '@/store/selectors/selectors';
+import { ButtonTypes } from '@/types/buttonTypes';
+import { Collections } from '@/types/collections';
+import { User } from '@/types/user';
 
 interface ProfileProps {
   user: User;
@@ -68,9 +69,13 @@ export const Profile = ({ user }: ProfileProps) => {
         <BgImg src={ProfileBg} alt='background' />
         <ProfileBar>
           <MainInfo>
-            <Avatar src={user.avatar || DefaultAvatar} alt='avatar' />
+            <Avatar
+              referrerPolicy='no-referrer'
+              src={user.avatar || DefaultAvatar}
+              alt='avatar'
+            />
             <Name>{user.name}</Name>
-            <Username>@bobur_mavlonov</Username>
+            <Username>@{user.username}</Username>
             <Occupation>UX&UI designer at @abutechuz</Occupation>
             <Followers>
               <div>

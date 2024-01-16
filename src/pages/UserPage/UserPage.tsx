@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { User } from '@/types/user';
-import { getUserById } from '@/services/user/getUserById';
-import { Loader } from '@/components/ui/Loader/Loader';
+
 import { Profile } from '@/components/Profile/Profile';
+import { Loader } from '@/components/ui/Loader/Loader';
+import { getUserById } from '@/services/user/getUserById';
+import { User } from '@/types/user';
 
 export const UserPage = () => {
   const [user, setUser] = useState<User>(null!);

@@ -1,12 +1,13 @@
 import React, { ReactNode, useState } from 'react';
-import { Menu } from '@/components/ui/Menu/Menu';
+
+import { Burger } from '@/components/ui/Burger/Burger';
 import {
   CrossButton,
   HeaderWrapper,
   MenuWrapper,
   Overlay,
 } from '@/components/ui/Header/Header.styled';
-import { Burger } from '@/components/ui/Burger/Burger';
+import { Menu } from '@/components/ui/Menu/Menu';
 
 interface HeaderProps {
   children: ReactNode;

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const Item = styled.li`
   margin: 0 0 10px 0;
@@ -28,6 +28,9 @@ export const ItemLink = styled(NavLink)`
 `;
 
 export const ItemIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 28px;
   height: 28px;
   margin: 0 20px 0 0;

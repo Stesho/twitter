@@ -1,11 +1,13 @@
 import { signInWithPopup } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
+
 import { auth, db, provider } from '@/db/firesbase';
+import { getUserById } from '@/services/user/getUserById';
+import { setUser } from '@/store/slices/userSlice';
+import { store } from '@/store/store';
 import { Collections } from '@/types/collections';
 import { User } from '@/types/user';
-import { getUserById } from '@/services/user/getUserById';
-import { store } from '@/store/store';
-import { setUser } from '@/store/slices/userSlice';
+import { getUsernameFromEmail } from '@/utils/getUsernameFromEmail';
 
 export const signupWithGoogle = () =>
   signInWithPopup(auth, provider)
@@ -17,6 +19,7 @@ export const signupWithGoogle = () =>
         avatar: photoURL || '',
         name: displayName || '',
         email: email || '',
+        username: getUsernameFromEmail(email || ''),
         phoneNumber: phoneNumber || '',
         birthday: '',
       };
