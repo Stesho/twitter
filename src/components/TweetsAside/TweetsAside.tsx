@@ -1,9 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getTweetsByText } from '@/services/tweets/getTweetsByText';
-import Aside from '@/components/Aside/Aside';
+import Aside, { AsideProps } from '@/components/Aside/Aside';
 
-export const TweetsAside = () => {
+type TweetsAsideProps = Pick<AsideProps, 'users'>;
+
+export const TweetsAside = ({ users }: TweetsAsideProps) => {
   const navigate = useNavigate();
 
   const onResultClick = (userId: string, text: string) => {
@@ -31,6 +33,7 @@ export const TweetsAside = () => {
 
   return (
     <Aside
+      users={users}
       placeholder='Search tweets'
       onSearch={search}
       onResultClick={onResultClick}

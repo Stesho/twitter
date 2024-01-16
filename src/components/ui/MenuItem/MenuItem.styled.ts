@@ -28,6 +28,9 @@ export const ItemLink = styled(NavLink)`
 `;
 
 export const ItemIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 28px;
   height: 28px;
   margin: 0 20px 0 0;

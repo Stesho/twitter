@@ -1,27 +1,47 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { HomePage } from '@/pages/HomePage/HomePage';
 import { SignupWithEmailPage } from '@/pages/SignupWithEmailPage/SignupWithEmailPage';
 import { SignupPage } from '@/pages/SignupPage/SignupPage';
 import { LoginPage } from '@/pages/LoginPage/LoginPage';
-import { ProfilePage } from '@/pages/ProfilePage/ProfilePage';
 import { UserPage } from '@/pages/UserPage/UserPage';
 import { TweetPage } from '@/pages/TweetPage/TweetPage';
 import { ProfileOutlet } from '@/components/ProfileOutlet/ProfileOutlet';
 import { Feed } from '@/components/Feed/Feed';
 import { UserTweetsPage } from '@/pages/UserTweetsPage/UserTweetsPage';
+import { UnrealizedTitle } from '@/components/ui/UnrealizedTitle/UnrealizedTitle';
+import { UsersAside } from '@/components/UsersAside/UsersAside';
+import { Page } from '@/components/Page/Page';
+import { TweetsAside } from '@/components/TweetsAside/TweetsAside';
 
 export const RootRoute = () => (
   <Routes>
     <Route path='/' element={<Navigate to='/signup' />} />
-    <Route path='home' element={<HomePage />}>
+    <Route path='home' element={<Page Aside={TweetsAside} />}>
       <Route index element={<Feed />} />
       <Route path=':tweetId' element={<TweetPage />} />
       <Route path='user/:userId' element={<UserTweetsPage />} />
     </Route>
-    <Route path='profile' element={<ProfilePage />}>
+    <Route path='profile' element={<Page Aside={UsersAside} />}>
       <Route index element={<ProfileOutlet />} />
       <Route path=':userId' element={<UserPage />} />
+    </Route>
+    <Route path='explore' element={<Page Aside={UsersAside} />}>
+      <Route index element={<UnrealizedTitle>Explore</UnrealizedTitle>} />
+    </Route>
+    <Route path='notifications' element={<Page Aside={UsersAside} />}>
+      <Route index element={<UnrealizedTitle>Notifications</UnrealizedTitle>} />
+    </Route>
+    <Route path='messages' element={<Page Aside={UsersAside} />}>
+      <Route index element={<UnrealizedTitle>Messages</UnrealizedTitle>} />
+    </Route>
+    <Route path='bookmarks' element={<Page Aside={UsersAside} />}>
+      <Route index element={<UnrealizedTitle>Bookmarks</UnrealizedTitle>} />
+    </Route>
+    <Route path='lists' element={<Page Aside={UsersAside} />}>
+      <Route index element={<UnrealizedTitle>Lists</UnrealizedTitle>} />
+    </Route>
+    <Route path='more' element={<Page Aside={UsersAside} />}>
+      <Route index element={<UnrealizedTitle>More</UnrealizedTitle>} />
     </Route>
     <Route path='signup-email' element={<SignupWithEmailPage />} />
     <Route path='signup' element={<SignupPage />} />

@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
-export const Page = styled.div`
+export const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
   padding: 0 0 100px 0;
+  background-color: ${(props) => props.theme.bgPrimary};
 
   @media (max-width: 1024px) {
     flex-direction: column;
@@ -23,6 +24,7 @@ export const HeaderWrapper = styled.div`
 
 export const MenuWrapper = styled.div`
   max-width: 336px;
+  width: 100%;
 
   @media (max-width: 1024px) {
     display: none;
