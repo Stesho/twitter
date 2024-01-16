@@ -7,16 +7,17 @@ interface INotification {
 }
 
 class Notification implements INotification {
-  readonly lifeTimeMs = store.getState().notification.lifeTimeMs;
+  readonly lifeTimeMs = 3000;
 
   private timerId: NodeJS.Timeout = null!;
 
-  show(type: Notifications, text: string) {
+  show(type: Notifications, text: string, lifeTimeMs = this.lifeTimeMs) {
     store.dispatch(
       setNotification({
         isShow: true,
         type,
         text,
+        lifeTimeMs,
       }),
     );
 
@@ -26,7 +27,7 @@ class Notification implements INotification {
           isShow: false,
         }),
       );
-    }, this.lifeTimeMs);
+    }, lifeTimeMs);
   }
 
   hide() {

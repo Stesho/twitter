@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 import { Modal } from '@/components/ui/Modal/Modal';
 import { User } from '@/types/user';
 import { Input } from '@/components/ui/Input/Input';
@@ -29,6 +30,9 @@ import { setUser } from '@/store/slices/userSlice';
 import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
 import DefaultAvatar from '@/assets/images/default_avatar_big.png';
 import { isAuthWithGoogle } from '@/utils/isAuthWithGoogle';
+import { notification } from '@/services/notification/notification';
+import { Notifications } from '@/types/notifications';
+import { logout } from '@/services/user/logout';
 
 interface ProfileEditModalProps {
   onClose: () => void;
@@ -37,6 +41,7 @@ interface ProfileEditModalProps {
 
 export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isUserAuthWithGoogle = isAuthWithGoogle();
   const { year, month, day } = getDateValuesFromISOString(user.birthday);
   const {
@@ -77,9 +82,20 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
     });
 
     if (newUser === null) {
+      notification.show(Notifications.Error, 'Error in user updating');
       return setError('email', {
         message: ERROR_MESSAGES.emailNotVerified,
       });
+    }
+
+    if (email !== user.email) {
+      notification.show(
+        Notifications.Success,
+        'Check your new e-mail to update it',
+        6000,
+      );
+      navigate('/login');
+      return logout();
     }
 
     dispatch(setUser(newUser));

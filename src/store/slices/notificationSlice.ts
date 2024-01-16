@@ -5,10 +5,10 @@ interface InitialState {
   type: Notifications;
   text: string;
   isShow: boolean;
-  readonly lifeTimeMs: number;
+  lifeTimeMs: number;
 }
 
-type Payload = Partial<Omit<InitialState, 'lifeTimeMs'>>;
+type Payload = Partial<InitialState>;
 
 const initialState: InitialState = {
   type: Notifications.Success,
@@ -22,7 +22,7 @@ const notificationSlice = createSlice({
   initialState,
   reducers: {
     setNotification: (state, action: PayloadAction<Payload>) => ({
-      ...state,
+      lifeTimeMs: action.payload.lifeTimeMs ?? state.lifeTimeMs,
       text: action.payload.text ?? state.text,
       isShow: action.payload.isShow ?? state.isShow,
       type: action.payload.type ?? state.type,

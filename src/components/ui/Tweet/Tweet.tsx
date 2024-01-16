@@ -33,6 +33,8 @@ import { User } from '@/types/user';
 import { ImageLoader } from '@/components/ui/ImageLoader/ImageLoader';
 import { TweetTextArea } from '@/components/ui/TweetTextArea/TweetTextArea';
 import ConfirmationModal from '@/components/ui/ConfirmationModal/ConfirmationModal';
+import { notification } from '@/services/notification/notification';
+import { Notifications } from '@/types/notifications';
 
 export interface TweetProps {
   tweet: TweetType;
@@ -70,16 +72,31 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
   };
 
   const onDelete = async () => {
-    await deleteTweet(tweet.id);
+    const deleted = await deleteTweet(tweet.id);
+
+    if (deleted === null) {
+      return notification.show(Notifications.Error, 'Error in tweet deleting');
+    }
+
+    return notification.show(
+      Notifications.Success,
+      'Tweet successfully deleted',
+    );
   };
 
   const onUpdate = async () => {
-    await updateTweet({
+    const updated = await updateTweet({
       ...tweet,
       text: newText,
       image,
     });
     editingModeOff();
+
+    if (!updated) {
+      notification.show(Notifications.Error, 'Error in tweet updating');
+    } else {
+      notification.show(Notifications.Success, 'Tweet successfully updated');
+    }
   };
 
   const onLike = async () => {

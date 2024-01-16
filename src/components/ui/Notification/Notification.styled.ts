@@ -10,6 +10,15 @@ const close = keyframes`
   }
 `;
 
+const open = keyframes`
+  0% {
+    transform: translate(0, -100%);
+  }
+  100% {
+    transform: translate(-100%, -100%);
+  }
+`;
+
 export const NotificationWrapper = styled.div<{
   $type: Notifications;
 }>`
@@ -32,7 +41,7 @@ export const NotificationWrapper = styled.div<{
         : props.theme.error};
   background-color: ${(props) => props.theme.bgSecondaryDark100};
 
-  font-family: sans-serif;
+  animation: ${open} 400ms linear;
 `;
 
 export const Text = styled.div`
