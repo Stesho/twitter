@@ -20,6 +20,7 @@ const user: User = {
   email: 'email',
   phoneNumber: 'phone',
   birthday: '',
+  username: 'email',
 };
 
 jest.mock('firebase/auth', () => ({

@@ -16,6 +16,7 @@ const userData: User = {
   phoneNumber: 'number',
   birthday: 'date',
   email: 'email',
+  username: 'username',
 };
 
 const renderComponent = ({
@@ -60,9 +61,11 @@ describe('new tweet text area', () => {
 
     const textArea = getByTestId('tweetTextArea');
     fireEvent.change(textArea, { target: { value: 'New tweet text' } });
+
+    expect(newTweetButton).not.toBeDisabled();
+
     fireEvent.click(newTweetButton);
 
     expect(sendTweet).toBeCalled();
-    expect(newTweetButton).not.toBeDisabled();
   });
 });

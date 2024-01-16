@@ -16,6 +16,7 @@ const user: User = {
   phoneNumber: 'phone',
   avatar: 'url',
   birthday: 'birthday',
+  username: 'email',
 };
 
 const tweet: TweetType = {

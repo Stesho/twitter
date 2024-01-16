@@ -26,6 +26,7 @@ describe('update tweet', () => {
         phoneNumber: 'phone',
         avatar: 'avatar',
         birthday: 'birthday',
+        username: 'username',
       },
       image: 'image',
       date: 'date',
