@@ -1,18 +1,41 @@
 import { store } from '@/store/store';
-import { setIsShow } from '@/store/slices/notificationSlice';
+import { setNotification } from '@/store/slices/notificationSlice';
+import { Notifications } from '@/types/notifications';
 
 interface INotification {
-  show: () => void;
+  show: (type: Notifications, text: string) => void;
 }
 
 class Notification implements INotification {
-  lifeTimeMs = 3000;
+  readonly lifeTimeMs = store.getState().notification.lifeTimeMs;
 
-  show() {
-    store.dispatch(setIsShow(true));
-    setTimeout(() => {
-      store.dispatch(setIsShow(true));
+  private timerId: NodeJS.Timeout = null!;
+
+  show(type: Notifications, text: string) {
+    store.dispatch(
+      setNotification({
+        isShow: true,
+        type,
+        text,
+      }),
+    );
+
+    this.timerId = setTimeout(() => {
+      store.dispatch(
+        setNotification({
+          isShow: false,
+        }),
+      );
     }, this.lifeTimeMs);
+  }
+
+  hide() {
+    clearTimeout(this.timerId);
+    store.dispatch(
+      setNotification({
+        isShow: false,
+      }),
+    );
   }
 }
 

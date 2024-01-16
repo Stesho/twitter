@@ -28,6 +28,7 @@ export const lightTheme = {
   shadow: colors.blackTransparent100,
 
   error: colors.red200,
+  success: colors.green,
 };
 
 export const darkTheme = {
@@ -58,4 +59,5 @@ export const darkTheme = {
   shadow: colors.grey700,
 
   error: colors.red200,
+  success: colors.green,
 };
