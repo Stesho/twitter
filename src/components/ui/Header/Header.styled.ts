@@ -18,6 +18,10 @@ export const HeaderWrapper = styled.header`
   padding: 25px 34px;
   margin: 0 auto;
   border-bottom: 1px solid ${(props) => props.theme.border100};
+
+  @media (max-width: 425px) {
+    padding: 15px;
+  }
 `;
 
 export const CrossButton = styled.button`

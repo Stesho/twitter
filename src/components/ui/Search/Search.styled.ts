@@ -8,13 +8,13 @@ export const SearchWrapper = styled.div`
   width: 373px;
   height: 55px;
 
-  @media (max-width: 425px) {
+  @media (max-width: 768px) {
     max-width: 373px;
     width: 100%;
   }
   @media (max-width: 425px) {
-    max-width: 170px;
-    height: 35px;
+    max-width: 250px;
+    height: 40px;
   }
 `;
 

@@ -32,6 +32,7 @@ export const MenuWrapper = styled.div`
 `;
 
 export const Main = styled.main`
+  min-height: 100vh;
   max-width: 909px;
   width: 100%;
 `;

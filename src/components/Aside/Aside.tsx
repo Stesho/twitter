@@ -39,6 +39,9 @@ const Aside = ({ users, onSearch, onResultClick, placeholder }: AsideProps) => {
 
   const onResult = (userId: string) => () => {
     onResultClick(userId, searchText);
+    if (windowSize[0] <= maxWindowSize) {
+      setText('');
+    }
   };
 
   const onShowMore = () => setDisplayCount((prev) => prev + itemsDisplayCount);
