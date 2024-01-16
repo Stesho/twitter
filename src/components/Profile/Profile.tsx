@@ -68,7 +68,11 @@ export const Profile = ({ user }: ProfileProps) => {
         <BgImg src={ProfileBg} alt='background' />
         <ProfileBar>
           <MainInfo>
-            <Avatar src={user.avatar || DefaultAvatar} alt='avatar' />
+            <Avatar
+              referrerPolicy='no-referrer'
+              src={user.avatar || DefaultAvatar}
+              alt='avatar'
+            />
             <Name>{user.name}</Name>
             <Username>@bobur_mavlonov</Username>
             <Occupation>UX&UI designer at @abutechuz</Occupation>

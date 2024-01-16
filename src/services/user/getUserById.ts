@@ -10,6 +10,10 @@ export const getUserById = async (userId: string) => {
     const userDoc = await getDoc(userRef);
     const userData = userDoc.data() as User;
 
+    if (!userData) {
+      return null;
+    }
+
     return {
       ...userData,
       id: userDoc.id,
