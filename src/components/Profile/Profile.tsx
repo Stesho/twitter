@@ -26,10 +26,11 @@ import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
 import { db } from '@/db/firesbase';
-import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
+import { useSnapshot } from '@/hooks/useSnapshot';
 import { userSelector } from '@/store/selectors/selectors';
 import { ButtonTypes } from '@/types/buttonTypes';
 import { Collections } from '@/types/collections';
+import { Tweet } from '@/types/tweet';
 import { User } from '@/types/user';
 
 interface ProfileProps {
@@ -49,7 +50,7 @@ export const Profile = ({ user }: ProfileProps) => {
       ),
     [user.id],
   );
-  const { tweets, isTweetsLoading } = useTweetsSnapshot(tweetsQuery);
+  const [tweets, isTweetsLoading] = useSnapshot<Tweet>(tweetsQuery);
 
   const openModal = () => {
     setIsModalActive(true);

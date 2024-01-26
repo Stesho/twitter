@@ -55,7 +55,7 @@ const Aside = ({ users, onSearch, onResultClick, placeholder }: AsideProps) => {
         setIsSearching(false);
       });
     }
-  }, [searchText, onSearch, searchedUsers.length]);
+  }, [searchText, onSearch]);
 
   return (
     <AsideWrapper>

@@ -13,10 +13,12 @@ export const colors = {
   blue300: '#1da1f2',
   blue400: '#1da1f24c',
 
-  red100: '#EF1C5C',
-  red200: '#ff0000',
+  red100: '#ffbdbd',
+  red200: '#EF1C5C',
+  red300: '#ff0000',
 
-  green: '#32CD32',
+  green100: '#c9ff88',
+  green200: '#007a00',
 
   grey100: '#F7F9F9',
   grey200: '#eff3f4',
