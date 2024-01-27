@@ -13,7 +13,11 @@ import { MENU_ITEMS } from '@/constants/menu';
 import { ROUTES } from '@/constants/routes';
 import { logout } from '@/services/user/logout';
 
-export const Menu = () => {
+interface MenuProps {
+  onLinkClick?: () => void;
+}
+
+export const Menu = ({ onLinkClick }: MenuProps) => {
   const navigate = useNavigate();
 
   const logoutUser = async () => {
@@ -32,6 +36,7 @@ export const Menu = () => {
             IconActive={item.iconUrlActive}
             caption={item.caption}
             link={item.link}
+            onClick={onLinkClick}
           />
         ))}
       </MenuList>

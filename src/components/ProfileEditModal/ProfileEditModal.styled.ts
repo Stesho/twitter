@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { PrimaryButton } from '@/components/ui/Button/Button.styled';
 
 export const Form = styled.form`
-  width: 670px;
+  max-width: 670px;
+  width: 100vw;
+  max-height: calc(100vh - 100px);
+  overflow: auto;
   color: ${(props) => props.theme.textDark500};
   & > div {
     margin: 0 0 25px 0;
@@ -21,19 +24,24 @@ export const ImageEditor = styled.div`
   width: 200px;
   height: 200px;
 
-  & > img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
   & > div {
     position: absolute;
     top: 100%;
     left: 100%;
     transform: translate(-100%, -100%);
   }
+
+  @media (max-width: 425px) {
+    width: 150px;
+    height: 150px;
+  }
+`;
+
+export const Avatar = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 export const ImageLoaderWrapper = styled.div`
@@ -52,6 +60,21 @@ export const Selects = styled.div`
   }
   & div:not(:first-child) {
     max-width: 159px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin: 0 0 15px 0;
+
+    & div {
+      margin: 0 0 17px 0;
+    }
+    & div:first-child {
+      max-width: 100%;
+    }
+    & div:not(:first-child) {
+      max-width: 100%;
+    }
   }
 `;
 

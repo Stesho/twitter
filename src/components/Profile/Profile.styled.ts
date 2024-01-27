@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { NeutralButton } from '@/components/ui/Button/Button.styled';
 import { ButtonTypes } from '@/types/buttonTypes';
+import { adaptiveFont } from '@/utils/adaptiveFont';
 
 export const ProfileWrapper = styled.div`
   display: flex;
@@ -62,14 +63,14 @@ export const Name = styled.span`
   font-family:
     Roboto Serif,
     sans-serif;
-  font-size: 24px;
+  font-size: ${adaptiveFont(24, 20)};
   font-weight: 700;
 `;
 
 export const Username = styled.span`
   margin: 0 0 17px 0;
   font-family: Roboto, sans-serif;
-  font-size: 16px;
+  font-size: ${adaptiveFont(16, 13)};
   font-weight: 400;
   opacity: 0.6;
 `;
@@ -77,26 +78,34 @@ export const Username = styled.span`
 export const Occupation = styled.span`
   margin: 0 0 57px 0;
   font-family: Roboto, sans-serif;
-  font-size: 18px;
+  font-size: ${adaptiveFont(18, 14)};
   font-weight: 400;
 `;
 
 export const Followers = styled.div`
   display: flex;
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+
+    & > div {
+      margin: 0 0 10px 0;
+    }
+  }
 `;
 
 export const FollowersCount = styled.span`
   font-family:
     Roboto Serif,
     sans-serif;
-  font-size: 18px;
+  font-size: ${adaptiveFont(18, 14)};
   font-weight: 700;
 `;
 
 export const FollowersCaption = styled.span`
   margin: 0 31px 0 0;
   font-family: Roboto, sans-serif;
-  font-size: 18px;
+  font-size: ${adaptiveFont(18, 14)};
   font-weight: 400;
   opacity: 0.6;
 `;
@@ -116,7 +125,7 @@ export const TweetsTitle = styled.div`
   font-family:
     Roboto Serif,
     sans-serif;
-  font-size: 18px;
+  font-size: ${adaptiveFont(18, 16)};
   font-weight: 700;
   border-bottom: 1px solid ${(props) => props.theme.border100};
 `;

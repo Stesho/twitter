@@ -16,6 +16,7 @@ interface MenuItemProps {
   >;
   caption: string;
   link: string;
+  onClick?: () => void;
 }
 
 export const MenuItem = ({
@@ -23,12 +24,13 @@ export const MenuItem = ({
   IconActive,
   caption,
   link,
+  onClick,
 }: MenuItemProps) => {
   const location = useLocation();
 
   return (
     <Item>
-      <ItemLink to={link}>
+      <ItemLink to={link} onClick={onClick}>
         <ItemIcon>
           {location.pathname.includes(link) ? <IconActive /> : <Icon />}
         </ItemIcon>

@@ -12,6 +12,7 @@ import {
   EditingCancelButton,
   EditingSaveButton,
   TweetAuthorImg,
+  TweetAuthorInfo,
   TweetAuthorName,
   TweetAuthorUsername,
   TweetContent,
@@ -127,12 +128,12 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
       <TweetAuthorImg src={tweet.author.avatar || DefaultAvatar} alt='avatar' />
       <TweetContent>
         <TweetHead>
-          <div>
+          <TweetAuthorInfo>
             <TweetAuthorName>{tweet.author.name}</TweetAuthorName>
             <TweetAuthorUsername>
               {tweet.author.username} · {fromISOStringToReadable(tweet.date)}
             </TweetAuthorUsername>
-          </div>
+          </TweetAuthorInfo>
           {tweet.author.id === user!.id && (
             <TweetDots
               data-cy='tweetDotsButton'
@@ -164,16 +165,21 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
               </TweetImageWrapper>
             )}
         <BottomBar>
-          <TweetLikeButton onClick={onLike} data-testid='tweetLikeButton'>
-            <img
-              src={
-                tweet.likes.indexOf(user!.id) !== -1 ? FilledLikeIcon : LikeIcon
-              }
-              alt='likes'
-            />
-            <TweetLikes>{tweet.likes.length}</TweetLikes>
-          </TweetLikeButton>
-          {isEditingMode && <ImageLoader onLoadCallback={onLoadImage} />}
+          {isEditingMode ? (
+            <ImageLoader onLoadCallback={onLoadImage} />
+          ) : (
+            <TweetLikeButton onClick={onLike} data-testid='tweetLikeButton'>
+              <img
+                src={
+                  tweet.likes.indexOf(user!.id) !== -1
+                    ? FilledLikeIcon
+                    : LikeIcon
+                }
+                alt='likes'
+              />
+              <TweetLikes>{tweet.likes.length}</TweetLikes>
+            </TweetLikeButton>
+          )}
         </BottomBar>
       </TweetContent>
       {isPopupActive && (

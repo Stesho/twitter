@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
+import { adaptiveFont } from '@/utils/adaptiveFont';
+
 export const Text = styled.p`
   font-weight: 600;
-  font-size: 28px;
+  font-size: ${adaptiveFont(28, 16)};
+  text-align: center;
   color: ${(props) => props.theme.textDark500};
 `;
 
