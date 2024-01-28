@@ -9,6 +9,8 @@ import {
 } from 'firebase/firestore';
 
 import { auth, db } from '@/db/firesbase';
+import { setUser } from '@/store/slices/userSlice';
+import { store } from '@/store/store';
 import { Collections } from '@/types/collections';
 import { User } from '@/types/user';
 
@@ -41,6 +43,7 @@ export const updateUser = async (userData: User) => {
     };
 
     await updateDoc(doc(db, Collections.Users, userData.id), updatedUser);
+    store.dispatch(setUser({ ...updatedUser, id: userData.id }));
 
     return userData;
   } catch (error) {
