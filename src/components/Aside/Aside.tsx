@@ -55,7 +55,7 @@ const Aside = ({ users, onSearch, onResultClick, placeholder }: AsideProps) => {
         setIsSearching(false);
       });
     }
-  }, [searchText, onSearch, searchedUsers.length]);
+  }, [searchText, onSearch]);
 
   return (
     <AsideWrapper>
@@ -66,7 +66,7 @@ const Aside = ({ users, onSearch, onResultClick, placeholder }: AsideProps) => {
           <ResultsTitle>
             {searchText.length > 0 ? 'Search Results' : 'You might like'}
           </ResultsTitle>
-          {isSearching ? (
+          {isSearching || users.length === 0 ? (
             <Loader />
           ) : (
             <SearchResults

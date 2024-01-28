@@ -15,6 +15,10 @@ export const NewTweetAvatar = styled.img`
   margin: 0 5px 0 0;
   border-radius: 50%;
   object-fit: cover;
+
+  @media (max-width: 425px) {
+    display: none;
+  }
 `;
 
 export const NewTweetContent = styled.div`

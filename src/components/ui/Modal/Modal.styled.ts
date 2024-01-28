@@ -14,6 +14,8 @@ export const Overlay = styled.div`
 `;
 
 export const Content = styled.div`
+  max-width: fit-content;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,6 +24,10 @@ export const Content = styled.div`
   background-color: ${(props) => props.theme.bgPrimary};
   border: 1px solid ${(props) => props.theme.border100};
   border-radius: 8px;
+
+  @media (max-width: 425px) {
+    padding: 15px;
+  }
 `;
 
 export const CloseButton = styled.button`

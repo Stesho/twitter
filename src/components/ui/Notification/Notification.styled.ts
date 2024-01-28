@@ -34,14 +34,17 @@ export const NotificationWrapper = styled.div<{
   left: calc(100% - 40px);
   transform: translate(-100%, -100%);
 
-  color: ${(props) => props.theme.textDark500};
+  color: ${(props) => props.theme.successText};
   border-radius: 4px;
   border: 1px solid
     ${(props) =>
       props.$type === Notifications.Success
         ? props.theme.success
         : props.theme.error};
-  background-color: ${(props) => props.theme.bgSecondaryDark100};
+  background-color: ${(props) =>
+    props.$type === Notifications.Success
+      ? props.theme.successBg
+      : props.theme.errorBg};
 
   animation: ${open} 400ms linear;
 
@@ -71,7 +74,7 @@ export const Title = styled.span<{
 
 export const Message = styled.p`
   white-space: nowrap;
-  font-weight: 400;
+  font-weight: 500;
   font-size: ${adaptiveFont(14, 12)};
 `;
 

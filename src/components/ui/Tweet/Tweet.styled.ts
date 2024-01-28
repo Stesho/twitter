@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { PrimaryButton } from '@/components/ui/Button/Button.styled';
+import { adaptiveFont } from '@/utils/adaptiveFont';
 
 export const TweetWrapper = styled.div`
   position: relative;
@@ -8,7 +9,7 @@ export const TweetWrapper = styled.div`
   max-width: 909px;
   padding: 10px 34px 20px 34px;
   font-family: Roboto, sans-serif;
-  font-size: 18px;
+  font-size: ${adaptiveFont(18, 14)};
   font-weight: 400;
   border-bottom: 1px solid ${(props) => props.theme.border100};
 
@@ -35,12 +36,19 @@ export const TweetHead = styled.div`
   justify-content: space-between;
 `;
 
+export const TweetAuthorInfo = styled.div`
+  @media (max-width: 425px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
 export const TweetAuthorName = styled.span`
   margin: 0 5px 0 0;
   font-family:
     Roboto Serif,
     sans-serif;
-  font-size: 20px;
+  font-size: ${adaptiveFont(20, 14)};
   font-weight: 700;
 `;
 

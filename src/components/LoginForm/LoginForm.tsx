@@ -59,7 +59,7 @@ export const LoginForm = () => {
       <Inputs>
         <Input
           dataCy='email'
-          placeholder='Phone number, email address'
+          placeholder='Email address'
           label='identifier'
           register={register}
           errorMessage={errors.identifier?.message}

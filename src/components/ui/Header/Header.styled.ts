@@ -59,6 +59,7 @@ export const MenuWrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 2;
+  overflow: auto;
   background-color: ${(props) => props.theme.bgPrimary};
   animation: ${slide} 300ms linear;
 `;
