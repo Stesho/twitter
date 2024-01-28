@@ -28,6 +28,7 @@ import { getYearsInRange } from '@/utils/getYearsInRange';
 import { isAuthWithGoogle } from '@/utils/isAuthWithGoogle';
 
 import {
+  Avatar,
   Buttons,
   Form,
   ImageEditor,
@@ -100,6 +101,7 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
       return logout();
     }
 
+    notification.show(Notifications.Success, 'Profile successfully updated');
     dispatch(setUser(newUser));
     return onClose();
   };
@@ -108,7 +110,7 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
     <Modal id='profile-modal' onClose={onClose}>
       <Form onSubmit={handleSubmit(onSubmitForm)}>
         <ImageEditor>
-          <img src={watch('avatar') || DefaultAvatar} alt='avatar' />
+          <Avatar src={watch('avatar') || DefaultAvatar} alt='avatar' />
           <ImageLoaderWrapper>
             <ImageLoader
               onLoadCallback={(newImage) => setValue('avatar', newImage || '')}

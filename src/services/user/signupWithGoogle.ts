@@ -31,9 +31,9 @@ export const signupWithGoogle = () =>
       const existedUser = await getUserById(uid);
       if (!existedUser) {
         await setDoc(doc(db, Collections.Users, uid), dbUserData);
-
-        store.dispatch(setUser(stateUserData));
       }
+
+      store.dispatch(setUser(existedUser || stateUserData));
 
       return stateUserData;
     })

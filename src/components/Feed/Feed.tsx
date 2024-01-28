@@ -7,9 +7,10 @@ import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import { Switch } from '@/components/ui/Switch/Switch';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
 import { db } from '@/db/firesbase';
-import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
+import { useSnapshot } from '@/hooks/useSnapshot';
 import { userSelector } from '@/store/selectors/selectors';
 import { Collections } from '@/types/collections';
+import { Tweet } from '@/types/tweet';
 
 import { FeedTweets, Head } from './Feed.styled';
 
@@ -19,7 +20,7 @@ export const Feed = () => {
     () => query(collection(db, Collections.Tweets), orderBy('date', 'desc')),
     [],
   );
-  const { tweets, isTweetsLoading } = useTweetsSnapshot(tweetsQuery);
+  const [tweets, isTweetsLoading] = useSnapshot<Tweet>(tweetsQuery);
 
   if (!user) {
     return <Loader />;

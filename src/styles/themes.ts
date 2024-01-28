@@ -23,12 +23,16 @@ export const lightTheme = {
   textDark500: colors.black,
   textNeutral: colors.blue300,
 
-  neutral: colors.red100,
+  neutral: colors.red200,
 
   shadow: colors.blackTransparent100,
 
-  error: colors.red200,
-  success: colors.green,
+  error: colors.red300,
+  errorBg: colors.red100,
+
+  success: colors.green200,
+  successBg: colors.green100,
+  successText: colors.black,
 };
 
 export const darkTheme = {
@@ -54,10 +58,14 @@ export const darkTheme = {
   textDark500: colors.grey200,
   textNeutral: colors.grey200,
 
-  neutral: colors.red100,
+  neutral: colors.red200,
 
   shadow: colors.grey700,
 
-  error: colors.red200,
-  success: colors.green,
+  error: colors.red300,
+  errorBg: colors.red100,
+
+  success: colors.green200,
+  successBg: colors.green100,
+  successText: colors.black,
 };

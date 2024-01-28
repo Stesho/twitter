@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { collection, orderBy, query, where } from 'firebase/firestore';
 
 import DefaultAvatar from '@/assets/images/default_avatar_big.png';
@@ -25,11 +24,11 @@ import {
 import { ProfileEditModal } from '@/components/ProfileEditModal/ProfileEditModal';
 import { NewTweet } from '@/components/ui/NewTweet/NewTweet';
 import { Tweets } from '@/components/ui/Tweets/Tweets';
-import { db } from '@/db/firesbase';
-import { useTweetsSnapshot } from '@/hooks/useTweetsSnapshot';
-import { userSelector } from '@/store/selectors/selectors';
+import { auth, db } from '@/db/firesbase';
+import { useSnapshot } from '@/hooks/useSnapshot';
 import { ButtonTypes } from '@/types/buttonTypes';
 import { Collections } from '@/types/collections';
+import { Tweet } from '@/types/tweet';
 import { User } from '@/types/user';
 
 interface ProfileProps {
@@ -37,8 +36,7 @@ interface ProfileProps {
 }
 
 export const Profile = ({ user }: ProfileProps) => {
-  const userStore = useSelector(userSelector);
-  const isProfileOwner = userStore.user?.id === user.id;
+  const isProfileOwner = auth.currentUser?.uid === user.id;
   const [isModalActive, setIsModalActive] = useState(false);
   const tweetsQuery = useMemo(
     () =>
@@ -49,7 +47,7 @@ export const Profile = ({ user }: ProfileProps) => {
       ),
     [user.id],
   );
-  const { tweets, isTweetsLoading } = useTweetsSnapshot(tweetsQuery);
+  const [tweets, isTweetsLoading] = useSnapshot<Tweet>(tweetsQuery);
 
   const openModal = () => {
     setIsModalActive(true);
@@ -96,11 +94,7 @@ export const Profile = ({ user }: ProfileProps) => {
         </ProfileBar>
         {isProfileOwner && <NewTweet user={user} />}
         <TweetsTitle>Tweets</TweetsTitle>
-        <Tweets
-          tweets={tweets}
-          isLoading={isTweetsLoading}
-          user={userStore.user!}
-        />
+        <Tweets tweets={tweets} isLoading={isTweetsLoading} user={user} />
       </div>
       {isModalActive && <ProfileEditModal user={user} onClose={closeModal} />}
     </ProfileWrapper>

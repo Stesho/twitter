@@ -26,7 +26,7 @@ export const Header = ({ children }: HeaderProps) => {
         <Overlay>
           <MenuWrapper>
             <CrossButton onClick={onCloseMenu}>✖</CrossButton>
-            <Menu />
+            <Menu onLinkClick={onCloseMenu} />
           </MenuWrapper>
         </Overlay>
       )}

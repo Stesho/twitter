@@ -32,6 +32,12 @@ export const MenuList = styled.ul`
   }
 `;
 
+export const TweetButton = styled(PrimaryButton)`
+  font-family:
+    Roboto Serif,
+    sans-serif;
+`;
+
 export const LogOutButton = styled(PrimaryButton)`
   font-family:
     Roboto Serif,

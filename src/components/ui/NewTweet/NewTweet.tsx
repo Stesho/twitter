@@ -19,9 +19,10 @@ import { User } from '@/types/user';
 
 interface NewTweetProps {
   user: User;
+  onSubmitTweet?: () => void;
 }
 
-export const NewTweet = ({ user }: NewTweetProps) => {
+export const NewTweet = ({ user, onSubmitTweet }: NewTweetProps) => {
   const [text, setText] = useState('');
   const [image, setImage] = useState('');
   const [imageLoaderKey, setImageLoaderKey] = useState('');
@@ -36,6 +37,7 @@ export const NewTweet = ({ user }: NewTweetProps) => {
       image,
       likes: [],
     });
+    onSubmitTweet?.();
   };
 
   const resetImage = () => {

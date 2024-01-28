@@ -1,9 +1,13 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
+import { collection, query } from 'firebase/firestore';
 
+import { PrivateRoute } from '@/components/PrivateRoute/PrivateRoute';
 import { Header } from '@/components/ui/Header/Header';
 import { Menu } from '@/components/ui/Menu/Menu';
-import { getAllUsers } from '@/services/user/getAllUsers';
+import { db } from '@/db/firesbase';
+import { useSnapshot } from '@/hooks/useSnapshot';
+import { Collections } from '@/types/collections';
 import { User } from '@/types/user';
 
 import {
@@ -20,34 +24,32 @@ interface PageProps {
 }
 
 export const Page = ({ Aside }: PageProps) => {
-  const [recommendedUsers, setRecommendedUsers] = useState<User[]>([]);
-
-  useEffect(() => {
-    getAllUsers().then((users) => {
-      if (users) {
-        setRecommendedUsers(users);
-      }
-    });
-  }, []);
+  const usersQuery = useMemo(
+    () => query(collection(db, Collections.Users)),
+    [],
+  );
+  const [recommendedUsers] = useSnapshot<User>(usersQuery);
 
   return (
-    <PageWrapper>
-      <HeaderWrapper>
-        <Header>
+    <PrivateRoute>
+      <PageWrapper>
+        <HeaderWrapper>
+          <Header>
+            <Aside users={recommendedUsers} />
+          </Header>
+        </HeaderWrapper>
+        <MenuWrapper>
+          <Menu />
+        </MenuWrapper>
+        <Border />
+        <Main>
+          <Outlet />
+        </Main>
+        <Border />
+        <AsideWrapper>
           <Aside users={recommendedUsers} />
-        </Header>
-      </HeaderWrapper>
-      <MenuWrapper>
-        <Menu />
-      </MenuWrapper>
-      <Border />
-      <Main>
-        <Outlet />
-      </Main>
-      <Border />
-      <AsideWrapper>
-        <Aside users={recommendedUsers} />
-      </AsideWrapper>
-    </PageWrapper>
+        </AsideWrapper>
+      </PageWrapper>
+    </PrivateRoute>
   );
 };
