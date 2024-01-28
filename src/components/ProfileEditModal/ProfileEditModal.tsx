@@ -101,6 +101,7 @@ export const ProfileEditModal = ({ user, onClose }: ProfileEditModalProps) => {
       return logout();
     }
 
+    notification.show(Notifications.Success, 'Profile successfully updated');
     dispatch(setUser(newUser));
     return onClose();
   };
