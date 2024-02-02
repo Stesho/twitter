@@ -29,6 +29,7 @@ import {
   TweetWrapper,
 } from '@/components/ui/Tweet/Tweet.styled';
 import { TweetTextArea } from '@/components/ui/TweetTextArea/TweetTextArea';
+import { auth } from '@/db/firesbase';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 import { notification } from '@/services/notification/notification';
 import { deleteTweet } from '@/services/tweets/deleteTweet';
@@ -134,7 +135,7 @@ export const Tweet = ({ tweet, user }: TweetProps) => {
               {tweet.author.username} · {fromISOStringToReadable(tweet.date)}
             </TweetAuthorUsername>
           </TweetAuthorInfo>
-          {tweet.author.id === user!.id && (
+          {tweet.author.id === auth.currentUser!.uid! && (
             <TweetDots
               data-cy='tweetDotsButton'
               ref={dotsRef}
